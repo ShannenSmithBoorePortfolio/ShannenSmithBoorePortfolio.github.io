@@ -2047,7 +2047,11 @@ function beoNuaBlocks() {
     ]},
 
     { type: "section", label: "Impact", heading: "What Cortexus changes." },
-    { type: "bullets", items: ["Awareness: designers notice their offloading. \"This is just the tool for making us reflect.\" (Round 1 tester)", "Skill building: designers think first, then use AI. \"Paper first, screen second.\" (Co-design participant)", "Independence: designers stay in control. \"It doesn't force it on you.\" (Round 2 tester)"] },
+    { type: "bullets", items: [
+      "Awareness. Designers start to notice how often they hand their thinking to AI. One tester said it was \"just the tool for making us reflect.\"",
+      "Skill building. Designers think things through before turning to AI. A co-design participant wanted \"paper first, screen second\" to become part of their process.",
+      "Independence. Designers stay in control of their own limits. A second-round tester liked that \"it doesn't force it on you.\"",
+    ]},
 
     { type: "section", label: "Reflection", heading: "What I learned" },
     { type: "bullets", items: ["Designing for designers is harder: separating preference from shared needs.", "Speculative design needs evidence: provocation only worked once grounded in real quotes.", "AI is a tool, not a co-designer: decide first, then use AI to build."] },
@@ -2178,7 +2182,7 @@ function cortexusBlocks() {
 
     { type: "section", label: "Solution", heading: "Cortexus: a clinic for your design brain.",
       lead: "A desktop app and Claude extension. You choose the four soft skills you want to protect. Every time you offload one to AI, mould grows on that part of your brain scan. Write in your journal instead, and it clears." },
-    { type: "media", stage: "grey", image: p("cover") },
+    { type: "cxcover", image: p("cover") },
 
     { type: "section", label: "Features", heading: "Through the prototype, start to finish." },
     { type: "feat", title: "Where it lives", live: "install", screens: ["cx/w/i1-store.webp"],
@@ -2196,6 +2200,9 @@ function cortexusBlocks() {
     { type: "feat", title: "Journal it first", live: "journal", screens: ["cx/w/o5-display.webp"],
       what: "An option to write your own thinking before asking AI.",
       why: "Co-design: \"paper first, screen second\"." },
+    { type: "feat", title: "Explanatory onboarding", live: "tour", screens: ["cx/w/o6-journal.webp"],
+      what: "A guided tour of the dashboard, one part at a time.",
+      why: "Testers found the introduction overwhelming." },
     { type: "feat", title: "The dashboard", live: "dash", screens: ["cx/w/d1.webp"],
       what: "A brain scan that grows mould through four phases.",
       why: "Designers asked for a colourful brain that bleaches." },
@@ -3113,6 +3120,7 @@ const BLOCKS = {
         <div><div class="cs-label">What it is</div><p>${esc(b.what)}</p></div>
         <div><div class="cs-label">Why</div><p>${esc(b.why)}</p></div></div></div>`,
   thesis: () => `<div class="thesis"><p>There's a lot more to the journey than fits here.</p><a class="fill-btn thesis-btn" href="mailto:${SITE.email}?subject=${encodeURIComponent("Request: Cortexus thesis")}">Request my thesis <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>`,
+  cxcover: b => `<div class="hero-img cs-cover">${img(b.image, "Cortexus dashboard")}${cxAnim()}</div>`,
   bullets: b => `<div class="cs-points-wrap">${txt(b.label, "div", "cs-label")}<ul class="cs-bullets">${b.items.map(i => `<li>${esc(i)}</li>`).join("")}</ul></div>`,
   link: b => `<a class="cs-link" href="${esc(b.href)}" target="_blank" rel="noopener"><span class="cs-link-ic" aria-hidden="true"><svg viewBox="0 0 38 57"><path fill="#1ABCFE" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0ACF83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#FF7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#F24E1E" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#A259FF" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg></span><span class="cs-link-txt"><b>${esc(b.title)}</b><span>${esc(b.text)}</span><small>${esc(b.site)} ↗</small></span></a>`,
   affinity: b => `<div class="cs-aff${b.steps && b.steps.length ? "" : " solo"}"><figure class="cs-aff-img">${img(b.image, b.alt || "")}${b.caption ? `<figcaption class="cs-label sm">${esc(b.caption)}</figcaption>` : ""}</figure>
@@ -3871,6 +3879,10 @@ const LIVE_FLOWS = (() => {
     journal: { boot: async L => { await install(L); await step(L, 5); }, run: async L => {
       const t = () => { const d = L.doc(); const row = text(d, /^Journal It First$/i); if (!row) return null; let n = row; for (let i = 0; i < 4 && n; i++) { const c = [...n.querySelectorAll("button,[role=switch],input")].find(vis); if (c) return c; n = n.parentElement; } return null; };
       await L.wait(800); await L.click(t, true); await L.wait(2200); await L.click(t, true); await L.wait(1800); await L.click(t, true); await L.wait(2200); } },
+    tour: { boot: async L => { await install(L); await step(L, 6); await L.wait(600); }, run: async L => {
+      await L.click(() => btn(L.doc(), /^TAKE THE TOUR$/i), true); await L.wait(2200);
+      for (let i = 0; i < 8; i++) { const nx = () => btn(L.doc(), /^(NEXT|DONE)/i); if (!nx()) break; const done = /^DONE/i.test(nx().textContent.trim()); await L.click(nx, true); await L.wait(2400); if (done) break; }
+      await L.wait(1200); } },
     dash: { boot: async L => { await install(L); await step(L, 6); await L.wait(500); }, run: async L => {
       await L.click(() => text(L.doc(), /^Skip for now$/) || btn(L.doc(), /^Skip for now$/), true); await L.wait(1500);
       for (const n of ["2", "3", "4"]) { await L.click(() => btn(L.doc(), new RegExp("^" + n + "$")), true); await L.wait(3000); }
@@ -3896,7 +3908,7 @@ function setupLive() {
   if (!frames.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const stop = f => { if (!f._run) return; f._run.stop = true; f._run = null; f.classList.remove("on"); const i = f.querySelector("iframe"); i && i.remove(); if (liveActive === f) liveActive = null; };
   const start = f => {
-    if (f._run) return; if (liveActive && liveActive !== f) stop(liveActive); liveActive = f;
+    if (f._run) return;
     const run = f._run = { stop: false }; const flow = LIVE_FLOWS[f.dataset.live]; const cur = f.querySelector(".live-cur");
     const ifr = document.createElement("iframe"); ifr.setAttribute("aria-hidden", "true"); ifr.tabIndex = -1; f.prepend(ifr);
     const fit = () => { const k = f.clientWidth / 1440; ifr.style.transform = `scale(${k})`; return k; };
@@ -3914,24 +3926,27 @@ function setupLive() {
           await new Promise(res => { ifr.onload = res; ifr.srcdoc = LIVE_DOC(); });
           L.win = ifr.contentWindow; await L.wait(1200);
           const hide = setInterval(() => { try { const d = L.doc(); const e = [...d.querySelectorAll("div,span")].find(x => x.childElementCount === 0 && /^DEV:/.test(x.textContent.trim())); if (e) { let n = e; for (let i = 0; i < 3 && n.parentElement; i++) { if (n.parentElement.querySelectorAll("button").length >= 2) { n = n.parentElement; break; } n = n.parentElement; } n.style.visibility = "hidden"; } } catch (x) {} }, 150);
-          try { await flow.boot(L); f.classList.add("on"); await L.wait(600); await flow.run(L); await L.wait(1800); } finally { clearInterval(hide); }
+          try { await flow.boot(L); while (!f._inView) await L.wait(120); f.classList.add("on"); await L.wait(200); await flow.run(L); await L.wait(1800); } finally { clearInterval(hide); }
         }
       } catch (e) { /* stopped */ }
     })();
   };
-  const ratio = new Map();
-  const pick = () => {
-    const mid = innerHeight / 2;
-    const vis = frames.filter(f => (ratio.get(f) || 0) > .55 && f.isConnected);
-    vis.sort((a, b) => { const ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect(); return Math.abs(ra.top + ra.height / 2 - mid) - Math.abs(rb.top + rb.height / 2 - mid); });
-    const best = vis[0];
-    frames.forEach(f => { if (f !== best && f._run) stop(f); });
-    if (best) start(best);
+  /* load each prototype just before it scrolls in, then play as soon as it's on screen */
+  const near = new Set();
+  const update = () => {
+    const vh = innerHeight;
+    frames.forEach(f => {
+      if (!f.isConnected) return;
+      const r = f.getBoundingClientRect();
+      f._inView = r.top < vh * .85 && r.bottom > vh * .15;
+      const close = r.top < vh * 3.6 && r.bottom > -vh * 1.2;
+      if (close) { near.add(f); start(f); } else if (f._run) { near.delete(f); stop(f); }
+    });
   };
-  let pickT; const schedule = () => { clearTimeout(pickT); pickT = setTimeout(pick, 250); };
-  liveIO = new IntersectionObserver(es => { es.forEach(e => ratio.set(e.target, e.isIntersecting ? e.intersectionRatio : 0)); schedule(); }, { threshold: [0, .2, .55, .8, 1] });
-  frames.forEach(f => liveIO.observe(f));
-  addEventListener("scroll", schedule, { passive: true });
+  let raf = 0; const schedule = () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; update(); }); };
+  const tick = setInterval(() => { if (!frames[0].isConnected) { clearInterval(tick); return; } update(); }, 400);
+  liveIO = { disconnect: () => { removeEventListener("scroll", schedule); clearInterval(tick); } };
+  addEventListener("scroll", schedule, { passive: true }); addEventListener("resize", schedule); update();
 }
 window.addEventListener("hashchange", () => { if (liveActive) { liveActive._run && (liveActive._run.stop = true); } });
 
