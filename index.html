@@ -1463,7 +1463,7 @@ body.zoom-open { overflow: hidden; }
 .fade-stack { display: grid; }
 .fade-slide { grid-area: 1 / 1; margin: 0; display: grid; gap: 10px; align-content: start; opacity: 0; visibility: hidden; transition: opacity .9s ease, visibility 0s linear .9s; }
 .fade-slide.on { opacity: 1; visibility: visible; transition: opacity .9s ease; }
-.fade-img { overflow: hidden; }
+.fade-img { overflow: hidden; background: #F4F4F4; display: grid; place-items: center; }
 .fade-img img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .ws-fade .fade-img img { object-fit: cover; }
 .fade-slide figcaption { font-size: 14px; line-height: 1.5; color: var(--muted); }
@@ -2051,7 +2051,7 @@ function cortexusBlocks() {
       { label: "Brain Rot", image: p("brainrot-concept"), ratio: "1033 / 482", caption: "Mould grows on your brain scan as you offload. Mobile and desktop." },
       { label: "Distorting Relationships", image: p("relationships-concept"), ratio: "1359 / 774", caption: "AI replies like four colleagues, each with a different cost for leaning on them." },
     ]},
-    { type: "points", label: "What round 1 showed", count: "2 designers", items: [
+    { type: "points", label: "What round 1 showed", items: [
       { title: "Brain Rot made designers reflect", text: "\"As you're showing me the idea, I'm reflecting on my own use.\"" },
       { title: "Distorting Relationships stayed a talking point", text: "Designers found it interesting, but \"more of a talking point\"." },
     ]},
@@ -2735,7 +2735,11 @@ const LC = {
   },
   journey: b => `<div class="lcb">${boardHead("User journey map: " + b.who)}${LC.journeyBody(b)}</div>`,
 
-  fade: b => `<div class="lcb">${b.caption ? boardHead(b.caption) : ""}${fader(b.slides, sl => sl.ratio || "16 / 9")}</div>`,
+  fade: b => {
+    const r = sl => { const [w, h] = (sl.ratio || "16 / 9").split("/").map(Number); return w / h; };
+    const tall = b.slides.reduce((a, sl) => r(sl) < r(a) ? sl : a, b.slides[0]).ratio || "16 / 9";
+    return `<div class="lcb">${b.caption ? boardHead(b.caption) : ""}${fader(b.slides, () => tall)}</div>`;
+  },
 
   carousel: b => {
     const id = "car" + Math.random().toString(36).slice(2, 7);
