@@ -1379,6 +1379,12 @@ footer { border-top: 1px solid var(--line); }
 .other-grid .thumb { aspect-ratio: 16 / 10; }
 @media (max-width: 760px) { .lens, .skill-row { grid-template-columns: minmax(0, 1fr); } .other-grid { grid-auto-columns: 85%; } .lens > div:nth-child(even) { padding-left: 0; border-left: 0; } }
 
+/* CAROUSEL TABS: same outlined, orange-sweep buttons as the rest of the site; no arrows */
+.lcb.plain .car-arrow { display: none; }
+.lcb.plain .chips .lcpill.car-tab { height: auto; padding: 10px 18px; border-radius: 999px; font-family: var(--sans); font-size: 12.5px; letter-spacing: .05em; text-transform: uppercase; }
+.lcb.plain .chips .lcpill.car-tab.k { background: var(--accent) !important; border-color: var(--accent) !important; color: var(--accent-ink) !important; }
+.lcb.plain .car-nav .chips { gap: 10px; }
+
 /* PHASE COUNT: how many people took part at each stage */
 .cs-labelrow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
 .cs-count { display: inline-flex; align-items: center; gap: 7px; color: var(--accent); font-family: var(--mono); font-size: 13px; letter-spacing: .04em; text-transform: uppercase; line-height: 1.2; cursor: default; user-select: none; }
@@ -2697,7 +2703,7 @@ const LC = {
 
   carousel: b => {
     const id = "car" + Math.random().toString(36).slice(2, 7);
-    const tabs = b.slides.map((sl, i) => `<button type="button" class="lcpill car-tab${i ? "" : " k"}" data-car="${id}" data-i="${i}" aria-pressed="${i ? "false" : "true"}">${esc(sl.label)}</button>`).join("");
+    const tabs = b.slides.map((sl, i) => `<button type="button" class="lcpill car-tab fill-btn${i ? "" : " k"}" data-car="${id}" data-i="${i}" aria-pressed="${i ? "false" : "true"}">${esc(sl.label)}</button>`).join("");
     const nav = `<div class="car-nav"><div class="chips">${tabs}</div>
       <div class="chips"><button type="button" class="btn-lc ic car-arrow" data-car="${id}" data-step="-1" aria-label="Previous">‹</button><button type="button" class="btn-lc ic car-arrow" data-car="${id}" data-step="1" aria-label="Next">›</button></div></div>`;
     return `<div class="lcb">${boardHead(b.caption)}${nav}
