@@ -1380,8 +1380,9 @@ footer { border-top: 1px solid var(--line); }
 @media (max-width: 760px) { .lens, .skill-row { grid-template-columns: minmax(0, 1fr); } .other-grid { grid-auto-columns: 85%; } .lens > div:nth-child(even) { padding-left: 0; border-left: 0; } }
 
 /* PHASE COUNT: how many people took part at each stage */
-.cs-labelrow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
-.cs-count { display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px 5px 9px; border-radius: 999px; background: #FFFFFF; border: 1px solid var(--panel-line); color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; line-height: 1.2; }
+.cs-labelrow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
+.cs-count { display: inline-flex; align-items: center; gap: 7px; color: var(--accent); font-family: var(--mono); font-size: 13px; letter-spacing: .04em; text-transform: uppercase; line-height: 1.2; cursor: default; user-select: none; }
+.cs-count::before { content: ""; width: 1px; height: 14px; background: var(--line); margin-right: 9px; }
 .cs-count svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; flex: none; }
 
 /* AFFINITY MAPPING: photo beside the method */
@@ -1423,6 +1424,31 @@ footer { border-top: 1px solid var(--line); }
   .arc-tag-wrap { grid-column: 1 / -1; }
 }
 @media (max-width: 560px) { .arc-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* WORKSHOPS: why, what happened, findings, and where each finding went in the design */
+.ws { display: grid; gap: 26px; padding: clamp(20px, 3vw, 36px); background: #FFFFFF; border: 1px solid var(--panel-line); }
+.ws + .ws { margin-top: 8px; }
+.ws-head { display: grid; gap: 10px; }
+.ws-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(20px, 3.4vw, 44px); align-items: start; }
+.ws-img { margin: 0; aspect-ratio: 4 / 3; overflow: hidden; background: var(--panel); }
+.ws-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ws-why { display: grid; gap: 20px; }
+.ws-why p, .ws-find p, .ws-into p { margin: 6px 0 0; color: var(--muted); font-size: clamp(15.5px, 1.4vw, 17px); line-height: 1.7; }
+.ws-why .cs-label, .ws-find > .cs-label, .ws-into > .cs-label { font-size: 12.5px; color: var(--accent); }
+.ws-find, .ws-into { display: grid; gap: 16px; padding-top: 24px; border-top: 1px solid var(--line); }
+.ws-find-grid { display: grid; grid-template-columns: repeat(var(--c, 2), minmax(0, 1fr)); gap: 20px 40px; }
+.ws-find .cs-h4 { margin: 0; font-size: clamp(20px, 2vw, 23px); }
+.ws-quote { margin: 4px 0 0; padding: 2px 0 2px 20px; border-left: 2px solid var(--accent); font-family: var(--serif-text); font-style: italic; font-size: clamp(19px, 2vw, 23px); line-height: 1.4; color: var(--ink); max-width: 40em; }
+.ws-into-grid { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 18px; }
+.ws-into figure { margin: 0; display: grid; gap: 12px; align-content: start; }
+.ws-shot { aspect-ratio: 16 / 9; overflow: hidden; background: var(--panel); border: 1px solid var(--panel-line); }
+.ws-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; }
+.ws-into h4 { margin: 0; font-family: var(--serif-text); font-weight: 400; font-size: 19px; line-height: 1.3; color: var(--ink); }
+.ws-into p { margin-top: 4px; font-size: 15px; }
+@media (max-width: 860px) {
+  .ws-top, .ws-find-grid { grid-template-columns: minmax(0, 1fr); }
+  .ws-into-grid { grid-template-columns: minmax(0, 1fr); }
+}
 
 /* RESPONSIVE */
 @media (max-width: 860px) {
@@ -2007,15 +2033,41 @@ function cortexusBlocks() {
       { title: "It tied to how it feels", text: "Designers described heavy AI use as \"brain breaking\" and feeling \"like a zombie\"." },
     ]},
 
-    { type: "section", label: "Co-designing", count: "14 designers", heading: "Designers told me what growth and loss feel like.",
-      lead: "Designers were the users, so I wanted their words for what growth and loss feel like, not mine. I ran a critique workshop with ten Accenture designers to choose between the mould and garden directions, then a reflective workshop where four designers listed the skills they'd never give to AI. Nobody picked a technical skill. Everyone picked judgement, empathy and creativity." },
-    { type: "board", kind: "gallery", caption: "Critique and reflective workshops", c: 2, ratio: "4 / 3", images: [[p("critique"), ""], [p("reflective"), ""]] },
-    { type: "board", kind: "quotes", caption: "Workshop findings", c: 2, quotes: [
-      "If the AI is doing the empathising and everything, then why the hell am I even here? I would feel like I'm a zombie.",
-      "Paper first, screen second is something I would want to make a part of my process.",
-      "The AI itself should create this pause, a level of filtration that just probes you initially.",
-      "AI should act upon what we give command, not the other way around.",
-    ]},
+    { type: "section", label: "Co-designing", count: "14 designers", heading: "Two workshops, two questions only designers could answer.",
+      lead: "Designers were the users, so the big decisions shouldn't be mine alone. The first workshop decided which direction to build. The second decided what Cortexus should protect, and how it should behave." },
+    { type: "workshop", tag: "Workshop 1 · Critique", count: "10 designers", title: "Mould or garden: which one makes you think?",
+      image: p("critique"), alt: "Shannen presenting the mould and garden concepts to Accenture designers at the critique workshop",
+      parts: [
+        ["Why", "Two directions had tested equally well with designers: mould growing on a brain scan, and a garden that grows when you practise. I couldn't pick on my own preference, so I asked the people it was for."],
+        ["What happened", "I presented both concepts to ten Accenture designers and asked them to critique each one: how it made them feel, whether it would change what they did, and which they'd actually keep using."],
+      ],
+      findings: [
+        ["Discomfort made them reflect", "The mould made designers think about their own AI use while they were looking at it. The garden felt pleasant, but easy to ignore."],
+        ["The garden felt familiar", "It was too close to habit and wellbeing apps already on the market, so it didn't stand out."],
+        ["The mould matched how it feels", "Designers already described heavy AI use as \"brain breaking\" and feeling \"like a zombie\"."],
+      ],
+      quote: "If the AI is doing the empathising and everything, then why the hell am I even here? I would feel like I'm a zombie.",
+      into: [
+        [p("scr-dashboard"), "Brain Rot became the direction", "Each skill gets its own region of a brain scan, and mould grows on the skill you hand over."],
+      ]},
+    { type: "workshop", tag: "Workshop 2 · Reflective", count: "4 designers", title: "Which skills would you never give to AI?",
+      image: p("reflective"), alt: "Four designers writing on reflection worksheets at the reflective workshop",
+      parts: [
+        ["Why", "Interviews showed every designer values different skills. Before deciding what Cortexus would track, I needed designers to say what they'd protect, and how they'd want to be stopped."],
+        ["What happened", "Four designers worked through printed reflection sheets on their own process: which tasks they hand to AI, which skills they'd never give away, and what would make them pause before prompting."],
+      ],
+      findings: [
+        ["Nobody picked a technical skill", "Everyone chose judgement, empathy and creativity, the soft skills interviews had flagged as at risk."],
+        ["Think on paper first", "Designers wanted to start with their own thinking before going near a screen."],
+        ["The pause should come from the AI", "They wanted the AI itself to stop and question them, rather than another app to remember."],
+        ["Designers stay in control", "AI should act on what designers decide, not decide for them."],
+      ],
+      quote: "Paper first, screen second is something I would want to make a part of my process.",
+      into: [
+        [p("scr-skills"), "Choose the skills you protect", "Cortexus tracks soft skills, not tools, and designers pick their own four."],
+        [p("scr-claude-journal"), "Journal it first", "Writing your own thinking first breaks the mould down."],
+        [p("scr-claude-limit"), "A pause inside Claude", "When a prompt hands over a skill, a nudge asks if you'd like to try first."],
+      ]},
 
     { type: "section", label: "Solution", heading: "Cortexus: a clinic for your design brain.",
       lead: "A desktop app and Claude extension. You choose the four soft skills you want to protect. Every time you offload one to AI, mould grows on that part of your brain scan. Write in your journal instead, and it clears." },
@@ -2936,6 +2988,16 @@ const BLOCKS = {
   quote: b => `<div class="cs-quote">${txt(b.intro, "p", "cs-lead")}<blockquote>${esc(b.text)}</blockquote></div>`,
   text: b => `<div class="cs-text">${b.paragraphs.map(t => txt(t)).join("")}</div>`,
   media: b => `<div class="cs-media">${stage(b, "wide")}</div>`,
+  workshop: b => `<article class="ws">
+      <header class="ws-head"><div class="cs-labelrow"><div class="cs-label">${esc(b.tag)}</div>${b.count ? `<span class="cs-count"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c.6-3.2 3-5 6-5s5.4 1.8 6 5"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.6.2 4.4 1.8 5 4.8"/></svg>${esc(b.count)}</span>` : ""}</div>${txt(b.title, "h3", "cs-h3")}</header>
+      <div class="ws-top"><figure class="ws-img">${img(b.image, b.alt || "")}</figure>
+        <div class="ws-why">${b.parts.map(([k, t]) => `<div><div class="cs-label">${esc(k)}</div><p>${esc(t)}</p></div>`).join("")}</div></div>
+      <div class="ws-find"><div class="cs-label">What I found</div>
+        <div class="ws-find-grid" style="--c:${b.findings.length === 4 ? 2 : Math.min(3, b.findings.length)}">${b.findings.map(([h, t]) => `<div><h4 class="cs-h4">${esc(h)}</h4><p>${esc(t)}</p></div>`).join("")}</div>
+        ${b.quote ? `<blockquote class="ws-quote">“${esc(b.quote)}”</blockquote>` : ""}</div>
+      <div class="ws-into"><div class="cs-label">How it shaped the design</div>
+        <div class="ws-into-grid" style="--n:${Math.max(2, b.into.length)}">${b.into.map(([src, h, t]) => `<figure>${src ? `<div class="ws-shot">${img(src, h)}</div>` : ""}<figcaption><h4>${esc(h)}</h4><p>${esc(t)}</p></figcaption></figure>`).join("")}</div></div>
+    </article>`,
   affinity: b => `<div class="cs-aff"><figure class="cs-aff-img">${img(b.image, b.alt || "")}${b.caption ? `<figcaption class="cs-label sm">${esc(b.caption)}</figcaption>` : ""}</figure>
       <div class="cs-aff-text">${txt(b.label, "div", "cs-label")}<ol class="cs-steps">${b.steps.map(st => `<li><h3 class="cs-h4">${esc(st[0])}</h3><p>${esc(st[1])}</p></li>`).join("")}</ol></div></div>`,
   feature: b => `<div class="cs-feature">${stage(b, b.shape || "square")}
