@@ -347,14 +347,14 @@ body.pv-open { overflow: hidden; }
   .toc button[aria-current="true"] { color: var(--ink); }
 }
 .cs-main { min-width: 0; }
-.cs-body { display: grid; gap: 40px; padding-bottom: 24px; }
+.cs-body { display: grid; gap: clamp(40px, 5vw, 64px); padding-bottom: 24px; }
 
 .cs-label {
   font-family: var(--mono); font-size: 15px; letter-spacing: 0.04em;
   text-transform: uppercase; color: var(--muted); margin: 0;
 }
 .cs-label.sm { font-size: 11.5px; text-align: center; }
-.cs-section { padding-top: clamp(40px, 7vw, 80px); display: grid; gap: 20px; scroll-margin-top: 90px; }
+.cs-section { padding-top: clamp(56px, 9vw, 120px); display: grid; gap: 24px; scroll-margin-top: 90px; }
 .cs-h {
   font-family: var(--serif-text); font-weight: 400;
   font-size: clamp(30px, 4.3vw, 46px); line-height: 1.16; letter-spacing: -0.01em;
@@ -376,7 +376,7 @@ body.pv-open { overflow: hidden; }
 .cs-sub { display: grid; gap: 10px; padding-top: 24px; }
 
 .cs-points-wrap { display: grid; gap: 22px; padding-top: 8px; }
-.cs-points { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 24px 48px; }
+.cs-points { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 40px 56px; }
 .cs-points p { max-width: 30ch; }
 
 .cs-panel {
@@ -1424,16 +1424,17 @@ footer { border-top: 1px solid var(--line); }
 /* FEATURE: screens changing on the left, what and why on the right */
 .feat { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(24px, 3.4vw, 48px); align-items: center; padding-top: 16px; }
 .feat .fade-img { background: none; }
-.bnj-wrap { display: grid; gap: 14px; }
-.bnj { display: grid; grid-template-columns: repeat(var(--n), minmax(104px, 1fr)); column-gap: 14px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: thin; }
-.bnj-line { grid-column: 1 / -1; position: relative; height: 130px; margin-bottom: 18px; }
+.bnj-wrap { display: grid; gap: 28px; }
+.bnj { display: grid; grid-template-columns: repeat(var(--n), minmax(130px, 1fr)); column-gap: 28px; overflow-x: auto; scrollbar-width: none; }
+.bnj::-webkit-scrollbar { display: none; }
+.bnj-line { grid-column: 1 / -1; position: relative; height: 120px; margin-bottom: 10px; }
 .bnj-line svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.bnj-line polyline { fill: none; stroke: var(--ink); stroke-width: 1.4; opacity: .55; }
-.bnj-dot { position: absolute; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--bg, #F8F9FB); }
-.bnj-dot b { position: absolute; left: 50%; top: 18px; transform: translateX(-50%); white-space: nowrap; font-family: var(--mono); font-weight: 400; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
-.bnj-st { border-top: 1px solid var(--line); padding-top: 14px; }
-.bnj-st h4 { margin: 6px 0 6px; font-family: var(--serif); font-weight: 400; font-size: 19px; color: var(--ink); }
-.bnj-st p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--muted); }
+.bnj-line polyline { fill: none; stroke: var(--accent); stroke-width: 1.5; }
+.bnj-dot { position: absolute; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--bg); }
+.bnj-dot b { position: absolute; left: 50%; top: 16px; transform: translateX(-50%); white-space: nowrap; font-family: var(--mono); font-weight: 400; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.bnj-st { border-top: 1px solid var(--line); padding-top: 16px; }
+.bnj-st .cs-h4 { margin: 8px 0 8px; }
+.bnj-st p { margin: 0; font-size: 15px; line-height: 1.65; color: var(--muted); }
 .bns-scroll { overflow-x: auto; scrollbar-width: thin; }
 .bns { position: relative; min-width: 860px; }
 .bns-band { position: relative; }
@@ -2163,15 +2164,15 @@ function beoNuaBlocks() {
     { type: "section", label: "Testing and iterating", heading: "Testing with the people who'd use it.",
       lead: "We tested paper wireframes, the brochure in a local café, the website, and the hub model with café owners." },
     { type: "board", kind: "gallery", caption: "Testing the brochure in a local café", c: 1, ratio: "16 / 10", contain: true, images: [[p("test-cafe"), ""]] },
-    { type: "board", kind: "quotes", caption: "Key user insights", c: 2, quotes: [
-      "It's nice to know you're thought of.",
-      "I wouldn't have known where to look for events like that.",
-    ]},
     { type: "bullets", label: "What businesses told us", items: ["Off-peak hours: cafés liked the idea of using their quiet times for community events.", "More footfall: staff saw it could bring new people to their business.", "Window stickers: there was real interest in showing they're part of the network.", "Clearer benefits: their main worry was committing to something they couldn't keep up, which set time slots and capacity solved."] },
     { type: "bullets", label: "What we changed", items: ["Events higher up: testers wanted local events first, so they moved above the fold.", "Bigger type: the brochure's text sizes increased, keeping the bold style.", "Clear commitments for cafés: hubs now set their own time slots and capacity."] },
 
-    { type: "section", label: "Impact", heading: "Small cost, big saving." },
-    { type: "bullets", items: ["Low running cost: about €6.30 per person per year, by year two.", "Health savings: around €400 saved per person each year, even at a low 10% impact.", "Net saving: €593,700 for the state in year three, with a pilot planned for Clontarf, Dublin."] },
+    { type: "section", label: "Impact", heading: "What Beo Nua changes." },
+    { type: "points", items: [
+      { title: "Feeling noticed", text: "Retirees are reached first, instead of left to search. \"It's nice to know you're thought of.\" (Café tester)" },
+      { title: "Easy to join in", text: "Every local event in one place. \"I wouldn't have known where to look for events like that.\" (Café tester)" },
+      { title: "Small cost, big saving", text: "About €6.30 per person a year, saving around €400 each in health costs, and €593,700 for the state by year three." },
+    ]},
 
     { type: "section", label: "Reflection", heading: "What I'd do next" },
     { type: "bullets", items: ["Start earlier: a pre-retirement pack so people plan their next chapter before it begins.", "Personalise: events recommended around each person's interests.", "Meet WCAG: stronger contrast, keyboard access and alt text across the site."] },
@@ -3205,14 +3206,14 @@ const BLOCKS = {
         <div><div class="cs-label">Why</div><p>${esc(b.why)}</p></div></div></div>`,
   thesis: () => `<div class="thesis"><p>There's a lot more to the journey than fits here.</p><a class="fill-btn thesis-btn" href="mailto:${SITE.email}?subject=${encodeURIComponent("Request: Cortexus thesis")}">Request my thesis <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>`,
   bnjourney: b => {
-    const n = b.stages.length, W = 100 / n, ys = b.stages.map(st => st[3]), lo = Math.min(...ys), hi = Math.max(...ys);
-    const y = v => 18 + (1 - (v - lo) / (hi - lo)) * 64;
-    const pts = b.stages.map((st, i) => `${(i + .5) * W},${y(st[3]).toFixed(1)}`).join(" ");
-    return `<div class="bnj-wrap">${txt(b.label, "div", "cs-label")}<div class="bnj" style="--n:${n}">
-      <div class="bnj-line"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline points="${pts}" vector-effect="non-scaling-stroke"/></svg>
-        ${b.stages.map((st, i) => `<span class="bnj-dot" style="left:${(i + .5) * W}%;top:${y(st[3])}%"><b>${esc(st[2])}</b></span>`).join("")}</div>
-      ${b.stages.map((st, i) => `<div class="bnj-st"><div class="cs-label">Stage ${i + 1}</div><h4>${esc(st[0])}</h4><p>${esc(st[1])}</p></div>`).join("")}
-    </div></div>`;
+    const ys = b.stages.map(st => st[3]), lo = Math.min(...ys), hi = Math.max(...ys), COLS = 5, W = 100 / COLS;
+    const y = v => 22 + (1 - (v - lo) / (hi - lo)) * 56;
+    const rows = []; for (let i = 0; i < b.stages.length; i += COLS) rows.push(b.stages.slice(i, i + COLS).map((st, k) => [st, i + k]));
+    return `<div class="bnj-wrap">${txt(b.label, "div", "cs-label")}${rows.map(row => `<div class="bnj" style="--n:${COLS}">
+      <div class="bnj-line"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline points="${row.map(([st], k) => `${(k + .5) * W},${y(st[3]).toFixed(1)}`).join(" ")}" vector-effect="non-scaling-stroke"/></svg>
+        ${row.map(([st], k) => `<span class="bnj-dot" style="left:${(k + .5) * W}%;top:${y(st[3])}%"><b>${esc(st[2])}</b></span>`).join("")}</div>
+      ${row.map(([st, i]) => `<div class="bnj-st"><div class="cs-label">Stage ${i + 1}</div>${txt(st[0], "h3", "cs-h4")}<p>${esc(st[1])}</p></div>`).join("")}
+    </div>`).join("")}</div>`;
   },
   bnsystem: () => {
     const C = [9.26, 27.78, 46.3, 72.22, 90.74], U = 27.78, P = 81.48;
