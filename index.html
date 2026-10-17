@@ -231,15 +231,24 @@ body.pv-open { overflow: hidden; }
   .thumb:hover .pill, .card:focus-visible .pill { transform: scale(1); filter: none; }
 }
 /* BEO NUA COVER: the real website scrolling in a browser window on a brand gradient */
-.thumb:has(.bnw), .hero-img:has(.bnw) { background: radial-gradient(120% 90% at 0% 0%, #F4C9B4 0%, transparent 55%), radial-gradient(110% 90% at 100% 100%, #BEC2E5 0%, transparent 60%), linear-gradient(135deg, #F7E3D3 0%, #EEE6DA 50%, #DCDDF0 100%); }
+.thumb:has(.bnw), .hero-img:has(.bnw) { background: radial-gradient(60% 70% at 50% 55%, rgba(255, 250, 244, .85) 0%, rgba(255, 250, 244, 0) 70%), linear-gradient(125deg, #F2A47F 0%, #F7CDB4 30%, #F6E2D6 50%, #DCD9F2 72%, #AEB3E6 100%); }
 .thumb:has(.bnw) > img, .hero-img:has(.bnw) > img { opacity: 0; }
-.bnw { position: absolute; left: 11%; top: 11%; width: 78%; height: 80%; display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; background: #FFF5DE; pointer-events: none; box-shadow: 0 30px 60px -28px rgba(19, 63, 65, .55), 0 0 0 1px rgba(19, 63, 65, .12); transition: transform .7s cubic-bezier(.2,.7,.2,1), box-shadow .7s ease; }
-.card:hover .thumb .bnw { transform: translateY(-6px) scale(1.015); box-shadow: 0 44px 80px -30px rgba(19, 63, 65, .6), 0 0 0 1px rgba(19, 63, 65, .12); }
-.bnw-bar { flex: none; height: clamp(10px, 2.2%, 22px); min-height: 10px; display: flex; align-items: center; gap: 5px; padding: 0 9px; background: #EDE6D8; border-bottom: 1px solid rgba(19, 63, 65, .1); }
-.bnw-bar i { width: 7px; height: 7px; border-radius: 50%; background: rgba(19, 63, 65, .25); }
+.bnw { position: absolute; left: 7%; top: 11%; width: 74%; height: 76%; display: flex; flex-direction: column; border-radius: 10px; overflow: hidden; background: #FFF5DE; pointer-events: none; container-type: inline-size; box-shadow: 0 34px 60px -30px rgba(120, 52, 24, .45), 0 12px 24px -16px rgba(19, 63, 65, .25), 0 0 0 1px rgba(19, 63, 65, .08); transition: transform .7s cubic-bezier(.2,.7,.2,1), box-shadow .7s ease; }
+.card:hover .thumb .bnw { transform: translateY(-6px) scale(1.015); box-shadow: 0 48px 80px -32px rgba(120, 52, 24, .5), 0 16px 30px -18px rgba(19, 63, 65, .3), 0 0 0 1px rgba(19, 63, 65, .08); }
+.bnw-bar { flex: none; height: 4cqw; display: flex; align-items: center; justify-content: space-between; padding: 0 1.4cqw; background: #FBF7F0; border-bottom: 1px solid rgba(19, 63, 65, .08); }
+.bnw-dots { display: flex; gap: .7cqw; }
+.bnw-dots i { width: 1.05cqw; height: 1.05cqw; border-radius: 50%; background: #FF5F57; }
+.bnw-dots i:nth-child(2) { background: #FEBC2E; } .bnw-dots i:nth-child(3) { background: #28C840; }
+.bnw-url { display: flex; align-items: center; justify-content: center; gap: .6cqw; width: 34%; height: 2.5cqw; border-radius: 99px; background: #EFE8DC; color: #6B5A50; font: 500 1.35cqw/1 var(--sans, system-ui), sans-serif; letter-spacing: .02em; }
+.bnw-url svg { width: 1.3cqw; height: 1.3cqw; fill: none; stroke: currentColor; stroke-width: 2.2; }
 .bnw .bnw-view { flex: 1; aspect-ratio: auto; border-radius: 0; box-shadow: none; background: #CC4A1E; }
 .bnw .live-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
-.bnw .live-cur { display: none; }
+.bnw .live-cur, .bnp .live-cur { display: none; }
+.bnp { position: absolute; right: 6%; bottom: 7%; height: 72%; aspect-ratio: 9 / 19; padding: .7%; border-radius: 12% / 5.7%; background: #17191C; pointer-events: none; box-shadow: 0 30px 50px -24px rgba(19, 40, 42, .55), 0 0 0 1px rgba(255, 255, 255, .08) inset; transition: transform .7s cubic-bezier(.2,.7,.2,1); }
+.card:hover .thumb .bnp { transform: translateY(-10px); }
+.bnp .bnp-view { width: 100%; height: 100%; aspect-ratio: auto; border-radius: 10% / 4.8%; box-shadow: none; background: #CC4A1E; }
+.bnp .live-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% top; }
+.bnp-notch { position: absolute; left: 50%; top: 2.6%; width: 30%; height: 3.2%; transform: translateX(-50%); border-radius: 99px; background: #17191C; z-index: 4; }
 /* CORTEXUS COVER: the real prototype dashboard, auto-playing, sits in the window */
 .cx-live { position: absolute; left: 11.25%; top: 14%; width: 77.5%; height: 74.4%; overflow: hidden; border-radius: 6px; pointer-events: none; opacity: 0; transition: opacity .8s ease; background: #1F1F1F; }
 .cx-live.ready { opacity: 1; }
@@ -3697,7 +3706,7 @@ const pc = (x, y, w, h) => `left:${x / 16}%;top:${y / 8.2}%;width:${w / 16}%;hei
 const CX_SETS = [["iconPhaseGermination.png", "iconPhaseSporulation.png", "iconPhaseMyceliation.png", "iconPhaseNecrosis.png"], ["icon2PhaseGermination.webp", "icon2PhaseSporulation.webp", "icon2PhaseMyceliation.webp", "icon2PhaseNecrosis.webp"], ["icon3PhaseGermination.webp", "icon3PhaseMyceliation.webp", "icon3PhaseSporulation.webp", "icon3PhaseNecrosis.webp"], ["icon4PhaseGermination.png", "icon4PhaseSporulation.png", "icon4PhaseMyceliation.png", "icon4PhaseNecrosis.png"]];
 const CX_ROWS = [176, 262, 343, 430], CX_LINES = [219, 306, 392, 479], CX_BADGES = [187, 274, 360, 447];
 const CX_EKG = "M0,18 L20,18 L25,10 L30,26 L35,14 L40,20 L45,18 L70,18 L75,10 L80,26 L85,14 L90,20 L95,18 L120,18 L125,10 L130,26 L135,14 L140,20 L145,18 L170,18 L175,10 L180,26 L185,14 L190,20 L195,18 L220,18";
-const bnAnim = () => `<div class="bnw" aria-hidden="true"><div class="bnw-bar"><i></i><i></i><i></i></div><div class="live bnw-view" data-live="bnhero"><img class="live-poster" src="bn/web-hero.webp" alt=""><span class="live-cur"></span></div></div>`;
+const bnAnim = () => `<div class="bnw" aria-hidden="true"><div class="bnw-bar"><span class="bnw-dots"><i></i><i></i><i></i></span><span class="bnw-url"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>beonua.ie</span><span class="bnw-dots" style="visibility:hidden"><i></i><i></i><i></i></span></div><div class="live bnw-view" data-live="bnhero"><img class="live-poster" src="bn/web-hero.webp" alt=""><span class="live-cur"></span></div></div><div class="bnp" aria-hidden="true"><div class="live bnp-view" data-live="bnphone"><img class="live-poster" src="bn/web-hero.webp" alt=""><span class="live-cur"></span></div><span class="bnp-notch"></span></div>`;
 const cxAnim = () => `<div class="cxa" aria-hidden="true">
   <div class="br" style="${pc(578, 174.5, 348, 348)}">${[1, 2, 3, 4].map(n => `<img src="cx/rot/brain${n}.webp" alt=""${n === 1 ? ' class="on"' : ""}>`).join("")}</div>
   ${CX_SETS.map((set, r) => `<div class="th" style="${pc(989, [176, 262, 344, 431][r], 56, 56)}">${set.map((f, i) => `<img src="cx/rot/${f}" alt=""${i ? "" : ' class="on"'}>`).join("")}</div>`).join("")}
@@ -3804,7 +3813,9 @@ const LIVE_FLOWS = (() => {
   const $ = (L, sel) => { const e = L.doc().querySelector(sel); return vis(e) ? e : null; };
   const bn = {
     bnhero: { src: "proto/bnlive/index.html#home", run: async L => {
-      for (let i = 0; i < 3; i++) { await L.wait(1600); await bnScroll(L, 1e6, 16000); await L.wait(1600); await bnScroll(L, 0, 3200); } } },
+      for (;;) await L.wait(60000); } },
+    bnphone: { src: "proto/bnlive/index.html#home", w: 390, run: async L => {
+      for (let i = 0; i < 3; i++) { await L.wait(4500); await bnScroll(L, 1e6, 15000); await L.wait(1600); await bnScroll(L, 0, 3000); } } },
     bnbrowse: { src: "proto/bnlive/index.html#home", run: async L => {
       await L.wait(600); await bnScroll(L, L.doc().getElementById("events"), 1600); await L.wait(600);
       await bnTap(L, () => $(L, '[data-cat="outdoors"]')); await L.wait(1600);
@@ -3875,7 +3886,8 @@ function setupLive() {
     if (f._run) return;
     const run = f._run = { stop: false }; const flow = LIVE_FLOWS[f.dataset.live]; const cur = f.querySelector(".live-cur");
     const ifr = document.createElement("iframe"); ifr.setAttribute("aria-hidden", "true"); ifr.tabIndex = -1; f.prepend(ifr);
-    const fit = () => { const k = f.clientWidth / 1440; ifr.style.transform = `scale(${k})`; if (flow.src) ifr.style.height = Math.ceil(f.clientHeight / k) + "px"; return k; };
+    const W = flow.w || 1440; if (flow.w) ifr.style.width = W + "px";
+    const fit = () => { const k = f.clientWidth / W; ifr.style.transform = `scale(${k})`; if (flow.src) ifr.style.height = Math.ceil(f.clientHeight / k) + "px"; return k; };
     fit(); new ResizeObserver(fit).observe(f);
     const L = {
       win: null, doc: () => ifr.contentDocument,
@@ -3888,7 +3900,8 @@ function setupLive() {
         while (!run.stop) {
           f.classList.remove("on"); cur.style.transform = "translate(60%, 60%)";
           await new Promise(res => { ifr.onload = res; if (flow.src) { try { localStorage.removeItem("beonua"); } catch (x) {} const [path, hash] = flow.src.split("#"); ifr.src = new URL(path, location.href).href + "?r=" + Date.now() + (hash ? "#" + hash : ""); } else ifr.srcdoc = LIVE_DOC(flow.cfg); });
-          L.win = ifr.contentWindow; await L.wait(1200);
+          L.win = ifr.contentWindow; if (flow.src) try { const st = L.doc().createElement("style"); st.textContent = "html{scrollbar-width:none}html::-webkit-scrollbar{display:none}"; L.doc().head.append(st); } catch (x) {}
+          await L.wait(1200);
           const hide = setInterval(() => { try { const d = L.doc(); const e = [...d.querySelectorAll("div,span")].find(x => x.childElementCount === 0 && /^DEV:/.test(x.textContent.trim())); if (e) { let n = e; for (let i = 0; i < 3 && n.parentElement; i++) { if (n.parentElement.querySelectorAll("button").length >= 2) { n = n.parentElement; break; } n = n.parentElement; } n.style.visibility = "hidden"; } } catch (x) {} }, 150);
           try { await L.wait(600); while (!f._inView) await L.wait(120); f.classList.add("on"); await flow.run(L); await L.wait(1500); } finally { clearInterval(hide); }
         }
