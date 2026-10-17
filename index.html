@@ -2043,7 +2043,7 @@ function cortexusBlocks() {
     ]},
 
     { type: "section", label: "Co-designing", count: "14 designers", heading: "Two workshops, two questions only designers could answer.",
-      lead: "Designers were the users, so the big decisions shouldn't be mine alone. The feedback workshop compared the two developed concepts, to decide which direction to build. The reflective workshop decided what Cortexus should protect, and how it should behave." },
+      lead: "Designers were the users, so the big decisions shouldn't be mine alone. The feedback workshop compared the two developed concepts, to decide which direction to build. The reflective workshop defined the functionality behind it: what Cortexus protects, and how it steps in." },
     { type: "workshop", tag: "Workshop 1 · Feedback", count: "10 designers", title: "Mouldy Thoughts or Growing Beyond AI?",
       images: [[p("critique"), "Presenting both concepts to Accenture designers"], ["me/workshop.webp", "Designers giving feedback on sticky notes"]],
       parts: [
@@ -2060,23 +2060,24 @@ function cortexusBlocks() {
         [p("scr-dashboard"), "Mouldy Thoughts became Cortexus", "Each skill gets its own region of a brain scan, and mould grows on the skill you hand over."],
         [p("vibrant-brains"), "A colourful, healthy brain", "The brain starts vibrant and loses its colour as mould spreads, so there's always something to work back towards."],
       ]},
-    { type: "workshop", tag: "Workshop 2 · Reflective", count: "4 designers", title: "Which skills would you never give to AI?",
-      image: p("reflective"), alt: "Four designers writing on reflection worksheets at the reflective workshop",
+    { type: "workshop", tag: "Workshop 2 · Reflective", count: "4 designers", title: "Defining how Cortexus works.",
+      image: p("reflective"), alt: "Four designers working through reflective thinking worksheets, with feedback questions on the wall behind them",
       parts: [
-        ["Why", "Interviews showed every designer values different skills. Before deciding what Cortexus would track, I needed designers to say what they'd protect, and how they'd want to be stopped."],
-        ["What happened", "Four designers worked through printed reflection sheets on their own process: which tasks they hand to AI, which skills they'd never give away, and what would make them pause before prompting."],
+        ["Why", "With Mouldy Thoughts chosen, I needed designers to define the functionality behind it: which skills it should protect, where it should live, and how it should step in."],
+        ["What happened", "Four designers worked through reflective thinking worksheets on their own process, then answered questions on the wall: should this be on desktop, app or both? Does it make you want to use AI in a more intentional way? How did the concept make you feel, and why?"],
       ],
       findings: [
-        ["Nobody picked a technical skill", "Everyone chose judgement, empathy and creativity, the soft skills interviews had flagged as at risk."],
+        ["Protect soft skills, not tools", "Nobody picked a technical skill. Everyone chose judgement, empathy and creativity."],
         ["Think on paper first", "Designers wanted to start with their own thinking before going near a screen."],
         ["The pause should come from the AI", "They wanted the AI itself to stop and question them, rather than another app to remember."],
         ["Designers stay in control", "AI should act on what designers decide, not decide for them."],
       ],
       quote: "Paper first, screen second is something I would want to make a part of my process.",
       into: [
-        [p("scr-skills"), "Choose the skills you protect", "Cortexus tracks soft skills, not tools, and designers pick their own four."],
+        [p("scr-skills"), "Choose the skills you protect", "Cortexus tracks soft skills, and designers pick their own four."],
         [p("scr-claude-journal"), "Journal it first", "Writing your own thinking first breaks the mould down."],
         [p("scr-claude-limit"), "A pause inside Claude", "When a prompt hands over a skill, a nudge asks if you'd like to try first."],
+        [p("scr-tolerance"), "Your rules, not the tool's", "Designers set how many prompts are allowed before mould grows."],
       ]},
 
     { type: "section", label: "Solution", heading: "Cortexus: a clinic for your design brain.",
@@ -3005,7 +3006,7 @@ const BLOCKS = {
         <div class="ws-find-grid" style="--c:${b.findings.length === 4 ? 2 : Math.min(3, b.findings.length)}">${b.findings.map(([h, t]) => `<div><h4 class="cs-h4">${esc(h)}</h4><p>${esc(t)}</p></div>`).join("")}</div>
         ${b.quote ? `<blockquote class="ws-quote">“${esc(b.quote)}”</blockquote>` : ""}</div>
       <div class="ws-into"><div class="cs-label">How it shaped the design</div>
-        <div class="ws-into-grid" style="--n:${Math.max(2, b.into.length)}">${b.into.map(([src, h, t]) => `<figure>${src ? `<div class="ws-shot">${img(src, h)}</div>` : ""}<figcaption><h4>${esc(h)}</h4><p>${esc(t)}</p></figcaption></figure>`).join("")}</div></div>
+        <div class="ws-into-grid" style="--n:${b.into.length === 4 ? 2 : Math.max(2, Math.min(3, b.into.length))}">${b.into.map(([src, h, t]) => `<figure>${src ? `<div class="ws-shot">${img(src, h)}</div>` : ""}<figcaption><h4>${esc(h)}</h4><p>${esc(t)}</p></figcaption></figure>`).join("")}</div></div>
     </article>`,
   affinity: b => `<div class="cs-aff${b.steps && b.steps.length ? "" : " solo"}"><figure class="cs-aff-img">${img(b.image, b.alt || "")}${b.caption ? `<figcaption class="cs-label sm">${esc(b.caption)}</figcaption>` : ""}</figure>
       ${b.steps && b.steps.length ? `<div class="cs-aff-text">${txt(b.label, "div", "cs-label")}<ol class="cs-steps">${b.steps.map(st => `<li><h3 class="cs-h4">${esc(st[0])}</h3><p>${esc(st[1])}</p></li>`).join("")}</ol></div>` : ""}</div>`,
