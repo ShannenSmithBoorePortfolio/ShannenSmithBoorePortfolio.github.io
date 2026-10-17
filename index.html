@@ -230,6 +230,16 @@ body.pv-open { overflow: hidden; }
   .pill { transform: scale(.6); filter: blur(4px); transition: opacity .3s ease, transform .5s cubic-bezier(.34, 1.56, .64, 1), filter .3s ease; }
   .thumb:hover .pill, .card:focus-visible .pill { transform: scale(1); filter: none; }
 }
+/* BEO NUA COVER: the real website scrolling in a browser window on a brand gradient */
+.thumb:has(.bnw), .hero-img:has(.bnw) { background: radial-gradient(120% 90% at 0% 0%, #F4C9B4 0%, transparent 55%), radial-gradient(110% 90% at 100% 100%, #BEC2E5 0%, transparent 60%), linear-gradient(135deg, #F7E3D3 0%, #EEE6DA 50%, #DCDDF0 100%); }
+.thumb:has(.bnw) > img, .hero-img:has(.bnw) > img { opacity: 0; }
+.bnw { position: absolute; left: 11%; top: 11%; width: 78%; height: 80%; display: flex; flex-direction: column; border-radius: 8px; overflow: hidden; background: #FFF5DE; pointer-events: none; box-shadow: 0 30px 60px -28px rgba(19, 63, 65, .55), 0 0 0 1px rgba(19, 63, 65, .12); transition: transform .7s cubic-bezier(.2,.7,.2,1), box-shadow .7s ease; }
+.card:hover .thumb .bnw { transform: translateY(-6px) scale(1.015); box-shadow: 0 44px 80px -30px rgba(19, 63, 65, .6), 0 0 0 1px rgba(19, 63, 65, .12); }
+.bnw-bar { flex: none; height: clamp(10px, 2.2%, 22px); min-height: 10px; display: flex; align-items: center; gap: 5px; padding: 0 9px; background: #EDE6D8; border-bottom: 1px solid rgba(19, 63, 65, .1); }
+.bnw-bar i { width: 7px; height: 7px; border-radius: 50%; background: rgba(19, 63, 65, .25); }
+.bnw .bnw-view { flex: 1; aspect-ratio: auto; border-radius: 0; box-shadow: none; background: #CC4A1E; }
+.bnw .live-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
+.bnw .live-cur { display: none; }
 /* CORTEXUS COVER: the real prototype dashboard, auto-playing, sits in the window */
 .cx-live { position: absolute; left: 11.25%; top: 14%; width: 77.5%; height: 74.4%; overflow: hidden; border-radius: 6px; pointer-events: none; opacity: 0; transition: opacity .8s ease; background: #1F1F1F; }
 .cx-live.ready { opacity: 1; }
@@ -1943,37 +1953,25 @@ function beoNuaBlocks() {
       { title: "36 written responses", text: "Collected with the probe in Irishtown, Sandymount and the city centre." },
       { title: "14 spoken reflections", text: "Recorded into the probe's microphone box." },
     ]},
-    { type: "board", kind: "quotes", caption: "What we heard", c: 2, quotes: [
+    { type: "cxquotes", label: "What we heard", quotes: [
       "You're defined by your work… and then what?",
       "You go from a daily routine to days you're trying to fill.",
       "I feel like we're regarded as not making a contribution to society.",
       "I'm scared I'll be too old and slow to enjoy what I want to do.",
     ]},
     { type: "board", kind: "carousel", caption: "Six archetypes from real quotes", slides: [
-      { label: "Andy", kind: "persona", name: "Andy MacAvoy", meta: "67 · Unplanned retirement", photo: p("a-andy"),
-        bio: ["A cybersecurity manager who never really thought about retirement."], quote: "It can be a vacuum unless you have something to fill your time.",
-        goals: ["Stay busy and purposeful.", "Find new groups and skills."], patterns: ["Meets friends regularly.", "Thinks about his career often."],
-        pains: ["Misses his job.", "Struggles without routine."], scenario: ["Retirement came more suddenly than he expected, and now he's unsure how to fill his days."] },
-      { label: "Mary", kind: "persona", name: "Mary Cassidy", meta: "69 · Community participant", photo: p("a-mary"),
-        bio: ["A retired sales assistant who went back to adult education."], quote: "It's been the best thing I've ever done.",
-        goals: ["More time with friends and family.", "Join active groups."], patterns: ["Busy most days of the week.", "Loves hearing others' stories."],
-        pains: ["Misses her husband.", "Wishes she'd retired sooner."], scenario: ["She and her friends talk about trying new things, but rarely take the first step."] },
-      { label: "Paul", kind: "persona", name: "Paul Leonard", meta: "67 · Planned retirement", photo: p("a-paul"),
-        bio: ["A civil engineer who worked for one company his whole career."], quote: "40 years work was sufficient.",
-        goals: ["Relax and play golf.", "Time with family."], patterns: ["Coaches local football.", "Socialises at golf and the pub."],
-        pains: ["Loss of routine.", "Still cares about his old job."], scenario: ["Retirement was always the plan, but losing his routine may hit harder than he expects."] },
-      { label: "Stacy", kind: "persona", name: "Stacy Walsh", meta: "65 · Lifelong carer", photo: p("a-stacy"),
-        bio: ["A nurse whose adult son has severe needs."], quote: "I feel like I'll never really retire.",
-        goals: ["Stay social and active.", "Make sure her son is cared for."], patterns: ["Brings her son to meet-ups.", "Planning his long-term care."],
-        pains: ["Worried about her son's future.", "Feels caring isn't valued."], scenario: ["Caring has shaped her life. She hopes retirement still brings small moments of freedom."] },
-      { label: "Sarah", kind: "persona", name: "Sarah Murphy", meta: "35 · Interrupted career", photo: p("a-sarah"),
-        bio: ["A chef and single mother on maternity leave."], quote: "I don't know how to even begin looking for information.",
-        goals: ["Return to work.", "Support her child."], patterns: ["Goes to mother and baby classes.", "Leans on friends and family."],
-        pains: ["Financial strain.", "Retirement feels far away."], scenario: ["Gaps in her career will shape her retirement, but planning feels impossible right now."] },
-      { label: "Micheal", kind: "persona", name: "Micheal Cummins", meta: "38 · Relies on state supports", photo: p("a-micheal"),
-        bio: ["Never had the chance of stable, long-term work."],
-        goals: ["Stay independent.", "Understand his entitlements."], patterns: ["Routine built around local spaces."],
-        pains: ["Entitlements are confusing.", "A tight budget."], scenario: ["His future depends on the state pension, and the system feels overwhelming."] },
+      { label: "Unplanned retiree", kind: "archetype", name: "Andy MacAvoy", age: "67", job: "Retired cybersecurity manager", photo: p("a-andy"), quote: "It can be a vacuum unless you have something to fill your time.",
+        cols: [["Goals", ["Stay busy and purposeful.", "Find new groups and skills."]], ["Frustrations", ["Misses his job.", "Struggles without routine.", "Never really thought about retirement."]], ["Behaviours", ["Meets friends regularly.", "Thinks about his career often."]]] },
+      { label: "Community joiner", kind: "archetype", name: "Mary Cassidy", age: "69", job: "Retired sales assistant", photo: p("a-mary"), quote: "It's been the best thing I've ever done.",
+        cols: [["Goals", ["More time with friends and family.", "Join active groups."]], ["Frustrations", ["Misses her husband.", "Wishes she'd retired sooner."]], ["Behaviours", ["Went back to adult education.", "Busy most days of the week.", "Loves hearing others' stories."]]] },
+      { label: "Planned retiree", kind: "archetype", name: "Paul Leonard", age: "67", job: "Retired civil engineer", photo: p("a-paul"), quote: "40 years work was sufficient.",
+        cols: [["Goals", ["Relax and play golf.", "Time with family."]], ["Frustrations", ["Loss of routine.", "Still cares about his old job."]], ["Behaviours", ["Coaches local football.", "Socialises at golf and the pub."]]] },
+      { label: "Lifelong carer", kind: "archetype", name: "Stacy Walsh", age: "65", job: "Nurse and carer for her adult son", photo: p("a-stacy"), quote: "I feel like I'll never really retire.",
+        cols: [["Goals", ["Stay social and active.", "Make sure her son is cared for."]], ["Frustrations", ["Worried about her son's future.", "Feels caring isn't valued."]], ["Behaviours", ["Brings her son to meet-ups.", "Planning his long-term care."]]] },
+      { label: "Interrupted career", kind: "archetype", name: "Sarah Murphy", age: "35", job: "Chef and single mother", photo: p("a-sarah"), quote: "I don't know how to even begin looking for information.",
+        cols: [["Goals", ["Return to work.", "Support her child."]], ["Frustrations", ["Financial strain.", "Retirement feels far away."]], ["Behaviours", ["Goes to mother and baby classes.", "Leans on friends and family."]]] },
+      { label: "State supported", kind: "archetype", name: "Micheal Cummins", age: "38", job: "Never had stable, long-term work", photo: p("a-micheal"),
+        cols: [["Goals", ["Stay independent.", "Understand his entitlements."]], ["Frustrations", ["Entitlements are confusing.", "A tight budget."]], ["Behaviours", ["Routine built around local spaces."]]] },
     ]},
 
     { type: "section", label: "Key insights", heading: "Retirement isn't feared because of money. It's feared because it feels like the end.",
@@ -2010,16 +2008,16 @@ function beoNuaBlocks() {
     { type: "feat", title: "A pack that arrives on its own", screens: [p("brochure-front"), p("brochure-back")],
       what: "A celebration pack, sent automatically at 66 or on request, with local hubs and a QR code to the website.",
       why: "Nobody reaches out, so the service reaches out first." },
-    { type: "feat", title: "Every local event in one place", video: v("browse"),
+    { type: "feat", title: "Every local event in one place", live: "bnbrowse", screens: [v("browse") + ".webp"],
       what: "One website to browse events by category and area, with no membership needed.",
       why: "Life suddenly stops, so it takes seconds to find something to get up for." },
-    { type: "feat", title: "Sign up with a phone number", video: v("signup"),
+    { type: "feat", title: "Sign up with a phone number", live: "bnsignup", screens: [v("signup") + ".webp"],
       what: "Confirmation and reminders arrive on WhatsApp, an app people already use.",
       why: "Testers wanted it simple, with nothing new to learn." },
-    { type: "feat", title: "Host your own event", video: v("setup"),
+    { type: "feat", title: "Host your own event", live: "bnsetup", screens: [v("setup") + ".webp"],
       what: "Anyone can run a craft class or a sea swim, with times matched to partner hubs.",
       why: "Retirees feel undervalued, so they can host, not only attend." },
-    { type: "feat", title: "Hubs on every street", video: v("hubs"),
+    { type: "feat", title: "Hubs on every street", live: "bnhubs", screens: [v("hubs") + ".webp"],
       what: "Cafés and community centres host events in their quiet hours, and groups can claim a regular spot.",
       why: "The clock is ticking, so staying active happens close to home." },
 
@@ -2653,7 +2651,7 @@ function workView() {
     <section class="projects" aria-label="Projects">
       ${PROJECTS.map(p => `
         <a class="card" href="#${p.id}">
-          <div class="thumb">${img(p.image, p.title)}${p.id === "cortexus" ? cxAnim() : ""}<span class="follow"><span class="pill">${eye}<span class="pill-long">View project process</span><span class="pill-short">View project</span></span></span></div>
+          <div class="thumb">${img(p.image, p.title)}${p.id === "cortexus" ? cxAnim() : p.id === "beo-nua" ? bnAnim() : ""}<span class="follow"><span class="pill">${eye}<span class="pill-long">View project process</span><span class="pill-short">View project</span></span></span></div>
           <div><div class="card-top"><h2 class="card-title">${esc(p.title)}</h2></div><div class="label">${esc(p.tag)}${p.when ? ` · ${esc(p.when)}` : ""}</div></div>
         </a>`).join("")}
     </section>
@@ -2738,11 +2736,11 @@ const LC = {
       <div class="pp-intro">
         <h3 class="pp-name arc-name">${esc(b.name)}</h3>
         <p class="pp-meta">${esc(b.age)} · ${esc(b.job)}</p>
-        <blockquote class="pp-quote">“${esc(b.quote)}”${b.qref ? ` <span class="arc-ref">(${esc(b.qref)})</span>` : ""}</blockquote>
+        ${b.quote ? `<blockquote class="pp-quote">“${esc(b.quote)}”${b.qref ? ` <span class="arc-ref">(${esc(b.qref)})</span>` : ""}</blockquote>` : ""}
       </div>
     </div>
     <div class="pp-cols arc-cols">
-      ${[["Behavioural patterns", b.patterns], ["Relationship with AI", b.relationship], ["Potential trigger points", b.triggers]].filter(c => c[1] && c[1].length).map(c => `<div><h5>${c[0]}</h5>${ul(c[1])}</div>`).join("")}
+      ${(b.cols || [["Behavioural patterns", b.patterns], ["Relationship with AI", b.relationship], ["Potential trigger points", b.triggers]]).filter(c => c[1] && c[1].length).map(c => `<div><h5>${c[0]}</h5>${ul(c[1])}</div>`).join("")}
       ${b.quotes && b.quotes.length ? `<div class="arc-qs"><h5>Quotes forming the archetype</h5>${b.quotes.map(q => `<p>“${esc(q[0])}” <span class="arc-ref">(${esc(q[1])})</span></p>`).join("")}</div>` : ""}
     </div>`,
 
@@ -3140,7 +3138,7 @@ function projectView(p) {
           <div class="label">${esc(p.tag)}</div>
           <h1>${esc(p.title)}</h1>
         </header>
-        <div class="hero-img">${img(p.image, p.title)}${p.id === "cortexus" ? cxAnim() : ""}</div>
+        <div class="hero-img">${img(p.image, p.title)}${p.id === "cortexus" ? cxAnim() : p.id === "beo-nua" ? bnAnim() : ""}</div>
         ${p.proto ? `<a class="proto-link" href="#" data-proto="${p.proto}"><span class="label">Interactive prototype</span><span class="proto-go fill-btn">Try Cortexus for yourself <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>` : ""}
         <dl class="meta">
           <div><dt class="label">Role</dt><dd>${list(p.role)}</dd></div>
@@ -3699,6 +3697,7 @@ const pc = (x, y, w, h) => `left:${x / 16}%;top:${y / 8.2}%;width:${w / 16}%;hei
 const CX_SETS = [["iconPhaseGermination.png", "iconPhaseSporulation.png", "iconPhaseMyceliation.png", "iconPhaseNecrosis.png"], ["icon2PhaseGermination.webp", "icon2PhaseSporulation.webp", "icon2PhaseMyceliation.webp", "icon2PhaseNecrosis.webp"], ["icon3PhaseGermination.webp", "icon3PhaseMyceliation.webp", "icon3PhaseSporulation.webp", "icon3PhaseNecrosis.webp"], ["icon4PhaseGermination.png", "icon4PhaseSporulation.png", "icon4PhaseMyceliation.png", "icon4PhaseNecrosis.png"]];
 const CX_ROWS = [176, 262, 343, 430], CX_LINES = [219, 306, 392, 479], CX_BADGES = [187, 274, 360, 447];
 const CX_EKG = "M0,18 L20,18 L25,10 L30,26 L35,14 L40,20 L45,18 L70,18 L75,10 L80,26 L85,14 L90,20 L95,18 L120,18 L125,10 L130,26 L135,14 L140,20 L145,18 L170,18 L175,10 L180,26 L185,14 L190,20 L195,18 L220,18";
+const bnAnim = () => `<div class="bnw" aria-hidden="true"><div class="bnw-bar"><i></i><i></i><i></i></div><div class="live bnw-view" data-live="bnhero"><img class="live-poster" src="bn/web-hero.webp" alt=""><span class="live-cur"></span></div></div>`;
 const cxAnim = () => `<div class="cxa" aria-hidden="true">
   <div class="br" style="${pc(578, 174.5, 348, 348)}">${[1, 2, 3, 4].map(n => `<img src="cx/rot/brain${n}.webp" alt=""${n === 1 ? ' class="on"' : ""}>`).join("")}</div>
   ${CX_SETS.map((set, r) => `<div class="th" style="${pc(989, [176, 262, 344, 431][r], 56, 56)}">${set.map((f, i) => `<img src="cx/rot/${f}" alt=""${i ? "" : ' class="on"'}>`).join("")}</div>`).join("")}
@@ -3792,7 +3791,49 @@ const LIVE_FLOWS = (() => {
   const typeIn = async (L, el, str) => { const set = Object.getOwnPropertyDescriptor(L.win.HTMLInputElement.prototype, "value").set; el.focus(); for (let i = 1; i <= str.length; i++) { set.call(el, str.slice(0, i)); el.dispatchEvent(new L.win.Event("input", { bubbles: true })); await L.wait(110); } };
   const enter = (L, el) => ["keydown", "keypress", "keyup"].forEach(t => el.dispatchEvent(new L.win.KeyboardEvent(t, { key: "Enter", code: "Enter", keyCode: 13, which: 13, bubbles: true })));
   const plus = d => [...d.querySelectorAll("button")].filter(b => b.textContent.trim() === "+" && vis(b));
+  /* Beo Nua: the real website, scrolled and tapped like a visitor would */
+  const ease = p => p < .5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+  const bnScroll = async (L, to, ms = 1400) => {
+    const w = L.win, from = w.scrollY, max = L.doc().documentElement.scrollHeight - w.innerHeight;
+    const goal = Math.max(0, Math.min(max, typeof to === "number" ? to : to.getBoundingClientRect().top + from - w.innerHeight * .3));
+    const t0 = performance.now();
+    for (;;) { const p = Math.min(1, (performance.now() - t0) / ms); w.scrollTo({ top: from + (goal - from) * ease(p), behavior: "instant" }); if (p >= 1) break; await L.wait(16); }
+  };
+  const bnTap = async (L, get) => { let el = get(); for (let i = 0; !el && i < 20; i++) { await L.wait(200); el = get(); } if (!el) return; const r = el.getBoundingClientRect(); if (r.top < 80 || r.bottom > L.win.innerHeight - 40) await bnScroll(L, el, 900); await L.click(() => el, true); };
+  const bnType = async (L, el, str) => { if (!el) return; await L.move(el); el.focus(); const proto = el.tagName === "TEXTAREA" ? L.win.HTMLTextAreaElement.prototype : L.win.HTMLInputElement.prototype; const set = Object.getOwnPropertyDescriptor(proto, "value").set; for (let i = 1; i <= str.length; i++) { set.call(el, str.slice(0, i)); el.dispatchEvent(new L.win.Event("input", { bubbles: true })); await L.wait(70); } };
+  const $ = (L, sel) => { const e = L.doc().querySelector(sel); return vis(e) ? e : null; };
+  const bn = {
+    bnhero: { src: "proto/bnlive/index.html#home", run: async L => {
+      for (let i = 0; i < 3; i++) { await L.wait(1600); await bnScroll(L, 1e6, 16000); await L.wait(1600); await bnScroll(L, 0, 3200); } } },
+    bnbrowse: { src: "proto/bnlive/index.html#home", run: async L => {
+      await L.wait(600); await bnScroll(L, L.doc().getElementById("events"), 1600); await L.wait(600);
+      await bnTap(L, () => $(L, '[data-cat="outdoors"]')); await L.wait(1600);
+      await bnTap(L, () => $(L, '[data-cat="fitness"]')); await L.wait(1600);
+      await bnTap(L, () => $(L, '[data-cat="all"]')); await L.wait(500);
+      await bnType(L, $(L, "#q"), "book"); await L.wait(2200); } },
+    bnsignup: { src: "proto/bnlive/index.html#home", run: async L => {
+      await L.wait(600); await bnScroll(L, L.doc().getElementById("egrid"), 1600); await L.wait(500);
+      await bnTap(L, () => $(L, '#egrid [data-action="signup"]')); await L.wait(900);
+      await bnType(L, $(L, "#su-name"), "Mary Cassidy"); await L.wait(300);
+      await bnType(L, $(L, "#su-phone"), "087 123 4567"); await L.wait(400);
+      await bnTap(L, () => [...L.doc().querySelectorAll("#suform button")].filter(vis).pop()); await L.wait(3200); } },
+    bnsetup: { src: "proto/bnlive/index.html#setup", run: async L => {
+      await L.wait(600); await bnScroll(L, L.doc().getElementById("s-name"), 1200);
+      await bnType(L, $(L, "#s-name"), "Tuesday Tea & Chat"); await L.wait(300);
+      await bnType(L, $(L, "#s-desc"), "A cuppa and a chat, all welcome."); await L.wait(400);
+      await bnTap(L, () => $(L, '.mpin[data-ctx="setup"]')); await L.wait(800);
+      await bnScroll(L, L.doc().getElementById("cal"), 1200); await L.wait(300);
+      await bnTap(L, () => [...L.doc().querySelectorAll("[data-day]")].filter(b => !b.disabled && vis(b))[8]); await L.wait(600);
+      await bnTap(L, () => $(L, "[data-time]")); await L.wait(700);
+      await bnTap(L, () => $(L, '[data-scat="craft"]')); await L.wait(600);
+      await bnTap(L, () => $(L, '[data-action="post"]')); await L.wait(1200); await bnScroll(L, 0, 900); await L.wait(2400); } },
+    bnhubs: { src: "proto/bnlive/index.html#home", run: async L => {
+      await L.wait(600); await bnScroll(L, L.doc().getElementById("hubs"), 1800); await L.wait(600);
+      await bnTap(L, () => $(L, '#hubs .mpin')); await L.wait(1400);
+      await bnTap(L, () => $(L, '#hublist [data-action="hub-events"]')); await L.wait(3200); } },
+  };
   return {
+    ...bn,
     install: { cfg: {}, run: async L => {
       const inp = L.doc().querySelector("input"); await L.move(inp); await L.wait(300); await typeIn(L, inp, "Cortexus"); enter(L, inp); await L.wait(1400);
       await L.click(() => btn(L.doc(), /^Install$/), true);
@@ -3834,7 +3875,7 @@ function setupLive() {
     if (f._run) return;
     const run = f._run = { stop: false }; const flow = LIVE_FLOWS[f.dataset.live]; const cur = f.querySelector(".live-cur");
     const ifr = document.createElement("iframe"); ifr.setAttribute("aria-hidden", "true"); ifr.tabIndex = -1; f.prepend(ifr);
-    const fit = () => { const k = f.clientWidth / 1440; ifr.style.transform = `scale(${k})`; return k; };
+    const fit = () => { const k = f.clientWidth / 1440; ifr.style.transform = `scale(${k})`; if (flow.src) ifr.style.height = Math.ceil(f.clientHeight / k) + "px"; return k; };
     fit(); new ResizeObserver(fit).observe(f);
     const L = {
       win: null, doc: () => ifr.contentDocument,
@@ -3846,7 +3887,7 @@ function setupLive() {
       try {
         while (!run.stop) {
           f.classList.remove("on"); cur.style.transform = "translate(60%, 60%)";
-          await new Promise(res => { ifr.onload = res; ifr.srcdoc = LIVE_DOC(flow.cfg); });
+          await new Promise(res => { ifr.onload = res; if (flow.src) { try { localStorage.removeItem("beonua"); } catch (x) {} const [path, hash] = flow.src.split("#"); ifr.src = new URL(path, location.href).href + "?r=" + Date.now() + (hash ? "#" + hash : ""); } else ifr.srcdoc = LIVE_DOC(flow.cfg); });
           L.win = ifr.contentWindow; await L.wait(1200);
           const hide = setInterval(() => { try { const d = L.doc(); const e = [...d.querySelectorAll("div,span")].find(x => x.childElementCount === 0 && /^DEV:/.test(x.textContent.trim())); if (e) { let n = e; for (let i = 0; i < 3 && n.parentElement; i++) { if (n.parentElement.querySelectorAll("button").length >= 2) { n = n.parentElement; break; } n = n.parentElement; } n.style.visibility = "hidden"; } } catch (x) {} }, 150);
           try { await L.wait(600); while (!f._inView) await L.wait(120); f.classList.add("on"); await flow.run(L); await L.wait(1500); } finally { clearInterval(hide); }
@@ -3989,7 +4030,7 @@ function render() {
   else if (key === "fun") { location.replace("#work"); return; }
   else if (key === "about") { app.innerHTML = aboutView(); tab = "about"; setupReel(); }
   else if (key === "resume") { app.innerHTML = cvView(); tab = "resume"; showDl(); waitImgs(app); { const c = app.querySelector("[data-refs-cue]"), t = app.querySelector(".cv-refs"); if (c && t) setupCue(c, t); } }
-  else { app.innerHTML = workView(); setupAboutHead(); setupCx(); }
+  else { app.innerHTML = workView(); setupAboutHead(); setupCx(); setupLive(); }
   document.querySelectorAll("[data-nav]").forEach(a => {
     if (a.dataset.nav === tab) a.setAttribute("aria-current", "page");
     else a.removeAttribute("aria-current");
