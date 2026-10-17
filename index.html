@@ -1430,7 +1430,7 @@ body.zoom-open { overflow: hidden; }
 @media (max-width: 760px) { .pp-cols.arc-cols { grid-template-columns: minmax(0, 1fr); } }
 
 /* WORKSHOPS: why, what happened, findings, and where each finding went in the design */
-.ws { display: grid; gap: 28px; padding-top: 24px; }
+.ws { display: grid; gap: 28px; }
 .ws-head { display: grid; gap: 10px; }
 .ws-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(20px, 3.4vw, 44px); align-items: start; }
 .ws-img { margin: 0; aspect-ratio: 4 / 3; overflow: hidden; background: var(--panel); }
@@ -2047,7 +2047,7 @@ function cortexusBlocks() {
     { type: "board", kind: "gallery", caption: "Speculative moodboards: the four directions explored", c: 1, ratio: "1405 / 916", contain: true, images: [[p("directions"), ""]] },
     { type: "subsection", heading: "Round 1: two concepts into testing.",
       lead: "After an open discussion in the studio, Brain Rot and Distorting Relationships drew the strongest reactions, so I tested both with two designers." },
-    { type: "board", kind: "fade", caption: "Round 1 concepts", slides: [
+    { type: "board", kind: "fade", caption: "", slides: [
       { label: "Brain Rot", image: p("brainrot-concept"), ratio: "1033 / 482", caption: "Mould grows on your brain scan as you offload. Mobile and desktop." },
       { label: "Distorting Relationships", image: p("relationships-concept"), ratio: "1359 / 774", caption: "AI replies like four colleagues, each with a different cost for leaning on them." },
     ]},
@@ -2058,14 +2058,13 @@ function cortexusBlocks() {
 
     { type: "subsection", heading: "Developing two concepts.",
       lead: "I developed Brain Rot into Mouldy Thoughts, and Nurturing Skills into Growing Beyond AI, a version where your skills grow as flowers. Both were built out for mobile and desktop, ready for designers to compare." },
-    { type: "board", kind: "fade", caption: "Developed concepts", slides: [
+    { type: "board", kind: "fade", caption: "", slides: [
       { label: "Mouldy Thoughts", image: p("mouldy-thoughts"), ratio: "1576 / 735", caption: "Mould grows on your brain as you offload. Mobile and desktop." },
       { label: "Growing Beyond AI", image: p("growing-beyond"), ratio: "1527 / 718", caption: "Your skills grow as flowers when you practise them. Mobile and desktop." },
     ]},
 
-    { type: "section", label: "Co-designing", count: "14 designers", heading: "Two workshops, two questions only designers could answer.",
-      lead: "Designers were the users, so they made the big calls. The first workshop chose the concept. The second defined how it works." },
-    { type: "workshop", tag: "Workshop 1 · Feedback", count: "10 designers", title: "Mouldy Thoughts or Growing Beyond AI?",
+    { type: "section", label: "Workshop 1 · Feedback", count: "10 designers", heading: "Mouldy Thoughts or Growing Beyond AI?" },
+    { type: "workshop",
       images: [[p("critique"), "Presenting both concepts to Accenture designers"], ["me/workshop.webp", "Designers giving feedback on sticky notes"]],
       parts: [
         ["Why", "To decide which concept to take forward."],
@@ -2081,7 +2080,8 @@ function cortexusBlocks() {
         [p("scr-dashboard"), "Mouldy Thoughts became Cortexus", "Each skill gets its own region of a brain scan, and mould grows on the skill you hand over."],
         [p("vibrant-brains"), "A colourful, healthy brain", "The brain starts vibrant and loses its colour as mould spreads, so there's always something to work back towards."],
       ]},
-    { type: "workshop", tag: "Workshop 2 · Co-design", count: "4 designers", title: "Defining how Cortexus works.",
+    { type: "section", label: "Workshop 2 · Co-design", count: "4 designers", heading: "Defining how Cortexus works." },
+    { type: "workshop",
       image: p("reflective"), alt: "Four designers working through reflective thinking worksheets, with feedback questions on the wall behind them",
       parts: [
         ["Why", "After the Accenture workshop, to define what Cortexus protects and how it steps in."],
@@ -2689,7 +2689,7 @@ const APP_BOARDS = new Set(["vids"]);
 /* FADER: images that change on their own, with thin progress lines (not buttons) */
 const fader = (slides, ratioOf) => `<div class="fade" data-fade>
     <div class="fade-stack">${slides.map((sl, i) => `<figure class="fade-slide${i ? "" : " on"}"${i ? ' aria-hidden="true"' : ""}><div class="fade-img" style="aspect-ratio:${ratioOf(sl)}">${img(sl.image, sl.caption || sl.label || "")}</div>${sl.caption ? `<figcaption>${sl.label ? `<b>${esc(sl.label)}</b> · ` : ""}${esc(sl.caption)}</figcaption>` : ""}</figure>`).join("")}</div>
-    ${slides.length > 1 ? `<div class="fade-bars" aria-hidden="true">${slides.map((_, i) => `<i${i ? "" : ' class="run"'}></i>`).join("")}</div>` : ""}</div>`;
+</div>`;
 const LC = {
   photo: b => `<figure class="lcb" style="margin:0">${boardHead(b.caption)}<div class="lcb-img">${img(b.image, b.caption)}</div></figure>`,
 
@@ -2735,7 +2735,7 @@ const LC = {
   },
   journey: b => `<div class="lcb">${boardHead("User journey map: " + b.who)}${LC.journeyBody(b)}</div>`,
 
-  fade: b => `<div class="lcb">${boardHead(b.caption)}${fader(b.slides, sl => sl.ratio || "16 / 9")}</div>`,
+  fade: b => `<div class="lcb">${b.caption ? boardHead(b.caption) : ""}${fader(b.slides, sl => sl.ratio || "16 / 9")}</div>`,
 
   carousel: b => {
     const id = "car" + Math.random().toString(36).slice(2, 7);
@@ -3026,7 +3026,6 @@ const BLOCKS = {
   text: b => `<div class="cs-text">${b.paragraphs.map(t => txt(t)).join("")}</div>`,
   media: b => `<div class="cs-media">${stage(b, "wide")}</div>`,
   workshop: b => `<article class="ws">
-      <header class="ws-head"><div class="cs-labelrow"><div class="cs-label">${esc(b.tag)}</div>${b.count ? `<span class="cs-count"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c.6-3.2 3-5 6-5s5.4 1.8 6 5"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.6.2 4.4 1.8 5 4.8"/></svg>${esc(b.count)}</span>` : ""}</div>${txt(b.title, "h3", "cs-h3")}</header>
       <div class="ws-top">${b.images ? `<div class="ws-fade">${fader(b.images.map(([image, caption]) => ({ image, caption })), () => "4 / 3")}</div>` : `<figure class="ws-img">${img(b.image, b.alt || "")}</figure>`}
         <div class="ws-why">${b.parts.map(([k, t]) => `<div><div class="cs-label">${esc(k)}</div><p>${esc(t)}</p></div>`).join("")}</div></div>
       <div class="ws-find"><div class="cs-label">What I found</div>
