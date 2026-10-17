@@ -1379,6 +1379,21 @@ footer { border-top: 1px solid var(--line); }
 .other-grid .thumb { aspect-ratio: 16 / 10; }
 @media (max-width: 760px) { .lens, .skill-row { grid-template-columns: minmax(0, 1fr); } .other-grid { grid-auto-columns: 85%; } .lens > div:nth-child(even) { padding-left: 0; border-left: 0; } }
 
+/* ONE-IMAGE BOARDS stay full width on every screen */
+.lcgrid.one { grid-template-columns: minmax(0, 1fr) !important; }
+/* ZOOM: tap or click a board image to see it full screen */
+.gal-cell .lcb-img img { cursor: zoom-in; }
+.zoom { position: fixed; inset: 0; z-index: 120; background: rgba(14, 16, 20, .92); display: grid; place-items: center; padding: 56px 12px 12px; overflow: auto; touch-action: pinch-zoom; }
+.zoom img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; background: #FFFFFF; }
+.zoom button { position: fixed; top: 12px; right: 12px; display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(255,255,255,.6); background: transparent; color: #FFFFFF; font: inherit; font-size: 12.5px; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; }
+.zoom button:hover { background: var(--accent); border-color: var(--accent); }
+body.zoom-open { overflow: hidden; }
+@media (max-width: 760px) {
+  .zoom { place-items: start; padding: 60px 0 0; overscroll-behavior: contain; }
+  .zoom img { max-width: none; max-height: none; width: 230vw; }
+  .zoom::after { content: "Drag to explore"; position: fixed; left: 16px; top: 22px; color: rgba(255,255,255,.75); font-size: 12.5px; letter-spacing: .05em; text-transform: uppercase; }
+}
+
 /* CAROUSEL TABS: same outlined, orange-sweep buttons as the rest of the site; no arrows */
 .lcb.plain .car-arrow { display: none; }
 .lcb.plain .chips .lcpill.car-tab { height: auto; padding: 10px 18px; border-radius: 999px; font-family: var(--sans); font-size: 12.5px; letter-spacing: .05em; text-transform: uppercase; }
@@ -2732,7 +2747,7 @@ const LC = {
     <div class="lcgrid vids" style="--c:${b.c || 2}">${b.vids.map(v => `<figure class="shot${v[2] ? " phone-shot" : ""}"><div class="win"><div class="bar"><i></i><i></i><i></i></div><video data-auto poster="${v[0]}.webp" muted loop playsinline preload="none" aria-label="${esc(v[1])}"><source src="${v[0]}.webm" type="video/webm"><source src="${v[0]}.mp4" type="video/mp4"></video></div><figcaption>${esc(v[1])}</figcaption></figure>`).join("")}</div></div>`,
 
   gallery: b => `<div class="lcb">${boardHead(b.caption)}
-    <div class="lcgrid" style="--c:${b.c || 3}">${b.images.map(im => `<figure class="gal-cell${b.contain ? " contain" : ""}" style="--r:${b.ratio || "4 / 3"}"><div class="lcb-img">${img(im[0], im[1] || b.caption)}</div>${im[1] ? `<figcaption>${esc(im[1])}</figcaption>` : ""}</figure>`).join("")}</div>
+    <div class="lcgrid${(b.c || 3) === 1 ? " one" : ""}" style="--c:${b.c || 3}">${b.images.map(im => `<figure class="gal-cell${b.contain ? " contain" : ""}" style="--r:${b.ratio || "4 / 3"}"><div class="lcb-img">${img(im[0], im[1] || b.caption)}</div>${im[1] ? `<figcaption>${esc(im[1])}</figcaption>` : ""}</figure>`).join("")}</div>
     ${b.note ? `<div class="lcc y"><p>${esc(b.note)}</p></div>` : ""}</div>`,
 
   quotes: b => `<div class="lcb">${boardHead(b.caption)}
@@ -3655,6 +3670,19 @@ function setupCx() {
     if (!still) cxTimers.push(setTimeout(cycle, 600));
   });
 }
+
+/* ZOOM: open a board image full screen; close with the button, a tap on the backdrop, or Esc */
+app.addEventListener("click", e => {
+  const im = e.target.closest(".gal-cell .lcb-img img"); if (!im) return;
+  const z = document.createElement("div"); z.className = "zoom"; z.setAttribute("role", "dialog"); z.setAttribute("aria-modal", "true"); z.setAttribute("aria-label", "Enlarged image");
+  z.innerHTML = `<button type="button">Close ✕</button><img src="${esc(im.getAttribute("src"))}" alt="${esc(im.alt || "")}">`;
+  const close = () => { z.remove(); document.body.classList.remove("zoom-open"); document.removeEventListener("keydown", key); };
+  const key = ev => { if (ev.key === "Escape") close(); };
+  z.addEventListener("click", ev => { if (ev.target === z || ev.target.closest("button")) close(); });
+  document.addEventListener("keydown", key);
+  document.body.append(z); document.body.classList.add("zoom-open"); z.querySelector("button").focus();
+});
+window.addEventListener("hashchange", () => { document.querySelectorAll(".zoom").forEach(n => n.remove()); document.body.classList.remove("zoom-open"); });
 
 /* PROTOTYPE VIEWER */
 function openProto(name) {
