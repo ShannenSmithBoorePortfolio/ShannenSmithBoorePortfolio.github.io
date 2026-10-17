@@ -2180,28 +2180,31 @@ function cortexusBlocks() {
       lead: "A desktop app and Claude extension. You choose the four soft skills you want to protect. Every time you offload one to AI, mould grows on that part of your brain scan. Write in your journal instead, and it clears." },
     { type: "media", stage: "grey", image: p("cover") },
 
-    { type: "section", label: "Features", heading: "What designers asked for, built in." },
-    { type: "feat", title: "Where it lives", live: "install", screens: ["cx/w/i1-store.webp", "cx/w/i2-install.webp", "cx/w/i3-open.webp", "cx/w/i4-splash.webp", "cx/w/i5-welcome.webp"],
-      what: "A desktop app for Windows, installed from the Microsoft Store like any other tool.",
-      why: "Designers use AI at their desks, not on their phones, so Cortexus lives where the work happens." },
+    { type: "section", label: "Features", heading: "Through the prototype, start to finish." },
+    { type: "feat", title: "Where it lives", live: "install", screens: ["cx/w/i1-store.webp"],
+      what: "A Windows desktop app, installed from the Microsoft Store.",
+      why: "Designers use AI at their desks, not on their phones." },
+    { type: "feat", title: "Consent first", live: "consent", screens: ["cx/w/o1-welcome.webp"],
+      what: "Designers accept the terms before anything is tracked.",
+      why: "Round 1 testers flagged late consent as a dark pattern." },
     { type: "feat", title: "What we track", live: "track", screens: ["cx/w/o2-track.webp"],
-      what: "A plain explanation of what Cortexus reads: prompts that are AI decided, user decided, or journaled first.",
-      why: "Round 1 testers wanted more explanation and clearer language, so nothing is tracked without being explained." },
-    { type: "feat", title: "Journaling", live: "journal", screens: ["cx/w/o5-display.webp", "cx/scr-claude-journal.webp"],
-      what: "A journal designers can write in before turning to AI. Journaling first clears the mould.",
-      why: "In co-design, designers wanted to think on paper first: \"paper first, screen second\"." },
-    { type: "feat", title: "The dashboard", live: "dash", screens: ["cx/w/d1.webp", "cx/w/d2.webp", "cx/w/d3.webp", "cx/w/d4.webp"],
-      what: "A brain scan with a region for each skill. Mould grows through four phases as that skill is offloaded.",
-      why: "Designers asked for a brain that's colourful when healthy and bleaches as mould spreads, so there's something to work back to." },
-    { type: "feat", title: "Descriptive onboarding", live: "onboard", screens: ["cx/w/o1-welcome.webp", "cx/w/o3-skills.webp", "cx/w/o4-limits.webp", "cx/w/o6-journal.webp"],
-      what: "Consent first, then each designer picks the four skills they protect and sets their own limits, with a short dashboard tour.",
-      why: "Late consent was flagged as a dark pattern, and every designer values different skills, so they set the rules." },
-    { type: "feat", title: "Tracking", live: "tracking", screens: ["cx/scr-phase.webp"],
-      what: "Every AI-decided prompt counts towards that skill's limit, with the phase and prompts left shown as you work.",
-      why: "Designers hand over thinking without noticing. You can't change a habit you can't see." },
-    { type: "feat", title: "The Claude extension", live: "ext", screens: ["cx/w/c1-claude.webp", "cx/w/c2-enable.webp", "cx/w/c3-ask.webp", "cx/w/c4-mould.webp"],
-      what: "A browser extension inside Claude. When a prompt hands over a skill, it flags the mould and offers the journal.",
-      why: "Co-design asked for the pause to come from the AI itself, not another app to remember." },
+      what: "A plain explanation of the three prompt types Cortexus reads.",
+      why: "Testers wanted more explanation and simpler language." },
+    { type: "feat", title: "Your skills, your limits", live: "skills", screens: ["cx/w/o4-limits.webp"],
+      what: "Designers set how many prompts each skill allows before mould grows.",
+      why: "Every designer values different skills, so they set the rules." },
+    { type: "feat", title: "Journal it first", live: "journal", screens: ["cx/w/o5-display.webp"],
+      what: "An option to write your own thinking before asking AI.",
+      why: "Co-design: \"paper first, screen second\"." },
+    { type: "feat", title: "The dashboard", live: "dash", screens: ["cx/w/d1.webp"],
+      what: "A brain scan that grows mould through four phases.",
+      why: "Designers asked for a colourful brain that bleaches." },
+    { type: "feat", title: "The Claude extension", live: "ext", screens: ["cx/w/c1-claude.webp"],
+      what: "Cortexus added to Claude in a few clicks.",
+      why: "The pause should come from the AI itself." },
+    { type: "feat", title: "The nudge", live: "tracking", screens: ["cx/w/c3-ask.webp"],
+      what: "Ask Claude to decide for you, and Cortexus flags the mould.",
+      why: "You can't change a habit you can't see." },
 
     { type: "section", label: "Impact", heading: "What Cortexus changes." },
     { type: "points", items: [
@@ -3851,14 +3854,23 @@ const LIVE_FLOWS = (() => {
     await L.click(() => btn(L.doc(), /^Enable now$/), show); await L.wait(2600);
   };
   return {
-    install: { boot: async () => {}, run: async L => { await install(L, true); await L.wait(2500); } },
+    install: { boot: async () => {}, run: async L => {
+      const d = L.doc(); const inp = d.querySelector("input"); await L.move(inp); await L.wait(300); await typeIn(L, inp, "Cortexus"); enter(L, inp); await L.wait(1200);
+      await L.click(() => btn(L.doc(), /^Install$/), true); await L.wait(5300);
+      await L.click(() => btn(L.doc(), /^Open$/), true); await L.wait(3500); } },
+    consent: { boot: async L => { await install(L); }, run: async L => {
+      await L.click(() => L.doc().querySelector("input[type=checkbox]") || text(L.doc(), /I accept/), true); await L.wait(1000);
+      await L.click(() => btn(L.doc(), /^GET STARTED$/i), true); await L.wait(1800); } },
+    skills: { boot: async L => { await install(L); await step(L, 3); }, run: async L => {
+      await L.click(() => btn(L.doc(), /^Decision making$/, true), true); await L.wait(1200);
+      for (let i = 0; i < 3; i++) { await L.click(() => [...L.doc().querySelectorAll("button")].filter(b => b.textContent.trim() === "+" && vis(b))[1], true); await L.wait(600); }
+      await L.wait(1500); } },
     track: { boot: async L => { await install(L); await step(L, 2); }, run: async L => {
       for (const re of [/^Prompt Types$/, /^AI Decided$/, /^User Decided$/, /^Journaling$/]) { await L.move(text(L.doc(), re)); await L.wait(1100); }
-      await L.click(() => btn(L.doc(), /^CONTINUE$/i), true); await L.wait(2500); } },
+      await L.wait(800); } },
     journal: { boot: async L => { await install(L); await step(L, 5); }, run: async L => {
-      const row = text(L.doc(), /^Journal It First$/i); const r = row && row.parentElement.getBoundingClientRect();
-      await L.click(() => { const d = L.doc(); const t = row && [...row.closest("div").parentElement.querySelectorAll("button,[role=switch],input")].find(vis); return t || at(d, .628, .237); }, true); await L.wait(1500);
-      await L.click(() => btn(L.doc(), /^GO TO DASHBOARD$/i), true); await L.wait(3000); } },
+      const t = () => { const d = L.doc(); const row = text(d, /^Journal It First$/i); if (!row) return null; let n = row; for (let i = 0; i < 4 && n; i++) { const c = [...n.querySelectorAll("button,[role=switch],input")].find(vis); if (c) return c; n = n.parentElement; } return null; };
+      await L.wait(800); await L.click(t, true); await L.wait(2200); await L.click(t, true); await L.wait(1800); await L.click(t, true); await L.wait(2200); } },
     dash: { boot: async L => { await install(L); await step(L, 6); await L.wait(500); }, run: async L => {
       await L.click(() => text(L.doc(), /^Skip for now$/) || btn(L.doc(), /^Skip for now$/), true); await L.wait(1500);
       for (const n of ["2", "3", "4"]) { await L.click(() => btn(L.doc(), new RegExp("^" + n + "$")), true); await L.wait(3000); }
