@@ -1466,6 +1466,7 @@ body.zoom-open { overflow: hidden; }
 .fade-slide.on { opacity: 1; visibility: visible; transition: opacity .9s ease; }
 .fade-img { overflow: hidden; background: #F4F4F4; display: grid; place-items: center; }
 .fade-img img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.fade-img img[src*="critique"], .fade-img img[src*="me/workshop"] { object-fit: cover; }
 .ws-fade .fade-img img { object-fit: cover; }
 .fade-slide figcaption { font-size: 14px; line-height: 1.5; color: var(--muted); }
 .fade-slide figcaption b { font-weight: 500; color: var(--ink); }
@@ -2072,7 +2073,10 @@ function cortexusBlocks() {
       { label: "Mouldy Thoughts", image: p("mouldy-thoughts"), ratio: "1576 / 735", caption: "mould grows on your brain as you offload" },
       { label: "Growing Beyond AI", image: p("growing-beyond"), ratio: "1527 / 718", caption: "skills grow as flowers when you practise" },
     ]},
-    { type: "board", kind: "gallery", caption: "Feedback workshop with Accenture designers", c: 1, ratio: "3 / 2", images: [[p("critique"), ""], ["me/workshop.webp", ""]] },
+    { type: "board", kind: "fade", caption: "", slides: [
+      { label: "Feedback workshop with Accenture designers", image: p("critique"), ratio: "4 / 3" },
+      { label: "Feedback workshop with Accenture designers", image: "me/workshop.webp", ratio: "4 / 3" },
+    ]},
     { type: "points", label: "What round 2 showed", items: [
       { title: "Growing Beyond AI lost its pull", text: "Comfortable, but the novelty wore off, and plant-style tracker apps already exist." },
       { title: "Mouldy Thoughts moved forward", text: "\"I reflected on my usage and it made me feel bad but in a good way.\"" },
