@@ -2056,35 +2056,24 @@ function cortexusBlocks() {
       { title: "Distorting Relationships stayed a talking point", text: "Designers found it interesting, but \"more of a talking point\"." },
     ]},
 
-    { type: "subsection", heading: "Developing two concepts.",
-      lead: "I developed Brain Rot into Mouldy Thoughts, and Nurturing Skills into Growing Beyond AI, a version where your skills grow as flowers. Both were built out for mobile and desktop, ready for designers to compare." },
+    { type: "subsection", heading: "Round 2: two developed concepts.",
+      lead: "I developed Brain Rot into Mouldy Thoughts, and Nurturing Skills into Growing Beyond AI, where your skills grow as flowers. Ten Accenture designers compared them in a feedback workshop." },
     { type: "board", kind: "fade", caption: "", slides: [
       { label: "Mouldy Thoughts", image: p("mouldy-thoughts"), ratio: "1576 / 735", caption: "Mould grows on your brain as you offload. Mobile and desktop." },
       { label: "Growing Beyond AI", image: p("growing-beyond"), ratio: "1527 / 718", caption: "Your skills grow as flowers when you practise them. Mobile and desktop." },
     ]},
+    { type: "board", kind: "gallery", caption: "", c: 2, ratio: "4 / 3", images: [[p("critique"), "Presenting both concepts to Accenture designers"], ["me/workshop.webp", "Designers giving feedback on sticky notes"]] },
+    { type: "points", label: "What round 2 showed", items: [
+      { title: "Growing Beyond AI lost its pull", text: "Comfortable, but the novelty wore off, and plant-style tracker apps already exist." },
+      { title: "Mouldy Thoughts moved forward", text: "\"I reflected on my usage and it made me feel bad but in a good way.\"" },
+      { title: "Show the healthy brain too", text: "Four designers wanted a colourful brain that bleaches, not constant negativity." },
+    ]},
 
-    { type: "section", label: "Workshop 1 · Feedback", count: "10 designers", heading: "Mouldy Thoughts or Growing Beyond AI?" },
-    { type: "workshop",
-      images: [[p("critique"), "Presenting both concepts to Accenture designers"], ["me/workshop.webp", "Designers giving feedback on sticky notes"]],
-      parts: [
-        ["Why", "To decide which concept to take forward."],
-        ["What happened", "Ten Accenture designers compared both concepts and gave feedback on sticky notes."],
-      ],
-      findings: [
-        ["Growing Beyond AI was comfortable, but lost its pull once the novelty wore off.", ""],
-        ["Mouldy Thoughts made designers reflect, so it moved forward.", ""],
-        ["Four designers wanted a colourful brain that bleaches, not constant negativity.", ""],
-      ],
-      quote: "I reflected on my usage and it made me feel bad but in a good way.",
-      into: [
-        [p("scr-dashboard"), "Mouldy Thoughts became Cortexus", "Each skill gets its own region of a brain scan, and mould grows on the skill you hand over."],
-        [p("vibrant-brains"), "A colourful, healthy brain", "The brain starts vibrant and loses its colour as mould spreads, so there's always something to work back towards."],
-      ]},
-    { type: "section", label: "Workshop 2 · Co-design", count: "4 designers", heading: "Defining how Cortexus works." },
+    { type: "section", label: "Co-design workshop", count: "4 designers", heading: "Defining how Cortexus works." },
     { type: "workshop",
       image: p("reflective"), alt: "Four designers working through reflective thinking worksheets, with feedback questions on the wall behind them",
       parts: [
-        ["Why", "After the Accenture workshop, to define what Cortexus protects and how it steps in."],
+        ["Why", "After the Accenture feedback workshop, to define what Cortexus protects and how it steps in."],
         ["What happened", "Four designers mapped their own process on worksheets and answered questions on the wall."],
       ],
       findings: [
@@ -2795,7 +2784,7 @@ const LC = {
   vids: b => `<div class="lcb">${boardHead(b.caption)}
     <div class="lcgrid vids" style="--c:${b.c || 2}">${b.vids.map(v => `<figure class="shot${v[2] ? " phone-shot" : ""}"><div class="win"><div class="bar"><i></i><i></i><i></i></div><video data-auto poster="${v[0]}.webp" muted loop playsinline preload="none" aria-label="${esc(v[1])}"><source src="${v[0]}.webm" type="video/webm"><source src="${v[0]}.mp4" type="video/mp4"></video></div><figcaption>${esc(v[1])}</figcaption></figure>`).join("")}</div></div>`,
 
-  gallery: b => `<div class="lcb">${boardHead(b.caption)}
+  gallery: b => `<div class="lcb">${b.caption ? boardHead(b.caption) : ""}
     <div class="lcgrid${(b.c || 3) === 1 ? " one" : ""}" style="--c:${b.c || 3}">${b.images.map(im => `<figure class="gal-cell${b.contain ? " contain" : ""}" style="--r:${b.ratio || "4 / 3"}"><div class="lcb-img">${img(im[0], im[1] || b.caption)}</div>${im[1] ? `<figcaption>${esc(im[1])}</figcaption>` : ""}</figure>`).join("")}</div>
     ${b.note ? `<div class="lcc y"><p>${esc(b.note)}</p></div>` : ""}</div>`,
 
