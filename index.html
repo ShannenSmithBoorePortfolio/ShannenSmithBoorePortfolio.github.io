@@ -1467,6 +1467,8 @@ body.zoom-open { overflow: hidden; }
 .fade-img { overflow: hidden; background: #F4F4F4; display: grid; place-items: center; }
 .fade-img img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .fade-img img[src*="critique"], .fade-img img[src*="me/workshop"] { object-fit: cover; }
+.fade:has(img[src*="critique"]) .fade-slide { max-width: 560px; }
+.lcb.plain:has(img[src*="critique"]) .fade { justify-items: start; }
 .ws-fade .fade-img img { object-fit: cover; }
 .fade-slide figcaption { font-size: 14px; line-height: 1.5; color: var(--muted); }
 .fade-slide figcaption b { font-weight: 500; color: var(--ink); }
