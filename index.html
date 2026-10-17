@@ -226,7 +226,7 @@ body.pv-open { overflow: hidden; }
 .thumb::after { content: ""; position: absolute; inset: 0; background: rgba(20, 24, 32, 0); transition: background .5s ease; pointer-events: none; z-index: 1; }
 .card:hover .thumb::after { background: rgba(20, 24, 32, .12); }
 .card:hover .thumb:has(.bnw)::after { background: transparent; }
-.thumb .follow { z-index: 2; }
+.thumb .follow { z-index: 3; }
 @media (hover: hover) {
   .pill { transform: scale(.6); filter: blur(4px); transition: opacity .3s ease, transform .5s cubic-bezier(.34, 1.56, .64, 1), filter .3s ease; }
   .thumb:hover .pill, .card:focus-visible .pill { transform: scale(1); filter: none; }
@@ -234,7 +234,7 @@ body.pv-open { overflow: hidden; }
 /* BEO NUA COVER: the real website scrolling in a browser window on a brand gradient */
 .thumb:has(.bnw), .hero-img:has(.bnw) { background: radial-gradient(60% 70% at 50% 55%, rgba(255, 250, 244, .85) 0%, rgba(255, 250, 244, 0) 70%), linear-gradient(125deg, #F2A47F 0%, #F7CDB4 30%, #F6E2D6 50%, #DCD9F2 72%, #AEB3E6 100%); }
 .thumb:has(.bnw) > img, .hero-img:has(.bnw) > img { opacity: 0; }
-.bnw { position: absolute; left: 4.5%; top: 12%; width: 71%; height: 76%; display: flex; flex-direction: column; border-radius: 10px; overflow: hidden; background: #FFF5DE; pointer-events: none; container-type: inline-size; box-shadow: 0 34px 60px -30px rgba(120, 52, 24, .45), 0 12px 24px -16px rgba(19, 63, 65, .25), 0 0 0 1px rgba(19, 63, 65, .08); transition: transform .7s cubic-bezier(.2,.7,.2,1), box-shadow .7s ease; }
+.bnw { position: absolute; z-index: 1; left: 7%; top: 11%; width: 74%; height: 76%; display: flex; flex-direction: column; border-radius: 10px; overflow: hidden; background: #FFF5DE; pointer-events: none; container-type: inline-size; box-shadow: 0 34px 60px -30px rgba(120, 52, 24, .45), 0 12px 24px -16px rgba(19, 63, 65, .25), 0 0 0 1px rgba(19, 63, 65, .08); transition: transform .7s cubic-bezier(.2,.7,.2,1), box-shadow .7s ease; }
 .card:hover .thumb .bnw { transform: translateY(-6px) scale(1.015); box-shadow: 0 48px 80px -32px rgba(120, 52, 24, .5), 0 16px 30px -18px rgba(19, 63, 65, .3), 0 0 0 1px rgba(19, 63, 65, .08); }
 .bnw-bar { flex: none; height: 4cqw; display: flex; align-items: center; justify-content: space-between; padding: 0 1.4cqw; background: #FBF7F0; border-bottom: 1px solid rgba(19, 63, 65, .08); }
 .bnw-dots { display: flex; gap: .7cqw; }
@@ -249,7 +249,7 @@ body.pv-open { overflow: hidden; }
 .live.on.bnp-view .live-cur { opacity: 0; }
 .bnp .live-cur.tap { animation: bnTouch .7s ease; }
 @keyframes bnTouch { 0% { opacity: 0; scale: .6; } 30% { opacity: 1; scale: 1; } 100% { opacity: 0; scale: 1.5; } }
-.bnp { position: absolute; right: 4%; bottom: 9%; height: 68%; aspect-ratio: 9 / 19; padding: .7%; border-radius: 12% / 5.7%; background: #17191C; pointer-events: none; box-shadow: 0 30px 50px -24px rgba(19, 40, 42, .55), 0 0 0 1px rgba(255, 255, 255, .08) inset; transition: transform .7s cubic-bezier(.2,.7,.2,1); }
+.bnp { position: absolute; z-index: 2; right: 6%; bottom: 7%; height: 72%; aspect-ratio: 9 / 19; padding: .7%; border-radius: 12% / 5.7%; background: #17191C; pointer-events: none; box-shadow: 0 30px 50px -24px rgba(19, 40, 42, .55), 0 0 0 1px rgba(255, 255, 255, .08) inset; transition: transform .7s cubic-bezier(.2,.7,.2,1); }
 .card:hover .thumb .bnp { transform: translateY(-10px); }
 .bnp .bnp-view { width: 100%; height: 100%; aspect-ratio: auto; border-radius: 10% / 4.8%; box-shadow: none; background: #CC4A1E; }
 .bnp .live-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
