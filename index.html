@@ -1383,7 +1383,7 @@ footer { border-top: 1px solid var(--line); }
 /* image slides in a carousel */
 .car-img { margin: 0; }
 /* EMBED: a Notion-style preview of the Figma board that opens it */
-.cs-embed { display: grid; max-width: 780px; background: #FFFFFF; border: 1px solid var(--panel-line); border-radius: 8px; overflow: hidden; transition: border-color .2s, box-shadow .2s; }
+.cs-embed { display: grid; max-width: 780px; width: 100%; justify-self: center; background: #FFFFFF; border: 1px solid var(--panel-line); border-radius: 8px; overflow: hidden; transition: border-color .2s, box-shadow .2s; }
 .cs-embed:hover { border-color: var(--accent); box-shadow: 0 14px 34px -22px rgba(20, 24, 32, .45); }
 .cs-embed-bar { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--panel-line); }
 .cs-embed-bar .cs-link-ic { width: 32px; height: 32px; }
@@ -2121,17 +2121,6 @@ function cortexusBlocks() {
     { type: "section", label: "Building the prototype", heading: "Designed by hand, built with AI.",
       lead: "Before building anything, I mapped how Cortexus would work: what each mould phase looks like, what causes it, and which prompts count as offloading. I designed every screen by hand in Figma first, then used AI only to build the working prototype." },
     { type: "embed", href: "https://www.figma.com/board/BrmLm1t9sBUKswsHdw95Jl/Ideation?node-id=0-1&t=1j1lItRNCi56ZH2i-1", title: "Ideation and prototyping journey", image: p("board") },
-    { type: "points", label: "Tools I used", items: [
-      { title: "Figma", text: "Every screen and the design system, designed by hand first." },
-      { title: "Claude", text: "Coding the interactive desktop app and the Claude extension." },
-      { title: "Gemini", text: "Exploring the mould and brain scan visuals." },
-    ]},
-    { type: "points", label: "How I worked with AI", items: [
-      { title: "AI built, I decided", text: "Claude was strong at structure, but burned through credits and pushed its own style." },
-      { title: "Figma Make fell short", text: "It flattened the texture and personality the concept needed." },
-      { title: "Hand first, AI second", text: "The best workflow was the habit Cortexus encourages: think first, then use AI to build." },
-    ]},
-    { type: "board", kind: "gallery", caption: "AI-built iterations", c: 2, ratio: "4 / 3", contain: true, images: [[p("claude-proto"), ""], [p("figma-make"), ""]] },
 
     { type: "section", label: "User testing round 1", count: "10 designers", heading: "Prototype 1: does it make designers reflect?",
       lead: "I tested the first prototype with ten product and interaction designers at Accenture." },
