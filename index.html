@@ -1382,6 +1382,13 @@ footer { border-top: 1px solid var(--line); }
 
 /* image slides in a carousel */
 .car-img { margin: 0; }
+/* IMAGE SIZE: no image taller than most of the screen; centred in its panel */
+.fade-img { width: min(100%, calc(min(540px, 68vh) * var(--ar, 1.6))); justify-self: center; }
+.fade-slide figcaption { justify-self: start; }
+.lcgrid.one .gal-cell .lcb-img { aspect-ratio: auto !important; display: grid; place-items: center; background: transparent; }
+.lcgrid.one .gal-cell .lcb-img img { width: auto; height: auto; max-width: 100%; max-height: min(540px, 68vh); object-fit: contain; }
+.lcgrid .gal-cell.contain .lcb-img { max-height: min(540px, 68vh); }
+.lcgrid .gal-cell.contain .lcb-img img { object-position: center; }
 /* ONE-IMAGE BOARDS stay full width on every screen */
 .lcgrid.one { grid-template-columns: minmax(0, 1fr) !important; }
 /* ZOOM: tap or click a board image to see it full screen */
@@ -1467,8 +1474,7 @@ body.zoom-open { overflow: hidden; }
 .fade-img { overflow: hidden; background: #F4F4F4; display: grid; place-items: center; }
 .fade-img img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .fade-img img[src*="critique"], .fade-img img[src*="me/workshop"] { object-fit: cover; }
-.fade:has(img[src*="critique"]) .fade-slide { max-width: 560px; }
-.lcb.plain:has(img[src*="critique"]) .fade { justify-items: start; }
+
 .ws-fade .fade-img img { object-fit: cover; }
 .fade-slide figcaption { font-size: 14px; line-height: 1.5; color: var(--muted); }
 .fade-slide figcaption b { font-weight: 500; color: var(--ink); }
@@ -2719,7 +2725,7 @@ const MOODS = [["happy", "Happy"], ["neutral", "Neutral"], ["unhappy", "Unhappy"
 const APP_BOARDS = new Set(["vids"]);
 /* FADER: images that change on their own, with thin progress lines (not buttons) */
 const fader = (slides, ratioOf) => `<div class="fade" data-fade>
-    <div class="fade-stack">${slides.map((sl, i) => `<figure class="fade-slide${i ? "" : " on"}"${i ? ' aria-hidden="true"' : ""}>${sl.caption || sl.label ? `<figcaption>${esc([sl.label, sl.caption].filter(Boolean).join(": "))}</figcaption>` : ""}<div class="fade-img" style="aspect-ratio:${ratioOf(sl)}">${img(sl.image, sl.caption || sl.label || "")}</div></figure>`).join("")}</div>
+    <div class="fade-stack">${slides.map((sl, i) => `<figure class="fade-slide${i ? "" : " on"}"${i ? ' aria-hidden="true"' : ""}>${sl.caption || sl.label ? `<figcaption>${esc([sl.label, sl.caption].filter(Boolean).join(": "))}</figcaption>` : ""}<div class="fade-img" style="aspect-ratio:${ratioOf(sl)};--ar:${ratioOf(sl).split("/").map(Number).reduce((a, b) => a / b)}">${img(sl.image, sl.caption || sl.label || "")}</div></figure>`).join("")}</div>
 </div>`;
 const LC = {
   photo: b => `<figure class="lcb" style="margin:0">${boardHead(b.caption)}<div class="lcb-img">${img(b.image, b.caption)}</div></figure>`,
