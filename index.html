@@ -1438,17 +1438,19 @@ footer { border-top: 1px solid var(--line); }
 .bns { position: relative; min-width: 860px; }
 .bns-band { position: relative; }
 .bns-svg { position: absolute; left: 0; top: 0; width: 100%; overflow: visible; }
-.bns-svg path { fill: none; stroke: var(--ink); stroke-opacity: .45; stroke-width: 1.2; vector-effect: non-scaling-stroke; }
-.bns-svg path.dash { stroke-dasharray: 5 5; }
-.bns-pill { position: absolute; transform: translate(-50%, -50%); padding: 9px 18px; border: 1px solid var(--ink); border-radius: 99px; background: var(--bg, #F8F9FB); font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--ink); white-space: nowrap; }
-.bns-band:nth-child(2) .bns-pill { transform: translate(-50%, 0); }
-.bns-pill.sm { padding: 6px 12px; font-size: 11px; border-color: var(--line); color: var(--accent-text); }
+.bns-svg path { fill: none; stroke: var(--ink); stroke-opacity: .22; stroke-width: 1; vector-effect: non-scaling-stroke; }
+.bns-svg path.dash { stroke: var(--accent); stroke-opacity: .9; stroke-dasharray: 4 5; }
+.bns-pill { position: absolute; transform: translate(-50%, -50%); padding: 4px 14px; background: var(--bg); font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+.bns-pill.top { color: var(--ink); }
+.bns-band:nth-child(2) .bns-pill { transform: translate(-50%, 0); padding-top: 10px; padding-bottom: 10px; font-family: var(--serif); font-size: 22px; letter-spacing: 0; text-transform: none; color: var(--ink); }
+.bns-pill.sm { font-size: 11px; color: var(--accent-text); }
 .bns-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)) .4fr repeat(2, minmax(0, 1fr)); gap: 0; }
-.bns-cards > .bns-card { margin: 0 8px; }
-.bns-card { position: relative; padding: 26px 20px 20px; border: 1px solid var(--panel-line); background: var(--panel); min-height: 170px; }
-.bns-tab { position: absolute; left: 16px; top: 0; transform: translateY(-50%); padding: 4px 10px; background: var(--bg, #F8F9FB); border: 1px solid var(--panel-line); border-radius: 99px; font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
-.bns-card h4 { margin: 0 0 10px; font-family: var(--serif); font-weight: 400; font-size: 20px; color: var(--ink); }
-.bns-card ol { margin: 0; padding-left: 20px; color: var(--muted); font-size: 14px; line-height: 1.75; }
+.bns-cards > .bns-card { margin: 0 12px; }
+.bns-card { position: relative; padding-top: 16px; border-top: 1px solid var(--line); min-height: 150px; }
+.bns-card .cs-h4 { margin: 8px 0 10px; }
+.bns-card ul { margin: 0; padding: 0; list-style: none; color: var(--muted); font-size: 15px; line-height: 1.8; }
+.bns-card li { position: relative; padding-left: 16px; }
+.bns-card li::before { content: "–"; position: absolute; left: 0; color: var(--accent-text); }
 @font-face { font-family: "BN Display"; src: url("proto/bnlive/fonts/fraunces.ttf") format("truetype"); font-weight: 100 900; font-display: swap; }
 .bnid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: clamp(28px, 4vw, 64px); align-items: center; padding-top: 8px; }
 .bnid-text { display: grid; gap: 22px; }
@@ -3214,7 +3216,7 @@ const BLOCKS = {
   },
   bnsystem: () => {
     const C = [9.26, 27.78, 46.3, 72.22, 90.74], U = 27.78, P = 81.48;
-    const card = (n, t, items) => `<div class="bns-card"><span class="bns-tab">Element ${n}</span><h4>${esc(t)}</h4><ol>${items.map(i => `<li>${esc(i)}</li>`).join("")}</ol></div>`;
+    const card = (n, t, items) => `<div class="bns-card"><div class="cs-label">Element ${n}</div>${txt(t, "h3", "cs-h4")}<ul>${items.map(i => `<li>${esc(i)}</li>`).join("")}</ul></div>`;
     const svg = (h, d, dash) => `<svg class="bns-svg" viewBox="0 0 100 ${h}" preserveAspectRatio="none" style="height:${h}px" aria-hidden="true">${d.map(p => `<path d="${p}"${dash ? ' class="dash"' : ""}/>`).join("")}</svg>`;
     return `<div class="bns-scroll"><div class="bns">
       <div class="bns-band" style="height:64px">${svg(64, [`M${U},64 V24 H${P} V64`])}<span class="bns-pill top" style="left:54.63%;top:24px">System overview</span></div>
