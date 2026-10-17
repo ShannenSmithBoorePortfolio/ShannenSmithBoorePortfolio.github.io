@@ -1512,7 +1512,10 @@ body.zoom-open { overflow: hidden; }
 .fade-stack { display: grid; }
 .fade-slide { grid-area: 1 / 1; margin: 0; display: grid; gap: 16px; align-content: start; opacity: 0; visibility: hidden; transition: opacity .9s ease, visibility 0s linear .9s; }
 .fade-slide.on { opacity: 1; visibility: visible; transition: opacity .9s ease; }
-.fade-img { overflow: hidden; background: #F4F4F4; display: grid; place-items: center; }
+.fade-img { overflow: hidden; background: #F4F4F4; display: grid; place-items: center; position: relative; }
+.fade-slide:not(.on) .hot, .fade-slide:not(.on) .hot * { animation: none !important; opacity: 0 !important; }
+.hot-note { position: absolute; left: 50%; top: 14px; transform: translateX(-50%); background: var(--accent); color: var(--accent-ink); font-size: 12px; font-weight: 500; padding: 5px 11px; border-radius: 999px; white-space: nowrap; }
+.fade.walk .fade-img img { object-fit: cover; }
 .fade-img img { width: 100%; height: 100%; object-fit: contain; display: block; }
 .fade-img img[src*="critique"], .fade-img img[src*="me/workshop"] { object-fit: cover; }
 
@@ -2140,7 +2143,8 @@ function cortexusBlocks() {
     { type: "embed", href: "https://www.figma.com/board/BrmLm1t9sBUKswsHdw95Jl/Ideation?node-id=0-1&t=1j1lItRNCi56ZH2i-1", title: "Ideation and prototyping journey", image: p("board") },
 
     { type: "section", label: "User testing round 1", count: "10 designers", heading: "Prototype 1: it made designers reflect.",
-      lead: "\"I'd be actually scared if the company could see it, mine would be so covered in mould.\"" },
+      lead: "Tested at Accenture. \"I'd be actually scared if the company could see it, mine would be so covered in mould.\"" },
+    { type: "board", kind: "gallery", caption: "Testing at Accenture", c: 1, ratio: "1068 / 601", images: [[p("test1"), ""]] },
     { type: "board", kind: "fade", caption: "", slides: [
       { label: "Prototype 1", image: p("p1-onboarding"), ratio: "973 / 520", caption: "onboarding" },
       { label: "Prototype 1", image: p("p1-dashboard"), ratio: "1023 / 517", caption: "dashboard and Claude overlays" },
@@ -2158,25 +2162,42 @@ function cortexusBlocks() {
     { type: "media", stage: "grey", image: p("cover") },
 
     { type: "section", label: "Features", heading: "What designers asked for, built in." },
-    { type: "pairs", tag: "Insight 1", heading: "Offloading has already begun.", lead: "So Cortexus makes it visible, where designers use AI.", items: [
-      { ...W, image: p("scr-dashboard"), hot: [73, 51, "Mould grows on each skill"], title: "Your brain, scanned", text: "Each skill sits on a region of the brain, and mould spreads as you hand it over." },
-      { ...W, image: p("scr-claude-ext"), hot: [84, 82, "Enable extension"], title: "Inside Claude", text: "Designers use AI at their desks, so Cortexus lives in Claude as an extension." },
+
+    { type: "subsection", heading: "Personalised onboarding.",
+      lead: "Testers wanted consent first and more explanation of the soft skills, and co-design wanted designers in control. So onboarding starts with consent, explains what's tracked, and lets each designer pick their skills and set their own limits." },
+    { type: "board", kind: "fade", walk: true, caption: "", slides: [
+      { label: "Step 1", image: "cx/w/o1-welcome.webp", ratio: "16 / 9", hot: [41.9, 76.1, "Consent comes first"] },
+      { label: "Step 2", image: "cx/w/o2-track.webp", ratio: "16 / 9", hot: [50, 30.8, "Every skill explained"] },
+      { label: "Step 3", image: "cx/w/o3-skills.webp", ratio: "16 / 9", hot: [50, 28.7, "Pick the skills you protect"] },
+      { label: "Step 4", image: "cx/w/o4-limits.webp", ratio: "16 / 9", hot: [68.8, 68, "Set your own limits"] },
+      { label: "Step 5", image: "cx/w/o5-display.webp", ratio: "16 / 9", hot: [62.8, 23.7, "Journal it first"] },
+      { label: "Step 6", image: "cx/w/o6-journal.webp", ratio: "16 / 9", hot: [50, 64.8, "A quick tour of the dashboard"] },
     ]},
-    { type: "pairs", tag: "Insight 2", heading: "Juniors lose the struggle where learning happens.", lead: "So the pause comes from the AI itself, as co-design asked.", items: [
-      { ...W, image: p("scr-phase"), hot: [90, 76, "Open journal"], title: "A nudge at the moment of offloading", text: "Ask Claude to decide for you, and Cortexus flags it before you move on." },
-      { ...W, image: p("scr-claude-journal"), hot: [39, 54, "New journal entry"], title: "Paper first, AI second", text: "Journaling your own thinking clears the mould, straight from co-design." },
+
+    { type: "subsection", heading: "A brain that shows what you're losing.",
+      lead: "Four designers asked for a brain that's colourful when healthy and bleaches as mould spreads, so there's always something to work back towards." },
+    { type: "board", kind: "fade", walk: true, caption: "", slides: [
+      { label: "Phase 1", image: "cx/w/d1.webp", ratio: "16 / 9", hot: [89.5, 7.8, "Healthy brain"] },
+      { label: "Phase 2", image: "cx/w/d2.webp", ratio: "16 / 9", hot: [91.3, 7.8, "Phase 2: mould spreads"] },
+      { label: "Phase 3", image: "cx/w/d3.webp", ratio: "16 / 9", hot: [93.1, 7.8, "Phase 3: it takes hold"] },
+      { label: "Phase 4", image: "cx/w/d4.webp", ratio: "16 / 9", hot: [94.9, 7.8, "Phase 4: the brain bleaches"] },
     ]},
-    { type: "pairs", tag: "Insight 3", heading: "Confidence erodes before ability does.", lead: "So there's always a healthy brain to work back to.", items: [
-      { ...W, image: "cx/v/f-dash.webp", hot: [44, 30, "Phase 4: necrosis"], title: "A brain that bleaches", text: "As four designers asked, the brain loses its colour as mould spreads." },
-      { ...W, image: p("scr-welcome"), hot: [31, 74, "Accept terms"], title: "Consent before anything", text: "Round 1 flagged late consent, so it's now the very first step." },
-    ]},
-    { type: "pairs", tag: "Insight 4", heading: "Every designer values different skills.", lead: "So designers set the rules, not the tool.", items: [
-      { ...W, image: p("scr-skills"), hot: [50, 35, "Pick your four skills"], title: "Choose your skills", text: "Designers pick the four skills they'd never give to AI." },
-      { ...W, image: "cx/v/f-skills.webp", hot: [63, 50, "Set your limit"], title: "Set your own limits", text: "\"It gives you the liberty to select your prompting boundaries.\"" },
+
+    { type: "subsection", heading: "A pause from the AI itself.",
+      lead: "Co-design asked for the pause to come from the AI, not another app to remember. So Cortexus sits inside Claude, and when a designer asks it to decide for them, it flags the mould and offers the journal." },
+    { type: "board", kind: "fade", walk: true, caption: "", slides: [
+      { label: "Step 1", image: "cx/w/c1-claude.webp", ratio: "16 / 9", hot: [96.7, 94.1, "Cortexus lives in Claude"] },
+      { label: "Step 2", image: "cx/w/c2-enable.webp", ratio: "16 / 9", hot: [85.8, 84.1, "Enable the extension"] },
+      { label: "Step 3", image: "cx/w/c3-ask.webp", ratio: "16 / 9", hot: [81, 11, "\"Decide for me\""] },
+      { label: "Step 4", image: "cx/w/c4-mould.webp", ratio: "16 / 9", hot: [91.3, 80.5, "Mould detected: open your journal"] },
     ]},
 
     { type: "section", label: "Impact", heading: "What Cortexus changes." },
-    { type: "bullets", items: ["Awareness: the mould can't be ignored, so designers notice their offloading.", "Skill building: designers practise their own skills again.", "Independence: designers trust their own decisions again."] },
+    { type: "points", items: [
+      { title: "Awareness", text: "Designers notice their offloading. \"We need to definitely look at our usage, and this is just the tool for making us reflect.\" (Round 1 tester)" },
+      { title: "Skill building", text: "Designers think first, then use AI. \"Paper first, screen second is something I would want to make a part of my process.\" (Co-design participant)" },
+      { title: "Independence", text: "Designers stay in control of their limits. \"It gives you the liberty to select your prompting boundaries, and doesn't force it on you.\" (Round 2 tester)" },
+    ]},
 
     { type: "section", label: "Reflection", heading: "What I learned" },
     { type: "bullets", items: ["Designing for designers is harder: separating preference from shared needs.", "Speculative design needs evidence: provocation only worked once grounded in real quotes.", "AI is a tool, not a co-designer: decide first, then use AI to build."] },
@@ -2712,9 +2733,10 @@ const boardHead = (cap, extra = "") => `<div class="lcb-head"><span class="lcpil
 const MOODS = [["happy", "Happy"], ["neutral", "Neutral"], ["unhappy", "Unhappy"]];
 
 const APP_BOARDS = new Set(["vids"]);
+const hotHTML = h => h && h[0] != null ? `<span class="hot${h[0] > 70 ? " r" : ""}" aria-hidden="true" style="--x:${h[0]}%;--y:${h[1]}%"><span class="hot-ring"></span><span class="hot-tip">${esc(h[2])}</span><svg class="hot-cur" viewBox="0 0 24 24"><path d="M4 2l15 11-6.5 1.2L16 21l-3 1.3-3.4-6.8L4 20z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg></span>` : (h ? `<span class="hot-note">${esc(h[2])}</span>` : "");
 /* FADER: images that change on their own, with thin progress lines (not buttons) */
-const fader = (slides, ratioOf) => `<div class="fade" data-fade>
-    <div class="fade-stack">${slides.map((sl, i) => `<figure class="fade-slide${i ? "" : " on"}"${i ? ' aria-hidden="true"' : ""}>${sl.caption || sl.label ? `<figcaption>${esc([sl.label, sl.caption].filter(Boolean).join(": "))}</figcaption>` : ""}<div class="fade-img" style="aspect-ratio:${ratioOf(sl)};--ar:${ratioOf(sl).split("/").map(Number).reduce((a, b) => a / b)}">${img(sl.image, sl.caption || sl.label || "")}</div></figure>`).join("")}</div>
+const fader = (slides, ratioOf, walk) => `<div class="fade${walk ? " walk" : ""}" data-fade>
+    <div class="fade-stack">${slides.map((sl, i) => `<figure class="fade-slide${i ? "" : " on"}"${i ? ' aria-hidden="true"' : ""}>${sl.caption || sl.label ? `<figcaption>${esc([sl.label, sl.caption].filter(Boolean).join(": "))}</figcaption>` : ""}<div class="fade-img" style="aspect-ratio:${ratioOf(sl)};--ar:${ratioOf(sl).split("/").map(Number).reduce((a, b) => a / b)}">${img(sl.image, sl.caption || sl.label || "")}${hotHTML(sl.hot)}</div></figure>`).join("")}</div>
 </div>`;
 const LC = {
   photo: b => `<figure class="lcb" style="margin:0">${boardHead(b.caption)}<div class="lcb-img">${img(b.image, b.caption)}</div></figure>`,
@@ -2764,7 +2786,7 @@ const LC = {
   fade: b => {
     const r = sl => { const [w, h] = (sl.ratio || "16 / 9").split("/").map(Number); return w / h; };
     const tall = b.slides.reduce((a, sl) => r(sl) < r(a) ? sl : a, b.slides[0]).ratio || "16 / 9";
-    return `<div class="lcb">${b.caption ? boardHead(b.caption) : ""}${fader(b.slides, () => tall)}</div>`;
+    return `<div class="lcb">${b.caption ? boardHead(b.caption) : ""}${fader(b.slides, () => tall, b.walk)}</div>`;
   },
 
   carousel: b => {
