@@ -1388,6 +1388,7 @@ footer { border-top: 1px solid var(--line); }
 /* AFFINITY MAPPING: photo beside the method */
 .cs-aff { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
 .cs-aff-img { margin: 0; display: grid; gap: 10px; }
+.cs-aff.solo { grid-template-columns: minmax(0, 460px); }
 .cs-aff-img img { width: 100%; display: block; border: 1px solid var(--panel-line); }
 .cs-aff-img .cs-label.sm { text-align: left; }
 .cs-aff-text { display: grid; gap: 18px; }
@@ -1976,12 +1977,7 @@ function cortexusBlocks() {
 
     { type: "section", label: "Affinity mapping", count: "20 interviews", heading: "Turning 20 conversations into evidence.",
       lead: "One interview is an anecdote. A pattern that shows up across twenty is evidence. I affinity mapped every interview so the insights would come from what designers said again and again, not from the quotes I personally found most striking." },
-    { type: "affinity", image: p("affinity"), alt: "Interview notes grouped into clusters during affinity mapping", caption: "Affinity mapping the interview notes", label: "How I did it, and why", steps: [
-      ["One note per observation", "Every quote, behaviour and feeling went on its own note, so nothing was summarised away before I could see it next to everything else."],
-      ["Group by meaning, not by person", "Notes were clustered by what they said rather than who said them, so no single voice could steer the findings."],
-      ["Name each cluster", "Writing a headline for every group forced me to say what it actually meant, and showed up the groups that only loosely belonged together."],
-      ["Keep what recurs", "Clusters that came up across junior, mid-level and senior designers became the four key insights. One-off opinions were set aside."],
-    ]},
+    { type: "affinity", image: p("affinity"), alt: "Interview notes grouped into clusters during affinity mapping", caption: "Affinity mapping the interview notes" },
 
     { type: "section", label: "Key insights", heading: "The risk isn't that AI replaces designers. It's that designers quietly stop practising.",
       lead: "Four clusters came up again and again. Each one became a design requirement." },
@@ -2997,8 +2993,8 @@ const BLOCKS = {
       <div class="ws-into"><div class="cs-label">How it shaped the design</div>
         <div class="ws-into-grid" style="--n:${Math.max(2, b.into.length)}">${b.into.map(([src, h, t]) => `<figure>${src ? `<div class="ws-shot">${img(src, h)}</div>` : ""}<figcaption><h4>${esc(h)}</h4><p>${esc(t)}</p></figcaption></figure>`).join("")}</div></div>
     </article>`,
-  affinity: b => `<div class="cs-aff"><figure class="cs-aff-img">${img(b.image, b.alt || "")}${b.caption ? `<figcaption class="cs-label sm">${esc(b.caption)}</figcaption>` : ""}</figure>
-      <div class="cs-aff-text">${txt(b.label, "div", "cs-label")}<ol class="cs-steps">${b.steps.map(st => `<li><h3 class="cs-h4">${esc(st[0])}</h3><p>${esc(st[1])}</p></li>`).join("")}</ol></div></div>`,
+  affinity: b => `<div class="cs-aff${b.steps && b.steps.length ? "" : " solo"}"><figure class="cs-aff-img">${img(b.image, b.alt || "")}${b.caption ? `<figcaption class="cs-label sm">${esc(b.caption)}</figcaption>` : ""}</figure>
+      ${b.steps && b.steps.length ? `<div class="cs-aff-text">${txt(b.label, "div", "cs-label")}<ol class="cs-steps">${b.steps.map(st => `<li><h3 class="cs-h4">${esc(st[0])}</h3><p>${esc(st[1])}</p></li>`).join("")}</ol></div>` : ""}</div>`,
   feature: b => `<div class="cs-feature">${stage(b, b.shape || "square")}
       <div class="cs-feature-text">${txt(b.title, "h3", "cs-h4")}${txt(b.text)}</div></div>`,
   gallery: b => `<div class="cs-gallery" data-n="${b.images.length}" style="--n:${b.images.length};--gap:${b.gap ?? 0}px">
