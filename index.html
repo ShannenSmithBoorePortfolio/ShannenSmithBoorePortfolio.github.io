@@ -1379,6 +1379,51 @@ footer { border-top: 1px solid var(--line); }
 .other-grid .thumb { aspect-ratio: 16 / 10; }
 @media (max-width: 760px) { .lens, .skill-row { grid-template-columns: minmax(0, 1fr); } .other-grid { grid-auto-columns: 85%; } .lens > div:nth-child(even) { padding-left: 0; border-left: 0; } }
 
+/* PHASE COUNT: how many people took part at each stage */
+.cs-labelrow { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.cs-count { display: inline-flex; align-items: center; gap: 7px; padding: 5px 12px 5px 9px; border-radius: 999px; background: #FFFFFF; border: 1px solid var(--panel-line); color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; line-height: 1.2; }
+.cs-count svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; flex: none; }
+
+/* AFFINITY MAPPING: photo beside the method */
+.cs-aff { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
+.cs-aff-img { margin: 0; display: grid; gap: 10px; }
+.cs-aff-img img { width: 100%; display: block; border: 1px solid var(--panel-line); }
+.cs-aff-img .cs-label.sm { text-align: left; }
+.cs-aff-text { display: grid; gap: 18px; }
+.cs-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; counter-reset: st; }
+.cs-steps li { counter-increment: st; position: relative; padding-left: 44px; }
+.cs-steps li::before { content: counter(st, decimal-leading-zero); position: absolute; left: 0; top: .35em; font-family: var(--mono); font-size: 13px; color: var(--accent); }
+.cs-steps .cs-h4 { margin: 0 0 4px; }
+.cs-steps p { margin: 0; color: var(--muted); font-size: clamp(16px, 1.5vw, 17px); line-height: 1.7; }
+
+/* ARCHETYPES: photo and quote on the left, four cards on the right */
+.arc { display: grid; grid-template-columns: minmax(0, 300px) minmax(0, 1fr); gap: clamp(24px, 3.4vw, 44px); align-items: start; padding-top: 8px; }
+.arc-id { display: grid; gap: 6px; align-content: start; }
+.arc-photo { aspect-ratio: 1 / 1; overflow: hidden; background: var(--panel); margin-bottom: 14px; }
+.arc-photo img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(1); }
+.arc-who, .arc-job { margin: 0; font-size: 18px; line-height: 1.45; color: var(--ink); }
+.arc-who b { font-family: var(--serif-text); font-weight: 400; font-size: 26px; }
+.arc-job { color: var(--muted); font-size: 16px; }
+.arc-job b { color: var(--ink); font-weight: 600; }
+.arc-tag-wrap { position: relative; margin-top: 30px; background: var(--panel); border: 1px solid var(--panel-line); padding: 34px 22px 22px; }
+.arc-tag { position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%); white-space: nowrap; background: var(--ink); color: #FFFFFF; border-radius: 999px; padding: 8px 20px; font-size: 14px; font-weight: 500; }
+.arc-quote { margin: 0; font-family: var(--serif-text); font-style: italic; font-size: clamp(19px, 1.9vw, 22px); line-height: 1.4; color: var(--ink); text-wrap: pretty; }
+.arc-quote span, .arc-qs span { font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); white-space: nowrap; }
+.arc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: stretch; }
+.arc-card { background: var(--panel); border: 1px solid var(--panel-line); padding: 22px 24px; display: grid; gap: 12px; align-content: start; }
+.arc-card h5 { margin: 0; font-family: var(--mono); font-weight: 400; font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--ink); }
+.lcb.plain .arc-card .lcl li { color: var(--ink); opacity: .82; }
+.arc-qs p { margin: 0; font-family: var(--serif-text); font-style: italic; font-size: 17px; line-height: 1.5; color: var(--ink); }
+@media (max-width: 860px) {
+  .cs-aff { grid-template-columns: minmax(0, 1fr); }
+  .cs-aff-img { max-width: 460px; }
+  .arc { grid-template-columns: minmax(0, 1fr); }
+  .arc-id { grid-template-columns: 120px minmax(0, 1fr); column-gap: 18px; }
+  .arc-photo { grid-row: span 2; margin: 0; }
+  .arc-tag-wrap { grid-column: 1 / -1; }
+}
+@media (max-width: 560px) { .arc-grid { grid-template-columns: minmax(0, 1fr); } }
+
 /* RESPONSIVE */
 @media (max-width: 860px) {
   .role { display: none; }
@@ -1887,14 +1932,14 @@ function cortexusBlocks() {
     ]},
 
     { type: "section", label: "Problem shown in secondary research", heading: "The more designers rely on AI, the less they think for themselves.",
-      lead: "AI tools are now built into every stage of design, from synthesis to prototyping. For designers, the soft skills at risk are the ones that define them, like judgement, critical thinking and empathy." },
+      lead: "AI is now built into every stage of design, from synthesis to prototyping. The skills it puts at risk are the ones that define a designer: judgement, critical thinking and empathy. And because the loss is gradual, most designers don't notice it happening." },
     { type: "board", kind: "stats", caption: "", stats: [
-      ["Effort", "Confidence in AI can lower critical thinking effort, shifting work towards checking AI generated information.", "Lee et al., 2025", ""],
-      ["Repetition", "Repeated use of AI may reduce cognitive effort.", "Gerlich, 2025", ""],
-      ["Deskilling", "AI overdependence raises the possibility of cognitive decline and task specific deskilling.", "Noorbehbahani & Oyibo, 2026", ""],
+      ["Effort drops", "The more designers trust AI, the less critical thinking they apply. Their role shifts from creating the work to checking AI's.", "Lee et al., 2025", ""],
+      ["Practice stops", "Every task handed to AI is practice skipped. Frequent AI use is linked to weaker critical thinking through cognitive offloading.", "Gerlich, 2025", ""],
+      ["Skills erode", "Over-reliance on AI raises the risk of cognitive decline and of losing task-specific skills altogether.", "Noorbehbahani & Oyibo, 2026", ""],
     ]},
 
-    { type: "section", label: "Talking to designers", heading: "I talked to the designers living through it.",
+    { type: "section", label: "Talking to designers", count: "20 designers", heading: "I talked to the designers living through it.",
       lead: "From graphic designers to UX/UI, product, service and interaction designers, I reached people through Accenture and LinkedIn. I wanted to hear how AI actually feels to use, so I chose conversations over surveys." },
     { type: "points", label: "Who I spoke to", items: [
       { title: "AI workflow integrators", text: "Designers with AI embedded in their daily practice." },
@@ -1904,8 +1949,17 @@ function cortexusBlocks() {
     { type: "cxfaces", caption: "A few of the 20 interviews. Faces pixelated for privacy.", faces: [p("face1"), p("face2"), p("face3"), p("face4"), p("face5")] },
     { type: "cxquotes", label: "What designers told me", quotes: ["I've gotten so used to doing it now, I'm just like, I don't want to turn my brain on.", "Repetition of tasks is how you learn. We're outsourcing the V1 draft to AI and losing that initial friction where learning usually happens.", "It used to be if I had a question, I'd go to someone on my team. Now I'll just ask AI.", "If I've used AI quite a bit and then asked to do something on my own, I'm like, oh God, I don't know. But I do. I went to college."] },
 
+    { type: "section", label: "Affinity mapping", count: "20 interviews", heading: "Turning 20 conversations into evidence.",
+      lead: "One interview is an anecdote. A pattern that shows up across twenty is evidence. I affinity mapped every interview so the insights would come from what designers said again and again, not from the quotes I personally found most striking." },
+    { type: "affinity", image: p("affinity"), alt: "Interview notes grouped into clusters during affinity mapping", caption: "Affinity mapping the interview notes", label: "How I did it, and why", steps: [
+      ["One note per observation", "Every quote, behaviour and feeling went on its own note, so nothing was summarised away before I could see it next to everything else."],
+      ["Group by meaning, not by person", "Notes were clustered by what they said rather than who said them, so no single voice could steer the findings."],
+      ["Name each cluster", "Writing a headline for every group forced me to say what it actually meant, and showed up the groups that only loosely belonged together."],
+      ["Keep what recurs", "Clusters that came up across junior, mid-level and senior designers became the four key insights. One-off opinions were set aside."],
+    ]},
+
     { type: "section", label: "Key insights", heading: "The risk isn't that AI replaces designers. It's that designers quietly stop practising.",
-      lead: "Grouping hundreds of interview notes revealed four insights. Each one became a design requirement." },
+      lead: "Four clusters came up again and again. Each one became a design requirement." },
     { type: "points", items: [
       { title: "1. Offloading has already begun.", text: "Designers hand over thinking without noticing. You can't change a habit you can't see." },
       { title: "2. Juniors lose the struggle where learning happens.", text: "Deadlines push them to AI before they've built the skill, so it never fully forms." },
@@ -1913,23 +1967,25 @@ function cortexusBlocks() {
       { title: "4. Every designer values different skills.", text: "Nobody wanted a tool deciding for them. They wanted control over what's protected." },
     ]},
 
-    { type: "section", label: "Archetypes", heading: "Three relationships with AI." },
+    { type: "section", label: "Archetypes", heading: "Three relationships with AI.",
+      lead: "I built archetypes rather than traditional personas because how designers used AI depended on their attitude to it, more than their age or role. Each one is grounded in real interview quotes, referenced by participant number." },
     { type: "board", kind: "carousel", caption: "Archetypes", slides: [
-      { label: "Unaware Offloader", kind: "persona", name: "Janice", meta: "22 to 26 · Junior Product Designer", photo: p("a-janice"),
-        bio: ["Uses AI everywhere without noticing, and can't say which parts of her work are her own."],
-        quote: "It's just part of my process now, I use it all the time.",
-        goals: ["Work faster and smarter.", "Impress her managers."], patterns: ["Starts every project in Figma Make.", "Doesn't reflect on her AI use."],
-        pains: ["Her manager says her work feels AI-generated.", "Can't see what she's losing."], scenario: ["She presents a concept and is told it looks generated. She shrugs it off, then just prompts AI to \"act like a human-centred designer\"."] },
-      { label: "Guilty Delegator", kind: "persona", name: "Ben", meta: "27 to 30 · Mid-level Service Designer", photo: p("a-ben"),
-        bio: ["Knows he's over-delegating, feels guilty about it, and does it anyway under deadline pressure."],
-        quote: "I slowly realised it was hampering my own ability to think and ideate.",
-        goals: ["Hit deadlines.", "Keep his craft sharp."], patterns: ["Uses Claude for synthesis and personas.", "Promises himself he'll use it less next time."],
-        pains: ["His AI personas feel hollow.", "Feels like AI is gaining his skills."], scenario: ["He lets Claude build his personas, knows they lack depth, and moves on anyway because there's no time to redo them."] },
-      { label: "Reluctant User", kind: "persona", name: "Rachel", meta: "22 to 26 · Junior Researcher", photo: p("a-rachel"),
-        bio: ["Avoids AI unless she's pushed, and redoes AI-assisted work by hand."],
+      { label: "Unaware Offloader", kind: "archetype", name: "Janice", age: "22-26", job: "Junior Product Designer", photo: p("a-janice"),
+        quote: "Now I'm just using Claude for everything.", qref: "P8",
+        patterns: ["Uses AI across everyday tasks without noticing.", "Can't clearly define which parts were AI assisted and which were her own work.", "Treats AI like any other tool and doesn't reflect on how it affects her as a designer."],
+        relationship: ["No guilt, because she can't define what AI takes away.", "Somewhat positive, as she feels it optimises her current workload.", "Just sees AI as another tool."],
+        triggers: ["Moments of friction built into the design process, for reflection.", "A visual understanding of her cognitive losses.", "More visibility of AI usage versus her own input into the design process."],
+        quotes: [["I use AI unknowingly, it's baked into little features I use without me necessarily proactively wanting to use AI.", "P11"], ["It's just part of my process now, I use it all the time.", "P10"]] },
+      { label: "Guilty Delegator", kind: "archetype", name: "Ben", age: "27-30", job: "Mid Level Service / Interaction Designer", photo: p("a-ben"),
+        quote: "I do sense I may more and more lose core skill sets. Repetition of tasks is how you learn.", qref: "P12",
+        patterns: ["Uses AI across various tasks to speed up his process.", "Feels uncomfortable with heavy use of AI, and tries to avoid it.", "Concerned about long term skill erosion and what that means for him as a designer."],
+        relationship: ["Feels guilty and has some self criticism.", "Feels stuck when it comes to over delegating.", "Feels like AI is gaining the skills he needs to develop."],
+        triggers: ["Reinforcement when he is making decisions himself.", "A contrast between what AI has done and what he has done.", "Moments of friction that provoke him to do tasks himself."],
+        quotes: [["I slowly realised it was hampering my own ability to think and ideate. That became alarming, especially as a designer.", "P15"]] },
+      { label: "Reluctant User", kind: "archetype", name: "Rachel", age: "22-26", job: "Junior Researcher", photo: p("a-rachel"),
         quote: "Checking work is not the same as producing it.",
-        goals: ["Learn skills herself.", "Be heard by her managers."], patterns: ["Redoes AI work manually.", "Only uses AI for small tasks."],
-        pains: ["Doesn't trust AI outputs.", "Pressured to use it anyway."], scenario: ["Asked to do secondary research with Claude, she gets unreliable sources, does it herself, and feels ignored when she raises it."] },
+        patterns: ["Avoids AI unless she's pushed to use it.", "Redoes AI-assisted work by hand.", "Only uses AI for small tasks."],
+        relationship: ["Doesn't trust AI outputs.", "Feels pressured to use it anyway.", "Feels ignored when she raises concerns."] },
     ]},
 
     { type: "section", label: "Opportunity", heading: "Make offloading visible, and give designers a reason to think first.",
@@ -1942,22 +1998,17 @@ function cortexusBlocks() {
 
     { type: "section", label: "Exploring directions", heading: "Speculative design: provoke, don't lecture.",
       lead: "Because cognitive offloading is a future-facing problem, I chose speculative design to provoke reflection and productive discomfort. I explored four territories, then built two to test." },
-    { type: "board", kind: "gallery", caption: "Speculative moodboards", c: 2, ratio: "1289 / 919", images: [[p("concepts"), ""], [p("identity"), ""]] },
-    { type: "points", label: "Directions explored", items: [
-      { title: "Brain Rot", text: "AI use grows as mould on a scan of your brain." },
-      { title: "Distorting Relationships", text: "AI replies like a colleague: an expert, a peer, a mentor." },
-      { title: "Nurturing Skills", text: "Skills grow like a garden when you practise them." },
-      { title: "Identity Loss", text: "The more you prompt, the more you disappear." },
-    ]},
-    { type: "board", kind: "gallery", caption: "Testing two concepts with Accenture designers", c: 2, ratio: "4 / 3", contain: true, images: [[p("brainrot-lofi"), "Brain Rot"], [p("relationships"), "Distorting Relationships"]] },
+    { type: "board", kind: "gallery", caption: "Speculative moodboards: the four directions explored", c: 1, ratio: "1405 / 916", contain: true, images: [[p("directions"), ""]] },
+    { type: "board", kind: "gallery", caption: "Concept tested: Brain Rot, on mobile and desktop", c: 1, ratio: "1033 / 492", contain: true, images: [[p("brainrot-concept"), ""]] },
+    { type: "board", kind: "gallery", caption: "Concept tested: Distorting Relationships", c: 1, ratio: "1359 / 774", contain: true, images: [[p("relationships-concept"), ""]] },
     { type: "points", label: "Why Brain Rot?", items: [
       { title: "It changed behaviour", text: "\"As you're showing me the idea, I'm reflecting on my own use.\" The other concept was \"more of a talking point\"." },
       { title: "It was unlike anything else", text: "A garden version tested equally well, but felt like apps already on the market." },
       { title: "It tied to how it feels", text: "Designers described heavy AI use as \"brain breaking\" and feeling \"like a zombie\"." },
     ]},
 
-    { type: "section", label: "Co-designing", heading: "Designers told me what growth and loss feel like.",
-      lead: "I ran a critique workshop with ten Accenture designers to choose between the mould and garden directions, then a reflective workshop where four designers listed the skills they'd never give to AI. Nobody picked a technical skill. Everyone picked judgement, empathy and creativity." },
+    { type: "section", label: "Co-designing", count: "14 designers", heading: "Designers told me what growth and loss feel like.",
+      lead: "Designers were the users, so I wanted their words for what growth and loss feel like, not mine. I ran a critique workshop with ten Accenture designers to choose between the mould and garden directions, then a reflective workshop where four designers listed the skills they'd never give to AI. Nobody picked a technical skill. Everyone picked judgement, empathy and creativity." },
     { type: "board", kind: "gallery", caption: "Critique and reflective workshops", c: 2, ratio: "4 / 3", images: [[p("critique"), ""], [p("reflective"), ""]] },
     { type: "board", kind: "quotes", caption: "Workshop findings", c: 2, quotes: [
       "If the AI is doing the empathising and everything, then why the hell am I even here? I would feel like I'm a zombie.",
@@ -1989,8 +2040,8 @@ function cortexusBlocks() {
       { ...W, image: p("scr-tolerance"), title: "Set your own tolerance", text: "Decide how many prompts are allowed before mould grows, and when it resets." },
     ]},
 
-    { type: "section", label: "Testing and iterating", heading: "Tested with 12 designers at Accenture.",
-      lead: "I tested the mid-fi prototype with ten product and interaction designers, then the revised version with two more." },
+    { type: "section", label: "Testing and iterating", count: "12 designers", heading: "Tested with 12 designers at Accenture.",
+      lead: "I needed to know whether the mould made designers reflect, or just made them feel judged. I tested the mid-fi prototype with ten product and interaction designers, then the revised version with two more." },
     { type: "board", kind: "gallery", caption: "Usability testing at Accenture", c: 2, ratio: "4 / 3", images: [[p("testing"), ""], [p("midfi"), "The mid-fi prototype tested"]] },
     { type: "board", kind: "quotes", caption: "What testers said", c: 2, quotes: [
       "I love it, I love that it makes me think and feel uncomfortable at the same time.",
@@ -2571,6 +2622,20 @@ const LC = {
     <div class="pp-scen"><h5>Scenario</h5>${b.scenario.map(t => `<p>${esc(t)}</p>`).join("")}</div>`,
   persona: b => `<div class="lcb">${boardHead("User persona")}${LC.personaBody(b)}</div>`,
 
+  archetypeBody: b => `<div class="arc">
+      <div class="arc-id">
+        <div class="arc-photo">${img(b.photo, b.name)}</div>
+        <p class="arc-who"><b>${esc(b.name)}</b>, ${esc(b.age)}</p>
+        <p class="arc-job"><b>Job title:</b> ${esc(b.job)}</p>
+        <div class="arc-tag-wrap"><span class="arc-tag">${esc(b.label)}</span>
+          <blockquote class="arc-quote">“${esc(b.quote)}”${b.qref ? ` <span>(${esc(b.qref)})</span>` : ""}</blockquote></div>
+      </div>
+      <div class="arc-grid">
+        ${[["Behavioural patterns", b.patterns], ["Relationship with AI", b.relationship], ["Potential trigger points", b.triggers]].filter(c => c[1] && c[1].length).map(c => `<div class="arc-card"><h5>${c[0]}</h5>${ul(c[1])}</div>`).join("")}
+        ${b.quotes && b.quotes.length ? `<div class="arc-card arc-qs"><h5>Quotes forming the archetype</h5>${b.quotes.map(q => `<p>“${esc(q[0])}” <span>(${esc(q[1])})</span></p>`).join("")}</div>` : ""}
+      </div>
+    </div>`,
+
   journeyBody: b => {
     const legend = `<div class="legend">${MOODS.map(([k, l]) => `<span class="lcpill"><span class="dot ${k}" style="width:12px;height:12px;margin:0"></span>${l}</span>`).join("")}</div>`;
     const cols = b.stages.map(st => `<div class="lcj-col${st.opp ? " has-opp" : ""}">
@@ -2589,7 +2654,7 @@ const LC = {
     const nav = `<div class="car-nav"><div class="chips">${tabs}</div>
       <div class="chips"><button type="button" class="btn-lc ic car-arrow" data-car="${id}" data-step="-1" aria-label="Previous">‹</button><button type="button" class="btn-lc ic car-arrow" data-car="${id}" data-step="1" aria-label="Next">›</button></div></div>`;
     return `<div class="lcb">${boardHead(b.caption)}${nav}
-      <div class="car-track" id="${id}">${b.slides.map(sl => `<div class="car-slide">${sl.kind === "journey" ? LC.journeyBody(sl) : LC.personaBody(sl)}</div>`).join("")}</div></div>`;
+      <div class="car-track" id="${id}">${b.slides.map(sl => `<div class="car-slide">${sl.kind === "journey" ? LC.journeyBody(sl) : sl.kind === "archetype" ? LC.archetypeBody(sl) : LC.personaBody(sl)}</div>`).join("")}</div></div>`;
   },
 
   stats: b => `<div class="lcb">${b.caption ? boardHead(b.caption) : ""}
@@ -2859,7 +2924,7 @@ const BLOCKS = {
       </div>
     </div>`,
   section: b => `<section class="cs-section" id="${b.id}">
-      ${txt(b.label, "div", "cs-label")}${txt(b.heading, "h2", "cs-h")}${txt(b.lead, "p", "cs-lead")}</section>`,
+      ${b.count ? `<div class="cs-labelrow">${txt(b.label, "div", "cs-label")}<span class="cs-count"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c.6-3.2 3-5 6-5s5.4 1.8 6 5"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.6.2 4.4 1.8 5 4.8"/></svg>${esc(b.count)}</span></div>` : txt(b.label, "div", "cs-label")}${txt(b.heading, "h2", "cs-h")}${txt(b.lead, "p", "cs-lead")}</section>`,
   subsection: b => `<div class="cs-sub">${txt(b.heading, "h3", "cs-h3")}${txt(b.lead, "p", "cs-lead")}</div>`,
   points: b => `<div class="cs-points-wrap">${txt(b.label, "div", "cs-label")}
       <div class="cs-points" style="--n:${b.items.length === 4 ? 2 : Math.min(3, b.items.length)}">${b.items.map(i => `<div>${txt(i.title, "h3", "cs-h4")}${txt(i.text)}</div>`).join("")}</div></div>`,
@@ -2871,6 +2936,8 @@ const BLOCKS = {
   quote: b => `<div class="cs-quote">${txt(b.intro, "p", "cs-lead")}<blockquote>${esc(b.text)}</blockquote></div>`,
   text: b => `<div class="cs-text">${b.paragraphs.map(t => txt(t)).join("")}</div>`,
   media: b => `<div class="cs-media">${stage(b, "wide")}</div>`,
+  affinity: b => `<div class="cs-aff"><figure class="cs-aff-img">${img(b.image, b.alt || "")}${b.caption ? `<figcaption class="cs-label sm">${esc(b.caption)}</figcaption>` : ""}</figure>
+      <div class="cs-aff-text">${txt(b.label, "div", "cs-label")}<ol class="cs-steps">${b.steps.map(st => `<li><h3 class="cs-h4">${esc(st[0])}</h3><p>${esc(st[1])}</p></li>`).join("")}</ol></div></div>`,
   feature: b => `<div class="cs-feature">${stage(b, b.shape || "square")}
       <div class="cs-feature-text">${txt(b.title, "h3", "cs-h4")}${txt(b.text)}</div></div>`,
   gallery: b => `<div class="cs-gallery" data-n="${b.images.length}" style="--n:${b.images.length};--gap:${b.gap ?? 0}px">
