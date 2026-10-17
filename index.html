@@ -1406,6 +1406,12 @@ footer { border-top: 1px solid var(--line); }
 .feat-text .cs-label { font-size: 12px; }
 @media (max-width: 860px) { .feat { grid-template-columns: minmax(0, 1fr); } }
 
+/* THESIS REQUEST */
+.thesis { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 24px; padding: 4px 0; }
+.thesis p { margin: 0; color: var(--muted); font-size: clamp(16px, 1.6vw, 18px); }
+.thesis-btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px; font-size: 13px; letter-spacing: .05em; text-transform: uppercase; }
+.thesis-btn svg { width: 14px; height: 14px; }
+
 /* BULLETS */
 .cs-bullets { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; max-width: 46em; }
 .cs-bullets li { position: relative; padding-left: 22px; color: var(--muted); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.65; }
@@ -1551,6 +1557,17 @@ body.zoom-open { overflow: hidden; }
 .lcb.plain:has(.fade) { background: var(--panel); border: 1px solid var(--panel-line); padding: clamp(16px, 2.4vw, 24px); }
 .fade-slide figcaption b { font-weight: 400; color: inherit; }
 .lcb .shot.phone-shot figcaption { justify-self: center; text-align: center; }
+
+/* LIVE PROTOTYPE: the real Cortexus app running inside the page, driven like a user would */
+.live { position: relative; aspect-ratio: 16 / 9; overflow: hidden; background: #1E1E1E; border-radius: 6px; box-shadow: 0 24px 48px -30px rgba(20, 24, 32, .55); }
+.live iframe { position: absolute; left: 0; top: 0; width: 1440px; height: 810px; border: 0; transform-origin: 0 0; pointer-events: none; }
+.live-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 2; transition: opacity .6s ease; }
+.live.on .live-poster { opacity: 0; }
+.live-cur { position: absolute; left: 0; top: 0; z-index: 3; width: 20px; height: 20px; opacity: 0; transform: translate(60%, 60%); transition: transform .75s cubic-bezier(.45, 0, .2, 1), opacity .3s; filter: drop-shadow(0 2px 3px rgba(0,0,0,.55)); pointer-events: none; }
+.live.on .live-cur { opacity: 1; }
+.live-cur svg { width: 100%; height: 100%; display: block; }
+.live-cur.tap svg { animation: liveTap .3s ease; }
+@keyframes liveTap { 50% { transform: scale(.8); } }
 
 /* RESPONSIVE */
 @media (max-width: 860px) {
@@ -2029,20 +2046,11 @@ function beoNuaBlocks() {
       { title: "Clear commitments for cafés", text: "Owners worried about upkeep, so hubs now set their own time slots and capacity." },
     ]},
 
-    { type: "section", label: "Impact", heading: "Small cost, big saving.",
-      lead: "We planned a pilot in Clontarf, Dublin, and costed the service against the health costs it could help avoid." },
-    { type: "points", items: [
-      { title: "€6.30", text: "per person per year to run, by year two." },
-      { title: "€400", text: "saved per person each year in health costs, at a low 10% impact." },
-      { title: "€593,700", text: "net saving for the state in year three." },
-    ]},
+    { type: "section", label: "Impact", heading: "What Cortexus changes." },
+    { type: "bullets", items: ["Awareness: designers notice their offloading. \"This is just the tool for making us reflect.\" (Round 1 tester)", "Skill building: designers think first, then use AI. \"Paper first, screen second.\" (Co-design participant)", "Independence: designers stay in control. \"It doesn't force it on you.\" (Round 2 tester)"] },
 
-    { type: "section", label: "Next steps", heading: "Where BEO NUA could go next." },
-    { type: "points", items: [
-      { title: "Start earlier", text: "A pre-retirement pack so people plan their next chapter before it begins." },
-      { title: "Personalise", text: "Events recommended around each person's interests." },
-      { title: "Meet WCAG", text: "Stronger contrast, keyboard access and alt text across the site." },
-    ]},
+    { type: "section", label: "Reflection", heading: "What I learned" },
+    { type: "bullets", items: ["Designing for designers is harder: separating preference from shared needs.", "Speculative design needs evidence: provocation only worked once grounded in real quotes.", "AI is a tool, not a co-designer: decide first, then use AI to build."] },
   ];
 }
 
@@ -2150,11 +2158,12 @@ function cortexusBlocks() {
     { type: "board", kind: "gallery", caption: "Co-design workshop", c: 1, ratio: "3 / 2", images: [[p("reflective"), ""]] },
     { type: "section", label: "Building the prototype", heading: "Designed by hand, built with AI.",
       lead: "Before building anything, I mapped how Cortexus would work: what each mould phase looks like, what causes it, and which prompts count as offloading. I designed every screen by hand in Figma first, then used AI only to build the working prototype." },
+    { type: "thesis" },
     { type: "embed", href: "https://www.figma.com/board/BrmLm1t9sBUKswsHdw95Jl/Ideation?node-id=0-1&t=1j1lItRNCi56ZH2i-1", title: "Ideation and prototyping journey", image: p("board") },
 
     { type: "section", label: "User testing round 1", count: "10 designers", heading: "Prototype 1: it made designers reflect.",
       lead: "Tested at Accenture. \"I'd be actually scared if the company could see it, mine would be so covered in mould.\"" },
-    { type: "board", kind: "gallery", caption: "Testing at Accenture", c: 1, ratio: "1068 / 601", images: [[p("test1"), ""]] },
+    { type: "board", kind: "gallery", caption: "Testing at Accenture", c: 1, ratio: "1059 / 592", images: [[p("test1"), ""]] },
     { type: "board", kind: "fade", caption: "", slides: [
       { label: "Prototype 1", image: p("p1-onboarding"), ratio: "973 / 520", caption: "onboarding" },
       { label: "Prototype 1", image: p("p1-dashboard"), ratio: "1023 / 517", caption: "dashboard and Claude overlays" },
@@ -2172,25 +2181,25 @@ function cortexusBlocks() {
     { type: "media", stage: "grey", image: p("cover") },
 
     { type: "section", label: "Features", heading: "What designers asked for, built in." },
-    { type: "feat", title: "Where it lives", screens: ["cx/w/i1-store.webp", "cx/w/i2-install.webp", "cx/w/i3-open.webp", "cx/w/i4-splash.webp", "cx/w/i5-welcome.webp"],
+    { type: "feat", title: "Where it lives", live: "install", screens: ["cx/w/i1-store.webp", "cx/w/i2-install.webp", "cx/w/i3-open.webp", "cx/w/i4-splash.webp", "cx/w/i5-welcome.webp"],
       what: "A desktop app for Windows, installed from the Microsoft Store like any other tool.",
       why: "Designers use AI at their desks, not on their phones, so Cortexus lives where the work happens." },
-    { type: "feat", title: "What we track", screens: ["cx/w/o2-track.webp"],
+    { type: "feat", title: "What we track", live: "track", screens: ["cx/w/o2-track.webp"],
       what: "A plain explanation of what Cortexus reads: prompts that are AI decided, user decided, or journaled first.",
       why: "Round 1 testers wanted more explanation and clearer language, so nothing is tracked without being explained." },
-    { type: "feat", title: "Journaling", screens: ["cx/w/o5-display.webp", "cx/scr-claude-journal.webp"],
+    { type: "feat", title: "Journaling", live: "journal", screens: ["cx/w/o5-display.webp", "cx/scr-claude-journal.webp"],
       what: "A journal designers can write in before turning to AI. Journaling first clears the mould.",
       why: "In co-design, designers wanted to think on paper first: \"paper first, screen second\"." },
-    { type: "feat", title: "The dashboard", screens: ["cx/w/d1.webp", "cx/w/d2.webp", "cx/w/d3.webp", "cx/w/d4.webp"],
+    { type: "feat", title: "The dashboard", live: "dash", screens: ["cx/w/d1.webp", "cx/w/d2.webp", "cx/w/d3.webp", "cx/w/d4.webp"],
       what: "A brain scan with a region for each skill. Mould grows through four phases as that skill is offloaded.",
       why: "Designers asked for a brain that's colourful when healthy and bleaches as mould spreads, so there's something to work back to." },
-    { type: "feat", title: "Descriptive onboarding", screens: ["cx/w/o1-welcome.webp", "cx/w/o3-skills.webp", "cx/w/o4-limits.webp", "cx/w/o6-journal.webp"],
+    { type: "feat", title: "Descriptive onboarding", live: "onboard", screens: ["cx/w/o1-welcome.webp", "cx/w/o3-skills.webp", "cx/w/o4-limits.webp", "cx/w/o6-journal.webp"],
       what: "Consent first, then each designer picks the four skills they protect and sets their own limits, with a short dashboard tour.",
       why: "Late consent was flagged as a dark pattern, and every designer values different skills, so they set the rules." },
-    { type: "feat", title: "Tracking", screens: ["cx/scr-phase.webp"],
+    { type: "feat", title: "Tracking", live: "tracking", screens: ["cx/scr-phase.webp"],
       what: "Every AI-decided prompt counts towards that skill's limit, with the phase and prompts left shown as you work.",
       why: "Designers hand over thinking without noticing. You can't change a habit you can't see." },
-    { type: "feat", title: "The Claude extension", screens: ["cx/w/c1-claude.webp", "cx/w/c2-enable.webp", "cx/w/c3-ask.webp", "cx/w/c4-mould.webp"],
+    { type: "feat", title: "The Claude extension", live: "ext", screens: ["cx/w/c1-claude.webp", "cx/w/c2-enable.webp", "cx/w/c3-ask.webp", "cx/w/c4-mould.webp"],
       what: "A browser extension inside Claude. When a prompt hands over a skill, it flags the mould and offers the journal.",
       why: "Co-design asked for the pause to come from the AI itself, not another app to remember." },
 
@@ -3096,10 +3105,11 @@ const BLOCKS = {
       <span class="cs-embed-bar"><span class="cs-link-ic" aria-hidden="true"><svg viewBox="0 0 38 57"><path fill="#1ABCFE" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0ACF83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#FF7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#F24E1E" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#A259FF" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg></span><span class="cs-embed-name"><b>${esc(b.title)}</b><small>FigJam board</small></span><span class="cs-embed-open">Open in Figma ↗</span></span>
       <span class="cs-embed-img">${img(b.image, b.title)}</span></a>`,
   feat: b => `<div class="feat">
-      <div class="feat-media">${fader(b.screens.map(image => ({ image })), () => "16 / 9", true)}</div>
+      <div class="feat-media">${b.live ? `<div class="live" data-live="${b.live}"><img class="live-poster" src="${esc(b.screens[0])}" alt="${esc(b.title)}" loading="lazy"><span class="live-cur" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 2l15 11-6.5 1.2L16 21l-3 1.3-3.4-6.8L4 20z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg></span></div>` : fader(b.screens.map(image => ({ image })), () => "16 / 9", true)}</div>
       <div class="feat-text">${txt(b.title, "h3", "cs-h3")}
         <div><div class="cs-label">What it is</div><p>${esc(b.what)}</p></div>
         <div><div class="cs-label">Why</div><p>${esc(b.why)}</p></div></div></div>`,
+  thesis: () => `<div class="thesis"><p>There's a lot more to the journey than fits here.</p><a class="fill-btn thesis-btn" href="mailto:${SITE.email}?subject=${encodeURIComponent("Request: Cortexus thesis")}">Request my thesis <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>`,
   bullets: b => `<div class="cs-points-wrap">${txt(b.label, "div", "cs-label")}<ul class="cs-bullets">${b.items.map(i => `<li>${esc(i)}</li>`).join("")}</ul></div>`,
   link: b => `<a class="cs-link" href="${esc(b.href)}" target="_blank" rel="noopener"><span class="cs-link-ic" aria-hidden="true"><svg viewBox="0 0 38 57"><path fill="#1ABCFE" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0ACF83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#FF7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#F24E1E" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#A259FF" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg></span><span class="cs-link-txt"><b>${esc(b.title)}</b><span>${esc(b.text)}</span><small>${esc(b.site)} ↗</small></span></a>`,
   affinity: b => `<div class="cs-aff${b.steps && b.steps.length ? "" : " solo"}"><figure class="cs-aff-img">${img(b.image, b.alt || "")}${b.caption ? `<figcaption class="cs-label sm">${esc(b.caption)}</figcaption>` : ""}</figure>
@@ -3811,6 +3821,108 @@ function setupFaders() {
   });
 }
 
+/* LIVE PROTOTYPE: loads the real Cortexus app and walks through it like a user, one feature at a time */
+const LIVE_DOC = () => `<!DOCTYPE html><html><head><meta charset="UTF-8"><base href="${new URL("proto/cxfull/", location.href).href}"><link rel="stylesheet" href="tw.css?v=191"><style>html,body{margin:0;padding:0;background:#0e0e0e;height:100%;overflow:hidden}#root{width:100vw;height:100vh}</style></head><body><div id="root"></div><script src="react.js?v=191"><\/script><script src="app.js?v=191"><\/script></body></html>`;
+const LIVE_FLOWS = (() => {
+  const vis = e => { if (!e) return false; const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; };
+  const btn = (d, re, last) => { const all = [...d.querySelectorAll("button")].filter(b => re.test(b.textContent.trim()) && vis(b)); return last ? all[all.length - 1] : all[0]; };
+  const text = (d, re) => [...d.querySelectorAll("div,span,p,label,h1,h2,h3,h4")].find(e => e.childElementCount === 0 && re.test(e.textContent.trim()) && vis(e));
+  const at = (d, x, y) => d.elementFromPoint(x * 1440, y * 810);
+  const typeIn = async (L, el, str) => { const set = Object.getOwnPropertyDescriptor(L.win.HTMLInputElement.prototype, "value").set; el.focus(); for (let i = 1; i <= str.length; i++) { set.call(el, str.slice(0, i)); el.dispatchEvent(new L.win.Event("input", { bubbles: true })); await L.wait(110); } };
+  const enter = (L, el) => ["keydown", "keypress", "keyup"].forEach(t => el.dispatchEvent(new L.win.KeyboardEvent(t, { key: "Enter", code: "Enter", keyCode: 13, which: 13, bubbles: true })));
+  const install = async (L, show) => {
+    const d = L.doc(); const inp = d.querySelector("input");
+    if (show) { await L.move(inp); await L.wait(300); await typeIn(L, inp, "Cortexus"); } else { const set = Object.getOwnPropertyDescriptor(L.win.HTMLInputElement.prototype, "value").set; set.call(inp, "Cortexus"); inp.dispatchEvent(new L.win.Event("input", { bubbles: true })); }
+    enter(L, inp); await L.wait(show ? 1200 : 500);
+    await L.click(() => btn(L.doc(), /^Install$/), show); await L.wait(5300);
+    await L.click(() => btn(L.doc(), /^Open$/), show); await L.wait(show ? 7200 : 6800);
+  };
+  const step = async (L, n) => { for (let i = 0; i < n; i++) { const b = btn(L.doc(), /^›$/); b && b.click(); await L.wait(450); } };
+  const toClaude = async L => {
+    await step(L, 6); await L.wait(600); const sk = text(L.doc(), /^Skip for now$/) || btn(L.doc(), /^Skip for now$/); sk && sk.click(); await L.wait(900);
+    const d = L.doc(); const x = [...d.querySelectorAll("button")].filter(e => vis(e) && e.getBoundingClientRect().top < 50).sort((a, b) => b.getBoundingClientRect().right - a.getBoundingClientRect().right)[0]; x && x.click(); await L.wait(1000);
+    const c = [...L.doc().querySelectorAll("span")].find(e => e.textContent.trim() === "Claude" && vis(e)); c && c.click(); await L.wait(2600);
+  };
+  const ct = d => [...d.querySelectorAll("button")].filter(b => /^CT/.test(b.textContent.trim()) && vis(b)).pop();
+  const enableExt = async (L, show) => {
+    await L.click(() => ct(L.doc()), show); await L.wait(1300);
+    await L.click(() => btn(L.doc(), /^Enable Extension$/), show); await L.wait(2200);
+    await L.click(() => btn(L.doc(), /^Add to Chrome$/), show); await L.wait(2200);
+    await L.click(() => btn(L.doc(), /^Enable now$/), show); await L.wait(2600);
+  };
+  return {
+    install: { boot: async () => {}, run: async L => { await install(L, true); await L.wait(2500); } },
+    track: { boot: async L => { await install(L); await step(L, 2); }, run: async L => {
+      for (const re of [/^Prompt Types$/, /^AI Decided$/, /^User Decided$/, /^Journaling$/]) { await L.move(text(L.doc(), re)); await L.wait(1100); }
+      await L.click(() => btn(L.doc(), /^CONTINUE$/i), true); await L.wait(2500); } },
+    journal: { boot: async L => { await install(L); await step(L, 5); }, run: async L => {
+      const row = text(L.doc(), /^Journal It First$/i); const r = row && row.parentElement.getBoundingClientRect();
+      await L.click(() => { const d = L.doc(); const t = row && [...row.closest("div").parentElement.querySelectorAll("button,[role=switch],input")].find(vis); return t || at(d, .628, .237); }, true); await L.wait(1500);
+      await L.click(() => btn(L.doc(), /^GO TO DASHBOARD$/i), true); await L.wait(3000); } },
+    dash: { boot: async L => { await install(L); await step(L, 6); await L.wait(500); }, run: async L => {
+      await L.click(() => text(L.doc(), /^Skip for now$/) || btn(L.doc(), /^Skip for now$/), true); await L.wait(1500);
+      for (const n of ["2", "3", "4"]) { await L.click(() => btn(L.doc(), new RegExp("^" + n + "$")), true); await L.wait(3000); }
+      await L.click(() => btn(L.doc(), /^1$/), true); await L.wait(2200); } },
+    onboard: { boot: async L => { await install(L); }, run: async L => {
+      await L.click(() => L.doc().querySelector("input[type=checkbox]") || text(L.doc(), /I accept/), true); await L.wait(900);
+      await L.click(() => btn(L.doc(), /^GET STARTED$/i), true); await L.wait(1600);
+      for (let i = 0; i < 6 && !text(L.doc(), /^Prompt Types$/); i++) { await step(L, 1); await L.wait(500); }
+      await L.click(() => btn(L.doc(), /^CONTINUE$/i), true); await L.wait(1500);
+      await L.click(() => btn(L.doc(), /^Decision making$/, true), true); await L.wait(1200);
+      for (let i = 0; i < 3; i++) { await L.click(() => [...L.doc().querySelectorAll("button")].filter(b => b.textContent.trim() === "+" && vis(b))[1], true); await L.wait(500); }
+      await L.wait(800); await L.click(() => btn(L.doc(), /^CONTINUE$/i), true); await L.wait(2200); } },
+    tracking: { boot: async L => { await install(L); await toClaude(L); await enableExt(L); }, run: async L => {
+      await L.click(() => btn(L.doc(), /^Simulate Conversation$/), true); await L.wait(9000);
+      await L.click(() => btn(L.doc(), /^OPEN JOURNAL$/i), true); await L.wait(3200); } },
+    ext: { boot: async L => { await install(L); await toClaude(L); }, run: async L => { await enableExt(L, true); await L.wait(1500); } },
+  };
+})();
+let liveIO, liveActive = null;
+function setupLive() {
+  if (liveIO) liveIO.disconnect();
+  const frames = [...app.querySelectorAll("[data-live]")];
+  if (!frames.length || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const stop = f => { if (!f._run) return; f._run.stop = true; f._run = null; f.classList.remove("on"); const i = f.querySelector("iframe"); i && i.remove(); if (liveActive === f) liveActive = null; };
+  const start = f => {
+    if (f._run) return; if (liveActive && liveActive !== f) stop(liveActive); liveActive = f;
+    const run = f._run = { stop: false }; const flow = LIVE_FLOWS[f.dataset.live]; const cur = f.querySelector(".live-cur");
+    const ifr = document.createElement("iframe"); ifr.setAttribute("aria-hidden", "true"); ifr.tabIndex = -1; f.prepend(ifr);
+    const fit = () => { const k = f.clientWidth / 1440; ifr.style.transform = `scale(${k})`; return k; };
+    fit(); new ResizeObserver(fit).observe(f);
+    const L = {
+      win: null, doc: () => ifr.contentDocument,
+      wait: ms => new Promise((res, rej) => setTimeout(() => run.stop ? rej("stop") : res(), ms)),
+      move: async el => { if (!el) return; const r = el.getBoundingClientRect(), k = fit(); cur.style.transform = `translate(${(r.left + r.width / 2) * k - 3}px, ${(r.top + r.height / 2) * k - 2}px)`; await L.wait(800); },
+      click: async (get, show) => { let el = get(); for (let i = 0; !el && i < 20; i++) { await L.wait(200); el = get(); } if (!el) return; if (show) { await L.move(el); cur.classList.remove("tap"); void cur.offsetWidth; cur.classList.add("tap"); await L.wait(150); } el.click(); },
+    };
+    (async () => {
+      try {
+        while (!run.stop) {
+          f.classList.remove("on"); cur.style.transform = "translate(60%, 60%)";
+          await new Promise(res => { ifr.onload = res; ifr.srcdoc = LIVE_DOC(); });
+          L.win = ifr.contentWindow; await L.wait(1200);
+          const hide = setInterval(() => { try { const d = L.doc(); const e = [...d.querySelectorAll("div,span")].find(x => x.childElementCount === 0 && /^DEV:/.test(x.textContent.trim())); if (e) { let n = e; for (let i = 0; i < 3 && n.parentElement; i++) { if (n.parentElement.querySelectorAll("button").length >= 2) { n = n.parentElement; break; } n = n.parentElement; } n.style.visibility = "hidden"; } } catch (x) {} }, 150);
+          try { await flow.boot(L); f.classList.add("on"); await L.wait(600); await flow.run(L); await L.wait(1800); } finally { clearInterval(hide); }
+        }
+      } catch (e) { /* stopped */ }
+    })();
+  };
+  const ratio = new Map();
+  const pick = () => {
+    const mid = innerHeight / 2;
+    const vis = frames.filter(f => (ratio.get(f) || 0) > .55 && f.isConnected);
+    vis.sort((a, b) => { const ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect(); return Math.abs(ra.top + ra.height / 2 - mid) - Math.abs(rb.top + rb.height / 2 - mid); });
+    const best = vis[0];
+    frames.forEach(f => { if (f !== best && f._run) stop(f); });
+    if (best) start(best);
+  };
+  let pickT; const schedule = () => { clearTimeout(pickT); pickT = setTimeout(pick, 250); };
+  liveIO = new IntersectionObserver(es => { es.forEach(e => ratio.set(e.target, e.isIntersecting ? e.intersectionRatio : 0)); schedule(); }, { threshold: [0, .2, .55, .8, 1] });
+  frames.forEach(f => liveIO.observe(f));
+  addEventListener("scroll", schedule, { passive: true });
+}
+window.addEventListener("hashchange", () => { if (liveActive) { liveActive._run && (liveActive._run.stop = true); } });
+
 /* ZOOM: open a board image full screen; close with the button, a tap on the backdrop, or Esc */
 app.addEventListener("click", e => {
   const im = e.target.closest(".gal-cell .lcb-img img, .fade .fade-img img"); if (!im) return;
@@ -3923,7 +4035,7 @@ function render() {
   const project = PROJECTS.find(p => p.id === key) || SIDE.find(p => p.id === key);
   let tab = "work";
   document.body.classList.toggle("is-project", !!project);
-  if (project) { app.innerHTML = projectView(project); setupFaders(); setupCx(); setupToc(); setupVideos(); setupApps(); setupDevs(); updateProgress(); }
+  if (project) { app.innerHTML = projectView(project); setupFaders(); setupLive(); setupCx(); setupToc(); setupVideos(); setupApps(); setupDevs(); updateProgress(); }
   else if (key === "fun") { location.replace("#work"); return; }
   else if (key === "about") { app.innerHTML = aboutView(); tab = "about"; setupReel(); }
   else if (key === "resume") { app.innerHTML = cvView(); tab = "resume"; showDl(); waitImgs(app); { const c = app.querySelector("[data-refs-cue]"), t = app.querySelector(".cv-refs"); if (c && t) setupCue(c, t); } }
