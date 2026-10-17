@@ -2078,20 +2078,10 @@ function cortexusBlocks() {
       { title: "Show the healthy brain too", text: "Four designers wanted a colourful brain that bleaches, not constant negativity." },
     ]},
 
-    { type: "section", label: "Co-design workshop", count: "4 designers", heading: "Defining how Cortexus works." },
+    { type: "section", label: "Co-design workshop", count: "4 designers", heading: "Defining how Cortexus works.",
+      lead: "After the Accenture feedback workshop, four designers mapped their own process on worksheets to define how Cortexus should work. They wanted it to protect soft skills, not tools, to start with thinking on paper, and for the pause to come from the AI itself, with designers always in control." },
+    { type: "board", kind: "gallery", caption: "Co-design workshop", c: 1, ratio: "3 / 2", images: [[p("reflective"), ""]] },
     { type: "workshop",
-      image: p("reflective"), alt: "Four designers working through reflective thinking worksheets, with feedback questions on the wall behind them",
-      parts: [
-        ["Why", "After the Accenture feedback workshop, to define what Cortexus protects and how it steps in."],
-        ["What happened", "Four designers mapped their own process on worksheets and answered questions on the wall."],
-      ],
-      findings: [
-        ["Protect soft skills, not tools.", ""],
-        ["Think on paper first.", ""],
-        ["The pause should come from the AI.", ""],
-        ["Designers stay in control.", ""],
-      ],
-      quote: "Paper first, screen second is something I would want to make a part of my process.",
       into: [
         [p("scr-skills"), "Choose the skills you protect", "Cortexus tracks soft skills, and designers pick their own four."],
         [p("scr-claude-journal"), "Journal it first", "Writing your own thinking first breaks the mould down."],
@@ -3028,11 +3018,11 @@ const BLOCKS = {
   text: b => `<div class="cs-text">${b.paragraphs.map(t => txt(t)).join("")}</div>`,
   media: b => `<div class="cs-media">${stage(b, "wide")}</div>`,
   workshop: b => `<article class="ws">
-      <div class="ws-top">${b.images ? `<div class="ws-fade">${fader(b.images.map(([image, caption]) => ({ image, caption })), () => "4 / 3")}</div>` : `<figure class="ws-img">${img(b.image, b.alt || "")}</figure>`}
-        <div class="ws-why">${b.parts.map(([k, t]) => `<div><div class="cs-label">${esc(k)}</div><p>${esc(t)}</p></div>`).join("")}</div></div>
-      <div class="ws-find"><div class="cs-label">What I found</div>
+      ${b.parts ? `<div class="ws-top">${b.images ? `<div class="ws-fade">${fader(b.images.map(([image, caption]) => ({ image, caption })), () => "4 / 3")}</div>` : `<figure class="ws-img">${img(b.image, b.alt || "")}</figure>`}
+        <div class="ws-why">${b.parts.map(([k, t]) => `<div><div class="cs-label">${esc(k)}</div><p>${esc(t)}</p></div>`).join("")}</div></div>` : ""}
+      ${b.findings ? `<div class="ws-find"><div class="cs-label">What I found</div>
         <div class="ws-find-grid" style="--c:${b.findings.length === 4 ? 2 : Math.min(3, b.findings.length)}">${b.findings.map(([h, t]) => `<div><h4 class="cs-h4">${esc(h)}</h4>${t ? `<p>${esc(t)}</p>` : ""}</div>`).join("")}</div>
-        ${b.quote ? `<blockquote class="ws-quote">“${esc(b.quote)}”</blockquote>` : ""}</div>
+        ${b.quote ? `<blockquote class="ws-quote">“${esc(b.quote)}”</blockquote>` : ""}</div>` : ""}
       <div class="ws-into"><div class="cs-label">How it shaped the design</div>
         <div class="ws-into-grid" style="--n:${b.into.length === 4 ? 2 : Math.max(2, Math.min(3, b.into.length))}">${b.into.map(([src, h, t]) => `<figure>${src ? `<div class="ws-shot">${img(src, h)}</div>` : ""}<figcaption><h4>${esc(h)}</h4><p>${esc(t)}</p></figcaption></figure>`).join("")}</div></div>
     </article>`,
