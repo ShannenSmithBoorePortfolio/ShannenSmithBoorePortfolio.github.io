@@ -1420,6 +1420,23 @@ footer { border-top: 1px solid var(--line); }
 /* FEATURE: screens changing on the left, what and why on the right */
 .feat { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(24px, 3.4vw, 48px); align-items: center; padding-top: 16px; }
 .feat .fade-img { background: none; }
+.feat.feat-full { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+.feat-full .feat-text { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 40px); align-items: start; }
+.feat-full .feat-text .cs-h3 { margin: 0; }
+.bk { position: relative; aspect-ratio: 16 / 9; perspective: 2600px; overflow: hidden; border-radius: 6px; cursor: pointer; background: radial-gradient(60% 70% at 50% 50%, rgba(255, 250, 244, .9) 0%, rgba(255, 250, 244, 0) 70%), linear-gradient(125deg, #F2A47F 0%, #F7CDB4 30%, #F6E2D6 50%, #DCD9F2 72%, #AEB3E6 100%); --l: 180deg; --r: -180deg; --flip: 0deg; }
+.bk-book { position: absolute; left: 15%; top: 6%; width: 70%; aspect-ratio: 1560 / 1100; transform-style: preserve-3d; transform: rotateY(var(--flip)); transition: transform 1.2s cubic-bezier(.6, 0, .25, 1); }
+.bk-p { position: absolute; top: 0; width: 33.334%; height: 100%; transform-style: preserve-3d; transition: transform 1.1s cubic-bezier(.6, 0, .25, 1); }
+.bk-l { left: 0; transform-origin: 100% 50%; transform: translateZ(2px) rotateY(var(--l)); }
+.bk-m { left: 33.333%; }
+.bk-r { left: 66.666%; transform-origin: 0 50%; transform: translateZ(1px) rotateY(var(--r)); }
+.bk-f, .bk-b { position: absolute; inset: 0; background-size: 100% 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: 0 0 0 1px rgba(19, 63, 65, .06); }
+.bk-b { transform: rotateY(180deg); }
+.bk-l .bk-f, .bk-l .bk-b, .bk-r .bk-f, .bk-r .bk-b { transition: visibility 0s .55s; }
+.bk.lf .bk-l .bk-f, .bk:not(.lf) .bk-l .bk-b, .bk.rf .bk-r .bk-f, .bk:not(.rf) .bk-r .bk-b { visibility: hidden; }
+.bk-l .bk-f { box-shadow: inset -14px 0 18px -16px rgba(0, 0, 0, .35); } .bk-r .bk-f { box-shadow: inset 14px 0 18px -16px rgba(0, 0, 0, .35); }
+.bk-shadow { position: absolute; left: 50%; bottom: 3%; width: 26%; height: 5%; transform: translateX(-50%); border-radius: 50%; background: rgba(60, 30, 20, .28); filter: blur(14px); transition: width 1.1s cubic-bezier(.6, 0, .25, 1); }
+.bk.open .bk-shadow { width: 74%; }
+@media (max-width: 760px) { .feat-full .feat-text { grid-template-columns: minmax(0, 1fr); } .bk { aspect-ratio: 4 / 3; } .bk-book { left: 4%; width: 92%; top: 50%; translate: 0 -50%; } }
 .feat-media .fade-img { width: 100%; }
 .feat-text { display: grid; gap: 16px; align-content: center; }
 .feat-text .cs-h3 { font-size: clamp(24px, 2.4vw, 30px); }
@@ -2015,7 +2032,7 @@ function beoNuaBlocks() {
     { type: "bncover" },
 
     { type: "section", label: "Features", heading: "How each insight became part of the service." },
-    { type: "feat", title: "A pack that arrives on its own", screens: [p("brochure-front"), p("brochure-back")],
+    { type: "feat", title: "A pack that arrives on its own", booklet: true, screens: [p("brochure-front"), p("brochure-back")],
       what: "A celebration pack, sent automatically at 66 or on request, with local hubs and a QR code to the website.",
       why: "Nobody reaches out, so the service reaches out first." },
     { type: "feat", title: "Every local event in one place", live: "bnbrowse", screens: [v("browse") + ".webp"],
@@ -2562,9 +2579,9 @@ const PROJECTS = [
     theme: "bn",
     role: ["Service Designer /", "UX/UI Designer"],
     timeline: ["4 weeks"],
-    team: ["Rebecca, Shannen", "and Abbie"],
+    team: ["Rebecca, Shannen and Abbie,", "in collaboration with the", "Department of Public Expenditure"],
     skills: ["Research", "Service Design", "Branding", "Web Prototyping"],
-    partner: ["Department of Public", "Expenditure"],
+    proto: "bnlive",
     blocks: beoNuaBlocks(),
   },
   {
@@ -3073,8 +3090,8 @@ const BLOCKS = {
   embed: b => `<a class="cs-embed" href="${esc(b.href)}" target="_blank" rel="noopener">
       <span class="cs-embed-bar"><span class="cs-link-ic" aria-hidden="true"><svg viewBox="0 0 38 57"><path fill="#1ABCFE" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0ACF83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#FF7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#F24E1E" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#A259FF" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg></span><span class="cs-embed-name"><b>${esc(b.title)}</b><small>FigJam board</small></span><span class="cs-embed-open">Open in Figma ↗</span></span>
       <span class="cs-embed-img">${img(b.image, b.title)}</span></a>`,
-  feat: b => `<div class="feat">
-      <div class="feat-media">${b.video ? `<div class="live on"><video autoplay muted loop playsinline poster="${esc(b.video)}.webp" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><source src="${esc(b.video)}.webm" type="video/webm"><source src="${esc(b.video)}.mp4" type="video/mp4"></video></div>` : b.live ? `<div class="live" data-live="${b.live}"><img class="live-poster" src="${esc(b.screens[0])}" alt="${esc(b.title)}" loading="lazy"><span class="live-cur" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 2l15 11-6.5 1.2L16 21l-3 1.3-3.4-6.8L4 20z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg></span></div>` : fader(b.screens.map(image => ({ image })), () => "16 / 9", true)}</div>
+  feat: b => `<div class="feat${b.booklet ? " feat-full" : ""}">
+      <div class="feat-media">${b.booklet ? booklet() : b.video ? `<div class="live on"><video autoplay muted loop playsinline poster="${esc(b.video)}.webp" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><source src="${esc(b.video)}.webm" type="video/webm"><source src="${esc(b.video)}.mp4" type="video/mp4"></video></div>` : b.live ? `<div class="live" data-live="${b.live}"><img class="live-poster" src="${esc(b.screens[0])}" alt="${esc(b.title)}" loading="lazy"><span class="live-cur" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 2l15 11-6.5 1.2L16 21l-3 1.3-3.4-6.8L4 20z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg></span></div>` : fader(b.screens.map(image => ({ image })), () => "16 / 9", true)}</div>
       <div class="feat-text">${txt(b.title, "h3", "cs-h3")}
         <div><div class="cs-label">What it is</div><p>${esc(b.what)}</p></div>
         <div><div class="cs-label">Why</div><p>${esc(b.why)}</p></div></div></div>`,
@@ -3151,7 +3168,7 @@ function projectView(p) {
           <h1>${esc(p.title)}</h1>
         </header>
         <div class="hero-img">${img(p.image, p.title)}${p.id === "cortexus" ? cxAnim() : p.id === "beo-nua" ? bnAnim() : ""}</div>
-        ${p.proto ? `<a class="proto-link" href="#" data-proto="${p.proto}"><span class="label">Interactive prototype</span><span class="proto-go fill-btn">Try Cortexus for yourself <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>` : ""}
+        ${p.proto ? `<a class="proto-link" href="#" data-proto="${p.proto}"><span class="label">Interactive prototype</span><span class="proto-go fill-btn">Try ${esc(p.title)} for yourself <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></a>` : ""}
         <dl class="meta">
           <div><dt class="label">Role</dt><dd>${list(p.role)}</dd></div>
           <div><dt class="label">Timeline</dt><dd>${list(p.timeline)}</dd></div>
@@ -3710,6 +3727,23 @@ const pc = (x, y, w, h) => `left:${x / 16}%;top:${y / 8.2}%;width:${w / 16}%;hei
 const CX_SETS = [["iconPhaseGermination.png", "iconPhaseSporulation.png", "iconPhaseMyceliation.png", "iconPhaseNecrosis.png"], ["icon2PhaseGermination.webp", "icon2PhaseSporulation.webp", "icon2PhaseMyceliation.webp", "icon2PhaseNecrosis.webp"], ["icon3PhaseGermination.webp", "icon3PhaseMyceliation.webp", "icon3PhaseSporulation.webp", "icon3PhaseNecrosis.webp"], ["icon4PhaseGermination.png", "icon4PhaseSporulation.png", "icon4PhaseMyceliation.png", "icon4PhaseNecrosis.png"]];
 const CX_ROWS = [176, 262, 343, 430], CX_LINES = [219, 306, 392, 479], CX_BADGES = [187, 274, 360, 447];
 const CX_EKG = "M0,18 L20,18 L25,10 L30,26 L35,14 L40,20 L45,18 L70,18 L75,10 L80,26 L85,14 L90,20 L95,18 L120,18 L125,10 L130,26 L135,14 L140,20 L145,18 L170,18 L175,10 L180,26 L185,14 L190,20 L195,18 L220,18";
+/* BOOKLET: the Beo Nua pack as a real trifold that unfolds, closes and turns over */
+const BK = (f, b) => `<div class="bk-f" style="background-image:url(bn/bk/${f}.webp)"></div><div class="bk-b" style="background-image:url(bn/bk/${b}.webp)"></div>`;
+const booklet = () => `<div class="bk" data-bk role="img" aria-label="The Beo Nua pack, a trifold booklet, unfolding to show the inside and turning over to show the back"><div class="bk-shadow"></div><div class="bk-book"><div class="bk-p bk-l">${BK("d", "c")}</div><div class="bk-p bk-m">${BK("e", "b")}</div><div class="bk-p bk-r">${BK("f", "a")}</div></div></div>`;
+let bkTimers = [];
+function setupBooklets() {
+  bkTimers.forEach(clearTimeout); bkTimers = [];
+  const STEPS = [[180, -180, 0, 2600], [0, -180, 0, 2400], [0, 0, 0, 4600], [0, -180, 0, 1300], [180, -180, 0, 1500], [180, -180, 180, 3000], [180, -180, 0, 1600]];
+  app.querySelectorAll("[data-bk]").forEach(el => {
+    const set = n => { const [l, r, fl] = STEPS[n]; el.style.setProperty("--l", l + "deg"); el.style.setProperty("--r", r + "deg"); el.style.setProperty("--flip", fl + "deg"); el.classList.toggle("open", l === 0); el.classList.toggle("lf", l !== 0); el.classList.toggle("rf", r !== 0); };
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { set(2); return; }
+    let i = 0, seen = false, held = 0; set(0);
+    const next = () => { if (!el.isConnected) return; i = (i + 1) % STEPS.length; set(i); };
+    const loop = () => { if (!el.isConnected) return; const wait = STEPS[i][3]; bkTimers.push(setTimeout(() => { if (Date.now() < held) return loop(); next(); loop(); }, wait)); };
+    new IntersectionObserver((es, o) => { if (es[0].isIntersecting && !seen) { seen = true; o.disconnect(); loop(); } }, { threshold: .45 }).observe(el);
+    el.addEventListener("click", () => { held = Date.now() + 7000; next(); });
+  });
+}
 const bnAnim = () => `<div class="bnw" aria-hidden="true"><div class="bnw-bar"><span class="bnw-dots"><i></i><i></i><i></i></span><span class="bnw-url"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>beonua.ie</span><span class="bnw-dots" style="visibility:hidden"><i></i><i></i><i></i></span></div><div class="live bnw-view" data-live="bnhero"><img class="live-poster" src="bn/live-desk.webp" alt=""><span class="live-cur"></span></div></div><div class="bnp" aria-hidden="true"><div class="live bnp-view" data-live="bnphone"><img class="live-poster" src="bn/live-phone.webp" alt=""><span class="live-cur"></span></div><span class="bnp-notch"></span></div>`;
 const cxAnim = () => `<div class="cxa" aria-hidden="true">
   <div class="br" style="${pc(578, 174.5, 348, 348)}">${[1, 2, 3, 4].map(n => `<img src="cx/rot/brain${n}.webp" alt=""${n === 1 ? ' class="on"' : ""}>`).join("")}</div>
@@ -3952,14 +3986,19 @@ function openProto(name) {
   const pv = document.createElement("div");
   pv.className = "pv"; pv.setAttribute("role", "dialog"); pv.setAttribute("aria-modal", "true"); pv.setAttribute("aria-label", "Cortexus prototype");
   pv.innerHTML = `<div class="pv-bar"><button type="button" class="pv-back">&larr; Back to portfolio</button><span class="label">Cortexus interactive prototype</span></div><div class="pv-tip gone" aria-live="polite"></div><div class="pv-intro"><div class="pv-intro-in"><div class="label">Before you start</div><h2>Cortexus is a desktop prototype</h2><p>It was designed and built for a laptop or desktop screen, where people use AI tools day to day. For the full experience, open it on a larger screen. On a phone, some screens may not display as intended.</p><button type="button" class="pv-start fill-btn">Start the prototype <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m0 0-6-6m6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></button></div></div><iframe title="Cortexus interactive prototype"></iframe>`;
-  pv.querySelector(".pv-start").addEventListener("click", () => { pv.querySelector(".pv-intro").remove(); pv.querySelector("iframe").srcdoc = doc; });
+  if (name === "bnlive") {
+    pv.setAttribute("aria-label", "Beo Nua interactive prototype"); pv.querySelector(".pv-bar .label").textContent = "Beo Nua interactive prototype";
+    pv.querySelector(".pv-intro").remove(); try { localStorage.removeItem("beonua"); } catch (x) {}
+    const fr = pv.querySelector("iframe"); fr.title = "Beo Nua interactive prototype"; fr.src = new URL("proto/bnlive/index.html#home", location.href).href;
+  }
+  pv.querySelector(".pv-start") && pv.querySelector(".pv-start").addEventListener("click", () => { pv.querySelector(".pv-intro").remove(); pv.querySelector("iframe").srcdoc = doc; });
   const close = () => { document.querySelectorAll(".pv").forEach(n => n.remove()); document.body.classList.remove("pv-open"); document.removeEventListener("keydown", esc); };
   const esc = e => { if (e.key === "Escape") close(); };
   pv.querySelector(".pv-back").addEventListener("click", close);
   document.addEventListener("keydown", esc);
   document.body.append(pv); document.body.classList.add("pv-open");
   requestAnimationFrame(() => pv.classList.add("on"));
-  pv.querySelector(".pv-start").focus();
+  (pv.querySelector(".pv-start") || pv.querySelector(".pv-back")).focus();
   const tip = pv.querySelector(".pv-tip"), frame = pv.querySelector("iframe");
   let installed = false, lastAct = Date.now(), dashDone = 0, extDone = false, simDone = false, bound = null, arrowsAt = 0;
   const vis = el => { const r = el.getBoundingClientRect(); return r.width > 0 && r.height > 0; };
@@ -4043,7 +4082,7 @@ function render() {
   const project = PROJECTS.find(p => p.id === key) || SIDE.find(p => p.id === key);
   let tab = "work";
   document.body.classList.toggle("is-project", !!project);
-  if (project) { app.innerHTML = projectView(project); setupFaders(); setupLive(); setupCx(); setupToc(); setupVideos(); setupApps(); setupDevs(); updateProgress(); }
+  if (project) { app.innerHTML = projectView(project); setupFaders(); setupLive(); setupBooklets(); setupCx(); setupToc(); setupVideos(); setupApps(); setupDevs(); updateProgress(); }
   else if (key === "fun") { location.replace("#work"); return; }
   else if (key === "about") { app.innerHTML = aboutView(); tab = "about"; setupReel(); }
   else if (key === "resume") { app.innerHTML = cvView(); tab = "resume"; showDl(); waitImgs(app); { const c = app.querySelector("[data-refs-cue]"), t = app.querySelector(".cv-refs"); if (c && t) setupCue(c, t); } }
