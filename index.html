@@ -539,6 +539,7 @@ ol.lcl li::before { content: counter(q); width: 16px; height: 16px; top: .05em; 
 
 /* shared grid: equal-height cards, always aligned */
 .lcgrid { display: grid; grid-template-columns: repeat(var(--c, 3), minmax(0, 1fr)); gap: 14px; align-items: stretch; }
+.lcgrid.narrow { max-width: 720px; margin-inline: auto; width: 100%; }
 .lcgrid > .lcc { height: 100%; }
 
 /* persona */
@@ -2177,7 +2178,7 @@ function beoNuaBlocks() {
 
     { type: "subsection", heading: "Thanking our partners", lead: "Hubs receive a thank you card and a window sticker, so people can spot Beo Nua spaces and businesses feel part of something bigger." },
     { type: "bullets", items: ["Good relationships: local businesses, community centres and parishes give members somewhere to meet.", "Shared benefit: businesses get noticed and bring in more customers, while quiet spaces get used.", "Recognition: cards and stickers show appreciation and help Beo Nua grow."] },
-    { type: "board", kind: "gallery", caption: "The thank you pack", c: 2, ratio: "3 / 4", images: [[p("thanks-card"), ""], [p("thanks-cafe"), ""]] },
+    { type: "board", kind: "gallery", caption: "The thank you pack", c: 2, ratio: "3 / 4", narrow: true, images: [[p("thanks-card"), ""], [p("partner-cafe"), ""]] },
 
     { type: "section", label: "User journey", heading: "From turning 66 to finding a new routine.",
       lead: "We mapped how a retiree moves through the service, and how they feel at each stage." },
@@ -2994,7 +2995,7 @@ const LC = {
     <div class="lcgrid vids" style="--c:${b.c || 2}">${b.vids.map(v => `<figure class="shot${v[2] ? " phone-shot" : ""}"><div class="win"><div class="bar"><i></i><i></i><i></i></div><video data-auto poster="${v[0]}.webp" muted loop playsinline preload="none" aria-label="${esc(v[1])}"><source src="${v[0]}.webm" type="video/webm"><source src="${v[0]}.mp4" type="video/mp4"></video></div><figcaption>${esc(v[1])}</figcaption></figure>`).join("")}</div></div>`,
 
   gallery: b => `<div class="lcb">${b.caption ? boardHead(b.caption) : ""}
-    <div class="lcgrid${(b.c || 3) === 1 ? " one" : ""}" style="--c:${b.c || 3}">${b.images.map(im => `<figure class="gal-cell${b.contain ? " contain" : ""}" style="--r:${b.ratio || "4 / 3"}"><div class="lcb-img">${img(im[0], im[1] || b.caption)}</div>${im[1] ? `<figcaption>${esc(im[1])}</figcaption>` : ""}</figure>`).join("")}</div>
+    <div class="lcgrid${(b.c || 3) === 1 ? " one" : ""}${b.narrow ? " narrow" : ""}" style="--c:${b.c || 3}">${b.images.map(im => `<figure class="gal-cell${b.contain ? " contain" : ""}" style="--r:${b.ratio || "4 / 3"}"><div class="lcb-img">${img(im[0], im[1] || b.caption)}</div>${im[1] ? `<figcaption>${esc(im[1])}</figcaption>` : ""}</figure>`).join("")}</div>
     ${b.note ? `<div class="lcc y"><p>${esc(b.note)}</p></div>` : ""}</div>`,
 
   quotes: b => `<div class="lcb">${boardHead(b.caption)}
