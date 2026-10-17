@@ -10,8 +10,9 @@
   --ink: #2E3A48;
   --muted: #8A929C;
   --line: #E7EAF0;
-  --accent: #EE7A51;
-  --accent-ink: #FFFFFF;
+  --accent: #B897E4;
+  --accent-ink: #1A1424;
+  --accent-text: #7349B8;
   --placeholder: #D9D9D9;
   --sans: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
   --serif: "DM Serif Display", Georgia, "Times New Roman", serif;
@@ -74,7 +75,7 @@ a:focus, button:focus, a:focus-visible, button:focus-visible, [tabindex]:focus {
   font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted);
   transition: color .2s;
 }
-.nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--accent); }
+.nav-links a:hover, .nav-links a[aria-current="page"] { color: var(--accent-text); }
 
 .is-project .nav { display: none; }
 .readbar {
@@ -175,7 +176,7 @@ main { min-height: 70vh; }
 .pill-short { display: none; }
 @media (hover: none), (pointer: coarse) { .thumb .pill .pill-short { display: inline; } }
 .card-title { font-family: var(--serif); font-weight: 400; font-size: clamp(22px, 2.4vw, 26px); line-height: 1.2; margin: 0 0 6px; }
-.card:hover .card-title { color: var(--accent); }
+.card:hover .card-title { color: var(--accent-text); }
 .card-title { transition: color .2s; }
 
 .card-body { display: grid; gap: 10px; }
@@ -185,12 +186,12 @@ main { min-height: 70vh; }
 .card-meta .label + .label { position: relative; }
 .card-meta .label + .label::before { content: ""; position: absolute; left: -12px; top: 50%; width: 3px; height: 3px; border-radius: 50%; background: var(--muted); transform: translateY(-50%); }
 .card-top { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; }
-.card-time { position: absolute; left: 14px; top: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px 7px 10px; border-radius: 999px; background: #FFFFFF; color: var(--accent); font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; box-shadow: 0 6px 18px -10px rgba(20, 24, 32, .5); }
-.card-time svg { width: 14px; height: 14px; color: var(--accent); }
+.card-time { position: absolute; left: 14px; top: 14px; z-index: 2; display: inline-flex; align-items: center; gap: 7px; padding: 7px 13px 7px 10px; border-radius: 999px; background: #FFFFFF; color: var(--accent-text); font-size: 12px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; box-shadow: 0 6px 18px -10px rgba(20, 24, 32, .5); }
+.card-time svg { width: 14px; height: 14px; color: var(--accent-text); }
 .proto-link { display: flex; align-items: center; justify-content: space-between; gap: 8px 24px; flex-wrap: wrap; margin-top: 18px; padding: 18px 0; border-bottom: 1px solid var(--line); }
 .proto-go { display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; border-radius: 999px; font-size: 13px; letter-spacing: .05em; text-transform: uppercase; }
 .proto-go svg { width: 14px; height: 14px; }
-.proto-link:hover .proto-go { color: var(--accent-ink) !important; border-color: var(--accent) !important; }
+.proto-link:hover .proto-go { color: var(--accent-ink) !important; border-color: var(--accent-text) !important; }
 .proto-link:hover .proto-go::before { transform: scaleX(1); }
 .proto-link:hover .proto-go svg { transform: translate(2px, -2px); }
 /* PROTOTYPE VIEWER: opens the full prototype on top of the portfolio, no new tab */
@@ -198,7 +199,7 @@ main { min-height: 70vh; }
 .pv-bar { flex: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 12px clamp(16px, 4vw, 56px); background: var(--bg); border-bottom: 1px solid var(--line); }
 .pv-bar .label { margin: 0; }
 .pv-back { display: inline-flex; align-items: center; gap: 8px; border: 0; border-bottom: 1px solid var(--accent); background: none; color: var(--muted); font: inherit; font-size: 13px; letter-spacing: .05em; text-transform: uppercase; padding: 6px 20px 8px 0; border-radius: 0; cursor: pointer; transition: color .2s ease; }
-.pv-back:hover, .pv-back:focus-visible { color: var(--accent); }
+.pv-back:hover, .pv-back:focus-visible { color: var(--accent-text); }
 .pv iframe { flex: 1; width: 100%; border: 0; background: #0E0E0E; }
 body.pv-open { overflow: hidden; }
 .pv-intro { position: absolute; left: 0; right: 0; bottom: 0; top: var(--pvbar, 58px); z-index: 3; background: var(--bg); display: flex; align-items: center; justify-content: center; padding: 24px 16px; border-top: 1px solid var(--line); }
@@ -210,7 +211,7 @@ body.pv-open { overflow: hidden; }
 .pv-start svg { width: 14px; height: 14px; }
 .pv-start:hover svg { transform: translateX(3px) !important; }
 
-.pv-tip { position: absolute; left: 0; top: 0; z-index: 2; pointer-events: none; background: var(--accent); color: #fff; font-size: 14px; padding: 10px 18px; border-radius: 999px; white-space: nowrap; box-shadow: 0 10px 24px -12px rgba(0,0,0,.6); animation: pvTip 1.6s ease-in-out infinite; transition: opacity .3s ease; }
+.pv-tip { position: absolute; left: 0; top: 0; z-index: 2; pointer-events: none; background: var(--accent); color: var(--accent-ink); font-size: 14px; padding: 10px 18px; border-radius: 999px; white-space: nowrap; box-shadow: 0 10px 24px -12px rgba(0,0,0,.6); animation: pvTip 1.6s ease-in-out infinite; transition: opacity .3s ease; }
 .pv-tip::before { content: ""; position: absolute; left: var(--ax, 50%); top: -6px; width: 12px; height: 12px; background: var(--accent); transform: translateX(-50%) rotate(45deg); border-radius: 2px; }
 .pv-tip b { font-weight: 600; }
 .pv-tip.gone { opacity: 0; }
@@ -273,7 +274,7 @@ body.pv-open { overflow: hidden; }
   border-bottom: 1px solid var(--accent);
   padding-right: 20px;
 }
-.back:hover { color: var(--accent); }
+.back:hover { color: var(--accent-text); }
 .detail-head { padding-block: clamp(40px, 6vw, 64px) 28px; }
 .detail-head h1 { font-family: var(--serif); font-weight: 400; font-size: clamp(34px, 5vw, 48px); line-height: 1.1; margin: 8px 0 0; text-wrap: balance; }
 .hero-img { aspect-ratio: 16 / 8.2; background: var(--placeholder); max-width: 100%; overflow: hidden; }
@@ -297,7 +298,7 @@ body.pv-open { overflow: hidden; }
   display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap;
 }
 .next a { font-family: var(--serif); font-size: clamp(22px, 3vw, 30px); }
-.next a:hover { color: var(--accent); }
+.next a:hover { color: var(--accent-text); }
 
 /* CASE STUDY LAYOUT */
 .wrap.wide { max-width: calc(var(--wrap) + 2 * var(--gutter)); }
@@ -317,7 +318,7 @@ body.pv-open { overflow: hidden; }
     background: none; border: 0; padding: 0; cursor: pointer; text-align: left;
     transition: color .2s;
   }
-  .toc button:hover { color: var(--accent); }
+  .toc button:hover { color: var(--accent-text); }
   .toc button[aria-current="true"] { color: var(--ink); }
 }
 .cs-main { min-width: 0; }
@@ -782,7 +783,7 @@ ol.lcl li::before { content: counter(q); width: 16px; height: 16px; top: .05em; 
 .lcb.plain .lcq p { font-family: var(--serif-text) !important; font-style: italic; font-weight: 400 !important; font-size: 19px !important; color: var(--ink) !important; line-height: 1.4; }
 /* journey */
 .lcb.plain .dot { border: 1px solid var(--muted); width: 11px; height: 11px; margin-top: 6px; }
-.lcb.plain .dot.happy { background: var(--accent); border-color: var(--accent); }
+.lcb.plain .dot.happy { background: var(--accent); border-color: var(--accent-text); }
 .lcb.plain .dot.unhappy { background: var(--ink); border-color: var(--ink); }
 .lcb.plain .legend .lcpill { gap: 6px; display: inline-flex; align-items: center; margin-left: 12px; }
 .lcb.plain .lcj-col > .lcpill { justify-content: flex-start; height: auto; color: var(--ink); }
@@ -871,12 +872,12 @@ ol.lcl li::before { content: counter(q); width: 16px; height: 16px; top: .05em; 
 /* BUTTON FILL: outlined at rest, orange sweeps in left to right on hover */
 .fill-btn { position: relative; overflow: hidden; isolation: isolate; background: transparent !important; color: var(--ink) !important; border: 1px solid var(--ink) !important; box-shadow: none !important; transition: color .25s ease .2s, border-color .3s ease .15s; }
 .fill-btn::before { content: ""; position: absolute; inset: -1px; background: var(--accent); transform: scaleX(0); transform-origin: left center; transition: transform .45s cubic-bezier(.65,0,.35,1); z-index: -1; }
-.fill-btn:hover, .fill-btn:focus-visible { color: var(--accent-ink) !important; border-color: var(--accent) !important; }
+.fill-btn:hover, .fill-btn:focus-visible { color: var(--accent-ink) !important; border-color: var(--accent-text) !important; }
 .fill-btn:hover::before, .fill-btn:focus-visible::before { transform: scaleX(1); }
 .fill-btn svg { transition: transform .35s ease; }
 .fill-btn:hover svg { transform: translateY(2px); }
-.reel-cue.fill-btn.follow { background: var(--accent) !important; color: var(--accent-ink) !important; border-color: var(--accent) !important; }
-@media (hover: none) { .reel-cue.fill-btn { background: var(--accent) !important; color: var(--accent-ink) !important; border-color: var(--accent) !important; } }
+.reel-cue.fill-btn.follow { background: var(--accent) !important; color: var(--accent-ink) !important; border-color: var(--accent-text) !important; }
+@media (hover: none) { .reel-cue.fill-btn { background: var(--accent) !important; color: var(--accent-ink) !important; border-color: var(--accent-text) !important; } }
 @media (prefers-reduced-motion: reduce) { .fill-btn::before { transition: none; } }
 
 /* FOOTER */
@@ -895,7 +896,7 @@ footer { border-top: 1px solid var(--line); }
   font: inherit; font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted);
   background: none; border: 0; padding: 0; cursor: pointer;
 }
-.foot nav a:hover, .foot nav button:hover { color: var(--accent); }
+.foot nav a:hover, .foot nav button:hover { color: var(--accent-text); }
 .toast {
   position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%);
   background: var(--ink); color: var(--bg); font-size: 13px; padding: 10px 16px; border-radius: 999px;
@@ -914,7 +915,7 @@ footer { border-top: 1px solid var(--line); }
 .dec-item .cs-h4 { margin: 0; }
 .dec-item p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.7; }
 .dec-item .dec-over { font-size: 15px; color: var(--muted); }
-.dec-item .dec-over span { color: var(--accent); margin-right: 4px; }
+.dec-item .dec-over span { color: var(--accent-text); margin-right: 4px; }
 
 /* RESUME */
 .rv { padding-bottom: clamp(64px, 9vw, 112px); }
@@ -922,7 +923,7 @@ footer { border-top: 1px solid var(--line); }
 .rv-sub { margin: 12px 0 0; color: var(--muted); font-size: 17px; }
 .rv-links { margin: 14px 0 0; display: flex; gap: 24px; flex-wrap: wrap; font-size: 15px; }
 .rv-links a { border-bottom: 1px solid var(--accent); padding-bottom: 2px; transition: color .2s; }
-.rv-links a:hover { color: var(--accent); }
+.rv-links a:hover { color: var(--accent-text); }
 .rv-profile { font-family: var(--serif-text); font-size: clamp(20px, 2vw, 25px); line-height: 1.55; margin: 8px 0 0; max-width: 40em; color: var(--ink); }
 .rv-sec { padding-top: clamp(48px, 7vw, 80px); }
 .rv-sec > h2 { margin: 0 0 8px; }
@@ -930,9 +931,9 @@ footer { border-top: 1px solid var(--line); }
 .rv-row .label { padding-top: 6px; }
 .rv-row .cs-h4 { margin: 0; }
 .rv-row .cs-h4 a { transition: color .2s; }
-.rv-row .cs-h4 a:hover { color: var(--accent); }
-.rv-arrow { color: var(--accent); font-family: var(--sans); font-size: .8em; }
-.rv-where { color: var(--accent); font-size: 14px; margin: 6px 0 12px; }
+.rv-row .cs-h4 a:hover { color: var(--accent-text); }
+.rv-arrow { color: var(--accent-text); font-family: var(--sans); font-size: .8em; }
+.rv-where { color: var(--accent-text); font-size: 14px; margin: 6px 0 12px; }
 .rv-row p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.7; max-width: 44em; }
 .rv-row ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 8px; max-width: 46em; }
 .rv-row li { position: relative; padding-left: 20px; color: var(--muted); font-size: 16px; line-height: 1.65; }
@@ -1010,7 +1011,7 @@ footer { border-top: 1px solid var(--line); }
 .rv-skill li { position: relative; padding-left: 18px; color: var(--muted); font-size: 15.5px; line-height: 1.5; }
 .rv-skill li::before { content: ""; position: absolute; left: 0; top: .72em; width: 8px; height: 1.5px; background: var(--accent); }
 .rv-used { margin: 6px 0 0; display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 14px; }
-.rv-used a { color: var(--accent); transition: opacity .2s; }
+.rv-used a { color: var(--accent-text); transition: opacity .2s; }
 .rv-used a:hover { opacity: .7; }
 .rv-tools { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 12px 40px; margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); }
 .rv-tools > div { display: flex; flex-wrap: wrap; gap: 10px; }
@@ -1035,7 +1036,7 @@ footer { border-top: 1px solid var(--line); }
 .app-phone iframe { position: absolute; left: 0; top: 0; width: 390px; height: 844px; border: 0; transform-origin: 0 0; transform: scale(var(--s, .82)); }
 .app-demo figcaption { display: flex; gap: 28px; }
 .app-demo figcaption .label { background: none; border: 0; padding: 0; cursor: pointer; font: inherit; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); transition: color .2s; }
-.app-demo figcaption .label:hover { color: var(--accent); }
+.app-demo figcaption .label:hover { color: var(--accent-text); }
 
 /* AGRILITE DESIGN SYSTEM board, in the portfolio's panel style */
 .agds { display: grid; gap: 20px; }
@@ -1080,7 +1081,7 @@ footer { border-top: 1px solid var(--line); }
 .lc2-card li::before, .lc2-persona li::before { content: ""; position: absolute; left: 0; top: .72em; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
 .lc2-grid3 { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
 .lc2-two { display: grid; grid-template-columns: 1.4fr 1fr; gap: 20px; }
-.lc2-n { font-family: var(--mono); font-size: 12px; color: var(--accent); }
+.lc2-n { font-family: var(--mono); font-size: 12px; color: var(--accent-text); }
 
 /* personas: both partners side by side */
 .lc2-personas { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
@@ -1180,7 +1181,7 @@ footer { border-top: 1px solid var(--line); }
 .cv { padding-bottom: clamp(64px, 9vw, 112px); }
 .cv-cue { flex-basis: 100%; width: max-content; margin-top: 0; }
 .cv-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; }
-.cv-dl { border: 0; cursor: pointer; font: inherit; background: var(--accent); color: #FFFFFF; padding: 12px 20px; border-radius: 999px; font-size: 13px; letter-spacing: .05em; text-transform: uppercase; transition: opacity .2s; }
+.cv-dl { border: 0; cursor: pointer; font: inherit; background: var(--accent); color: var(--accent-ink); padding: 12px 20px; border-radius: 999px; font-size: 13px; letter-spacing: .05em; text-transform: uppercase; transition: opacity .2s; }
 
 .cv-page { margin: 0 auto; max-width: 900px; background: #FFFFFF; border: 1px solid var(--panel-line); box-shadow: 0 30px 60px -40px rgba(20, 24, 32, .35); }
 .cv-page img { width: 100%; display: block; }
@@ -1222,7 +1223,7 @@ footer { border-top: 1px solid var(--line); }
 .ah-bars button.run i::after { animation: ah-fill var(--ah-t, 6s) linear forwards; }
 .ah.paused .ah-bars button.run i::after { animation-play-state: paused; }
 @keyframes ah-fill { to { transform: scaleX(1); } }
-.ah-cta { display: inline-flex; align-items: center; gap: 10px; padding: 12px 22px 12px 18px; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font-family: var(--sans); font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; box-shadow: 0 14px 30px -16px rgba(238,122,81,.9); transition: transform .2s ease, filter .2s ease; }
+.ah-cta { display: inline-flex; align-items: center; gap: 10px; padding: 12px 22px 12px 18px; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font-family: var(--sans); font-size: 13px; letter-spacing: 0.05em; text-transform: uppercase; box-shadow: 0 14px 30px -16px rgba(184,151,228,.9); transition: transform .2s ease, filter .2s ease; }
 .ah-cta svg { width: 18px; height: 18px; animation: cue-bob 1.4s ease-in-out infinite; }
 
 .ah .reel-cue { margin-top: 18px; }
@@ -1232,9 +1233,9 @@ footer { border-top: 1px solid var(--line); }
 .about-text { max-width: 40em; }
 .about-text p { font-size: clamp(17px, 1.6vw, 20px); line-height: 1.75; margin: 0 0 24px; }
 .about-text strong { font-weight: 600; color: var(--ink); }
-.about-text a { color: inherit; text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; }
-.about-text a:hover { color: var(--accent); }
-.reel-cue { display: inline-flex; align-items: center; gap: 10px; margin-top: 20px; padding: 10px 18px 10px 14px; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font-family: var(--sans); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; max-height: 60px; overflow: hidden; box-shadow: 0 12px 28px -14px rgba(238,122,81,.9); transform-origin: left center; animation: cue-pop .6s cubic-bezier(.2,1.4,.4,1) .5s both; transition: opacity .35s ease, max-height .4s ease, margin .4s ease, padding .4s ease, transform .35s ease, filter .2s ease; }
+.about-text a { color: inherit; text-decoration: underline; text-decoration-color: var(--accent-text); text-underline-offset: 4px; }
+.about-text a:hover { color: var(--accent-text); }
+.reel-cue { display: inline-flex; align-items: center; gap: 10px; margin-top: 20px; padding: 10px 18px 10px 14px; border-radius: 999px; background: var(--accent); color: var(--accent-ink); font-family: var(--sans); font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; white-space: nowrap; max-height: 60px; overflow: hidden; box-shadow: 0 12px 28px -14px rgba(184,151,228,.9); transform-origin: left center; animation: cue-pop .6s cubic-bezier(.2,1.4,.4,1) .5s both; transition: opacity .35s ease, max-height .4s ease, margin .4s ease, padding .4s ease, transform .35s ease, filter .2s ease; }
 .reel-cue svg { width: 18px; height: 18px; flex: none; animation: cue-bob 1.4s ease-in-out infinite; }
 
 .reel-cue.gone { opacity: 0; max-height: 0; margin-top: 0; padding-top: 0; padding-bottom: 0; transform: scale(.85); pointer-events: none; animation: none; }
@@ -1277,7 +1278,7 @@ footer { border-top: 1px solid var(--line); }
 .ux-crit li div { display: flex; gap: 10px; align-items: baseline; flex-wrap: wrap; }
 .ux-crit li b { font-weight: 500; font-size: 16.5px; }
 .ux-crit li p { margin: 4px 0 0; color: var(--muted); font-size: 15px; line-height: 1.55; }
-.ux-tag { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--accent); }
+.ux-tag { font-family: var(--mono); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--accent-text); }
 .ux-ia { margin: 0; background: var(--panel); border: 1px solid var(--panel-line); padding: clamp(18px, 3vw, 32px); display: grid; justify-items: center; gap: 0; }
 .ux-ia-root { background: var(--ink); color: #fff; padding: 10px 26px; border-radius: 999px; font-size: 15px; position: relative; margin-bottom: 28px; }
 .ux-ia-root::after { content: ""; position: absolute; left: 50%; top: 100%; width: 1px; height: 28px; background: var(--muted); }
@@ -1285,7 +1286,7 @@ footer { border-top: 1px solid var(--line); }
 .ux-ia-col { background: #fff; border: 1px solid var(--panel-line); padding: 16px; display: grid; gap: 4px; align-content: start; margin-top: 18px; position: relative; }
 .ux-ia-col::before { content: ""; position: absolute; left: 50%; top: -19px; width: 1px; height: 18px; background: var(--muted); }
 .ux-ia-col b { font-family: var(--serif-text); font-weight: 400; font-size: 20px; }
-.ux-ia-col span { color: var(--accent); font-size: 14px; }
+.ux-ia-col span { color: var(--accent-text); font-size: 14px; }
 .ux-ia-col ul { margin: 10px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
 .ux-ia-col li { font-size: 14.5px; color: var(--muted); line-height: 1.45; padding-top: 6px; border-top: 1px solid var(--line); }
 .ux-ia figcaption { margin-top: 18px; color: var(--muted); font-size: 15px; text-align: center; }
@@ -1360,7 +1361,7 @@ footer { border-top: 1px solid var(--line); }
 .lens > div { padding: 18px 24px 18px 0; border-bottom: 1px solid var(--line); display: grid; gap: 6px; align-content: start; }
 .lens > div:nth-child(even) { padding-left: 24px; border-left: 1px solid var(--line); }
 .lens > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
-.lens dt { font-family: var(--mono); font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); }
+.lens dt { font-family: var(--mono); font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--accent-text); }
 .lens dd { margin: 0; font-size: 16.5px; line-height: 1.6; color: var(--ink); }
 .home-block { padding-bottom: clamp(56px, 8vw, 96px); display: grid; gap: 22px; }
 .skill-rows { border-top: 1px solid var(--ink); }
@@ -1371,7 +1372,7 @@ footer { border-top: 1px solid var(--line); }
 .skill-row li a { display: flex; justify-content: space-between; gap: 16px; padding: 10px 0; border-bottom: 1px solid var(--line); font-size: 15.5px; transition: color .2s; }
 .skill-row li:first-child a { padding-top: 2px; }
 .skill-row li a small { color: var(--muted); font-size: 13px; letter-spacing: .04em; text-transform: uppercase; white-space: nowrap; }
-.skill-row li a:hover, .skill-row li a:hover small { color: var(--accent); }
+.skill-row li a:hover, .skill-row li a:hover small { color: var(--accent-text); }
 .other-grid { --og-gap: clamp(24px, 4vw, 48px); display: grid; grid-auto-flow: column; grid-auto-columns: calc((100% - var(--og-gap)) / 2); gap: var(--og-gap); overflow-x: auto; scroll-snap-type: x mandatory; overscroll-behavior-x: contain; padding-bottom: 18px; scrollbar-width: thin; scrollbar-color: #C5CBD4 transparent; }
 .other-grid > .card { scroll-snap-align: start; }
 .other-grid::-webkit-scrollbar { height: 6px; }
@@ -1388,7 +1389,7 @@ footer { border-top: 1px solid var(--line); }
 .zoom { position: fixed; inset: 0; z-index: 120; background: rgba(14, 16, 20, .92); display: grid; place-items: center; padding: 56px 12px 12px; overflow: auto; touch-action: pinch-zoom; }
 .zoom img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; background: #FFFFFF; }
 .zoom button { position: fixed; top: 12px; right: 12px; display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(255,255,255,.6); background: transparent; color: #FFFFFF; font: inherit; font-size: 12.5px; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; }
-.zoom button:hover { background: var(--accent); border-color: var(--accent); }
+.zoom button:hover { background: var(--accent); border-color: var(--accent-text); }
 body.zoom-open { overflow: hidden; }
 @media (max-width: 760px) {
   .zoom { place-items: start; padding: 60px 0 0; overscroll-behavior: contain; }
@@ -1399,12 +1400,12 @@ body.zoom-open { overflow: hidden; }
 /* CAROUSEL TABS: same outlined, orange-sweep buttons as the rest of the site; no arrows */
 .lcb.plain .car-arrow { display: none; }
 .lcb.plain .chips .lcpill.car-tab { height: auto; padding: 10px 18px; border-radius: 999px; font-family: var(--sans); font-size: 12.5px; letter-spacing: .05em; text-transform: uppercase; }
-.lcb.plain .chips .lcpill.car-tab.k { background: var(--accent) !important; border-color: var(--accent) !important; color: var(--accent-ink) !important; }
+.lcb.plain .chips .lcpill.car-tab.k { background: var(--accent) !important; border-color: var(--accent-text) !important; color: var(--accent-ink) !important; }
 .lcb.plain .car-nav .chips { gap: 10px; }
 
 /* PHASE COUNT: how many people took part at each stage */
 .cs-labelrow { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 14px; }
-.cs-count { display: inline-flex; align-items: center; gap: 7px; color: var(--accent); font-family: var(--mono); font-size: 13px; letter-spacing: .04em; text-transform: uppercase; line-height: 1.2; cursor: default; user-select: none; }
+.cs-count { display: inline-flex; align-items: center; gap: 7px; color: var(--accent-text); font-family: var(--mono); font-size: 13px; letter-spacing: .04em; text-transform: uppercase; line-height: 1.2; cursor: default; user-select: none; }
 .cs-count::before { content: ""; width: 1px; height: 14px; background: var(--line); margin-right: 9px; }
 .cs-count svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; flex: none; }
 
@@ -1421,7 +1422,7 @@ body.zoom-open { overflow: hidden; }
 .cs-steps p { margin: 0; color: var(--muted); font-size: clamp(16px, 1.5vw, 17px); line-height: 1.7; }
 
 /* ARCHETYPES: the portfolio's own persona layout, with four lists in two columns */
-.cs-label.arc-role { font-size: 12.5px; color: var(--accent); }
+.cs-label.arc-role { font-size: 12.5px; color: var(--accent-text); }
 .pp-intro:has(.arc-name) .pp-quote { border-left: 0; padding-left: 0; }
 .pp-intro .arc-role + .pp-name { margin-top: -6px; }
 .arc-ref { font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); white-space: nowrap; }
@@ -2081,60 +2082,96 @@ function cortexusBlocks() {
     { type: "section", label: "Co-design workshop", count: "4 designers", heading: "Defining how Cortexus works.",
       lead: "After the Accenture feedback workshop, four designers mapped their own process on worksheets to define how Cortexus should work. They wanted it to protect soft skills, not tools, to start with thinking on paper, and for the pause to come from the AI itself, with designers always in control." },
     { type: "board", kind: "gallery", caption: "Co-design workshop", c: 1, ratio: "3 / 2", images: [[p("reflective"), ""]] },
-    { type: "workshop",
-      into: [
-        [p("scr-skills"), "Choose the skills you protect", "Cortexus tracks soft skills, and designers pick their own four."],
-        [p("scr-claude-journal"), "Journal it first", "Writing your own thinking first breaks the mould down."],
-        [p("scr-claude-limit"), "A pause inside Claude", "When a prompt hands over a skill, a nudge asks if you'd like to try first."],
-        [p("scr-tolerance"), "Your rules, not the tool's", "Designers set how many prompts are allowed before mould grows."],
-      ]},
+    { type: "section", label: "Building the prototype", heading: "Designed by hand, built with AI.",
+      lead: "Before building anything, I mapped how Cortexus would work: what each mould phase looks like, what causes it, and which prompts count as offloading. I designed every screen by hand in Figma first, then used AI only to build the working prototype." },
+    { type: "board", kind: "gallery", caption: "Mapping the mould phases", c: 1, ratio: "1336 / 865", contain: true, images: [[p("mould-mapping"), ""]] },
+    { type: "board", kind: "gallery", caption: "Technical flow", c: 2, ratio: "558 / 789", contain: true, images: [[p("tech-flow-1"), ""], [p("tech-flow-2"), ""]] },
+    { type: "board", kind: "gallery", caption: "Prompt language classification", c: 1, ratio: "526 / 326", contain: true, images: [[p("prompt-class"), ""]] },
+    { type: "points", label: "Tools I used", items: [
+      { title: "Figma", text: "Every screen and the design system, designed by hand first." },
+      { title: "Claude", text: "Coding the interactive desktop app and the Claude extension." },
+      { title: "Gemini", text: "Exploring the mould and brain scan visuals." },
+    ]},
+    { type: "points", label: "How I worked with AI", items: [
+      { title: "AI built, I decided", text: "Claude was strong at structure, but burned through credits and pushed its own style." },
+      { title: "Figma Make fell short", text: "It flattened the texture and personality the concept needed." },
+      { title: "Hand first, AI second", text: "The best workflow was the habit Cortexus encourages: think first, then use AI to build." },
+    ]},
+    { type: "board", kind: "gallery", caption: "AI-built iterations", c: 2, ratio: "4 / 3", contain: true, images: [[p("claude-proto"), ""], [p("figma-make"), ""]] },
+
+    { type: "section", label: "User testing round 1", count: "10 designers", heading: "Prototype 1: does it make designers reflect?",
+      lead: "I tested the first prototype with ten product and interaction designers at Accenture." },
+    { type: "board", kind: "fade", caption: "", slides: [
+      { label: "Prototype 1", image: p("p1-onboarding"), ratio: "973 / 520", caption: "onboarding" },
+      { label: "Prototype 1", image: p("p1-dashboard"), ratio: "1023 / 517", caption: "dashboard and Claude overlays" },
+    ]},
+    { type: "board", kind: "quotes", caption: "Success criteria", c: 2, quotes: [
+      "I'd be actually scared if the company could see it, because mine would be so covered in mould.",
+      "We need to definitely look at our usage, and this is just the tool for making us reflect.",
+    ]},
+    { type: "points", label: "What needed to change", items: [
+      { title: "Onboarding", text: "Needed more explanation, especially of the soft skills." },
+      { title: "Terminology", text: "Inaccessible and inconsistent." },
+      { title: "Dashboard", text: "Cluttered, with an unclear hierarchy." },
+      { title: "Consent", text: "Data sharing came too late, and was flagged as a dark pattern." },
+    ]},
+
+    { type: "section", label: "What I changed", heading: "Clearer, calmer and consent first.",
+      lead: "Every change came straight from round 1." },
+    { type: "points", items: [
+      { title: "Consent first", text: "Data consent moved to the welcome screen." },
+      { title: "Plain language", text: "\"Patient identity\" and medical jargon were removed." },
+      { title: "A calmer dashboard", text: "Cut back, with a clear hierarchy and info icons." },
+      { title: "Skills explained", text: "A new \"What we track\" step explains each soft skill." },
+    ]},
+
+    { type: "section", label: "User testing round 2", count: "2 designers", heading: "Prototype 2: the real Cortexus.",
+      lead: "I tested the revised prototype with two more designers. This version became the actual product." },
+    { type: "board", kind: "gallery", caption: "Testing prototype 2", c: 1, ratio: "997 / 558", images: [[p("test2"), ""]] },
+    { type: "board", kind: "quotes", caption: "Success criteria", c: 2, quotes: [
+      "The brain makes me want to take bleach and pour it over the top of it.",
+      "I really like that the concept gives you the liberty to select your prompting boundaries, and it doesn't force it on you.",
+    ]},
+    { type: "points", label: "What still needed to change", items: [
+      { title: "Language", text: "Still too complex, and needed simplifying further." },
+      { title: "Info page", text: "Confusing, because the boxes looked like functions." },
+      { title: "Introduction", text: "Overwhelming, with too much to learn at once." },
+      { title: "Colours and extension", text: "The colour scheme was hard to read, and extensions don't work like this." },
+    ]},
+
+    { type: "section", label: "Finalising the prototype", heading: "Clinical, sci-fi and a little unsettling.",
+      lead: "After round 2 I simplified the language, split the introduction into short steps, rebranded with higher-contrast colours, and rebuilt the extension to install the way real browser extensions do." },
+    { type: "board", kind: "gallery", caption: "Final design system", c: 1, ratio: "1429 / 811", contain: true, images: [[p("design-system"), ""]] },
 
     { type: "section", label: "Solution", heading: "Cortexus: a clinic for your design brain.",
       lead: "A desktop app and Claude extension. You choose the four soft skills you want to protect. Every time you offload one to AI, mould grows on that part of your brain scan. Write in your journal instead, and it clears." },
     { type: "media", stage: "grey", image: p("cover") },
-    { type: "board", kind: "gallery", caption: "Onboarding: set your own rules", c: 3, ratio: "1600 / 850", images: [[p("scr-welcome"), "Welcome and consent"], [p("scr-skills"), "Choose the skills to protect"], [p("scr-tolerance"), "Set your prompt tolerance"], [p("scr-nudge"), "Opt in to nudges"], [p("scr-journal-first"), "Journal it first"], [p("scr-brain-display"), "Brain display"]] },
 
-    { type: "section", label: "Design decisions", heading: "How each insight shaped Cortexus." },
-    { type: "pairs", tag: "Insight 1", heading: "Offloading has already begun.", lead: "So the cost is made visible, in real time, where AI is used.", items: [
-      { ...W, image: p("scr-dashboard"), title: "Your brain, scanned", text: "Each skill sits on one region of the brain. Mould grows on the skill you're handing over." },
-      { ...W, image: p("scr-claude-ext"), title: "On the desktop, not the phone", text: "Designers use AI at their desks, not on their phones, so Cortexus lives beside Claude as a browser extension." },
+    { type: "section", label: "Features", heading: "How each insight became a feature.",
+      lead: "Recorded in the working prototype." },
+    { type: "pairs", tag: "Insight 1", heading: "Offloading has already begun.", lead: "So Cortexus makes it visible, in real time.", items: [
+      { ...W, video: "cx/v/f-dash", title: "Your brain, scanned", text: "Each skill sits on a region of the brain, and mould spreads through four phases as you hand it over." },
+      { ...W, image: p("scr-claude-ext"), title: "Beside the AI you already use", text: "Designers use AI at their desks, so Cortexus lives in Claude as a browser extension." },
     ]},
-    { type: "pairs", tag: "Insight 2", heading: "Juniors lose the struggle where learning happens.", lead: "So Cortexus adds a pause before the answer.", items: [
-      { ...W, image: p("scr-claude-limit"), title: "A nudge at the moment of offloading", text: "When a prompt reads as handing over a skill, a notification asks if you'd like to try first." },
-      { ...W, image: p("scr-phase"), title: "Four phases of growth", text: "Each skill shows its phase and how many prompts are left. Keep offloading and mould spreads through four phases." },
+    { type: "pairs", tag: "Insight 2", heading: "Juniors lose the struggle where learning happens.", lead: "So the pause comes from the AI itself, as co-design asked.", items: [
+      { ...W, video: "cx/v/f-claude", title: "A nudge at the moment of offloading", text: "Ask Claude to decide for you, and Cortexus flags the mould before you move on." },
+      { ...W, image: p("scr-claude-journal"), title: "Paper first, AI second", text: "Opening your journal clears the mould. \"Paper first, screen second\" came straight from co-design." },
     ]},
-    { type: "pairs", tag: "Insight 3", heading: "Confidence erodes before ability does.", lead: "So there's always a way back, and a healthy brain to work towards.", items: [
-      { ...W, image: p("scr-claude-journal"), title: "Paper first, AI second", text: "Journaling your own thinking breaks the mould down. It came straight from the workshop." },
-      { ...W, image: p("vibrant-brains"), title: "A brain worth keeping clean", text: "Testers felt more motivated by a vibrant, healthy brain than by decay alone." },
+    { type: "pairs", tag: "Insight 3", heading: "Confidence erodes before ability does.", lead: "So there's always a healthy brain to work back to.", items: [
+      { ...W, image: p("vibrant-brains"), title: "A colourful, healthy brain", text: "Four designers asked for a brain that's vibrant when healthy and bleaches as mould spreads." },
+      { ...W, image: p("scr-phase"), title: "Four phases, never a dead end", text: "Each skill shows its phase and how many prompts are left, so there's always a way back." },
     ]},
     { type: "pairs", tag: "Insight 4", heading: "Every designer values different skills.", lead: "So designers set the rules, not the tool.", items: [
-      { ...W, image: p("scr-skills"), title: "Choose your four skills", text: "Pick the skills you'd never give away, or write your own." },
-      { ...W, image: p("scr-tolerance"), title: "Set your own tolerance", text: "Decide how many prompts are allowed before mould grows, and when it resets." },
+      { ...W, video: "cx/v/f-skills", title: "Choose your skills, set your limits", text: "\"I really like that the concept gives you the liberty to select your prompting boundaries.\"" },
+      { ...W, video: "cx/v/f-consent", title: "Consent before anything", text: "Round 1 flagged late consent as a dark pattern, so it moved to the very first screen." },
     ]},
 
-    { type: "section", label: "Testing and iterating", count: "12 designers", heading: "Tested with 12 designers at Accenture.",
-      lead: "I needed to know whether the mould made designers reflect, or just made them feel judged. I tested the mid-fi prototype with ten product and interaction designers, then the revised version with two more." },
-    { type: "board", kind: "gallery", caption: "Usability testing at Accenture", c: 2, ratio: "4 / 3", images: [[p("testing"), ""], [p("midfi"), "The mid-fi prototype tested"]] },
-    { type: "board", kind: "quotes", caption: "What testers said", c: 2, quotes: [
-      "I love it, I love that it makes me think and feel uncomfortable at the same time.",
-      "I'd be actually scared if the company could see this, mine would be so covered in mould.",
-      "I genuinely love it, it's freaky but not in a bad way.",
-      "Patient identity implies there's something wrong with me.",
+    { type: "section", label: "Impact", heading: "What Cortexus changes." },
+    { type: "points", items: [
+      { title: "Awareness", text: "The striking visuals of the rot can't be ignored, breaking the habit of reaching for AI without thinking." },
+      { title: "Skill building", text: "Designers refocus on building their own skills, using AI to prevent further losses rather than cause them." },
+      { title: "Independence", text: "Designers regain confidence and trust in themselves to make their own decisions again." },
     ]},
-    { type: "points", label: "What I changed", items: [
-      { title: "Consent first", text: "Data consent appeared late, which testers flagged as a dark pattern. It moved to the welcome screen." },
-      { title: "Plain language", text: "\"Patient identity\" felt insulting and medical jargon confused people. Both were simplified." },
-      { title: "A calmer dashboard", text: "Testers didn't know where to look, so it was cut back with a clear hierarchy and info icons." },
-      { title: "Readable colours", text: "The original palette was hard to read, so I rebranded with higher contrast." },
-    ]},
-
-    { type: "section", label: "Designing with AI", heading: "I prototyped with the tools I was critiquing.",
-      lead: "I built early versions with Claude, Figma Make and Gemini to understand them first-hand. Claude was strong at structure but burned through credits and imposed its own style. Figma Make flattened texture and personality. The best workflow was designing by hand first, then using AI only to prototype." },
-    { type: "board", kind: "gallery", caption: "AI-built iterations", c: 2, ratio: "4 / 3", contain: true, images: [[p("claude-proto"), "Prototyping with Claude"], [p("figma-make"), "Prototyping with Figma Make"]] },
-
-    { type: "section", label: "Visual identity", heading: "Clinical, sci-fi and a little unsettling.",
-      lead: "The name and dark interface feel like a medical device from 2050, so the mould feels like a diagnosis, not a game." },
-    { type: "board", kind: "gallery", caption: "Rebrand and final design system", c: 2, ratio: "1209 / 839", images: [[p("ds-final"), ""], [p("ds-type"), ""]] },
 
     { type: "section", label: "Reflection", heading: "What I learned" },
     { type: "points", items: [
@@ -3557,7 +3594,7 @@ function setupAboutHead() {
   const cv = head.querySelector(".ah-dots"), ctx = cv.getContext("2d");
   const lines = [...head.querySelectorAll(".ah-line")], bars = [...head.querySelectorAll("[data-ah-go]")];
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches;
-  const DUR = 6000, col = getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#EE7A51";
+  const DUR = 6000, col = getComputedStyle(document.documentElement).getPropertyValue("--accent-text").trim() || "#7349B8";
   let W = 0, H = 0, dpr = 1, step = 4, idx = 0, parts = [], mouse = { x: -999, y: -999 }, startAt = 0, paused = false, left = DUR;
   const sample = word => {
     const off = document.createElement("canvas"); off.width = W; off.height = H;
