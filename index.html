@@ -2017,10 +2017,10 @@ function cortexusBlocks() {
       lead: "Because cognitive offloading is a future-facing problem, I chose speculative design to provoke reflection and productive discomfort. I explored four directions, each a different way to deliver the three opportunity pillars: awareness, by making offloading visible; friction, by adding a pause before AI; and independence, by keeping skills in practice." },
     { type: "board", kind: "gallery", caption: "Speculative moodboards: the four directions explored", c: 1, ratio: "1405 / 916", contain: true, images: [[p("directions"), ""]] },
     { type: "subsection", heading: "Round 1: two concepts into testing.",
-      lead: "After an open discussion in the studio, Brain Rot (disgust) and Distorting Relationships (intrigue) drew the strongest reactions. They work in opposite ways, so testing both showed which one actually changes behaviour." },
+      lead: "After an open discussion in the studio, Brain Rot (disgust) and Distorting Relationships (intrigue) drew the strongest reactions. They work in opposite ways, so I tested both with two designers to see which one actually changes behaviour." },
     { type: "board", kind: "gallery", caption: "Concept tested: Brain Rot, on mobile and desktop", c: 1, ratio: "1033 / 482", contain: true, images: [[p("brainrot-concept"), ""]] },
     { type: "board", kind: "gallery", caption: "Concept tested: Distorting Relationships", c: 1, ratio: "1359 / 774", contain: true, images: [[p("relationships-concept"), ""]] },
-    { type: "points", label: "What round 1 showed", items: [
+    { type: "points", label: "What round 1 showed", count: "2 designers", items: [
       { title: "Brain Rot changed behaviour", text: "\"As you're showing me the idea, I'm reflecting on my own use.\" Distorting Relationships was \"more of a talking point\"." },
       { title: "It tied to how it feels", text: "Designers described heavy AI use as \"brain breaking\" and feeling \"like a zombie\"." },
     ]},
@@ -2969,7 +2969,7 @@ const BLOCKS = {
   section: b => `<section class="cs-section" id="${b.id}">
       ${b.count ? `<div class="cs-labelrow">${txt(b.label, "div", "cs-label")}<span class="cs-count"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c.6-3.2 3-5 6-5s5.4 1.8 6 5"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.6.2 4.4 1.8 5 4.8"/></svg>${esc(b.count)}</span></div>` : txt(b.label, "div", "cs-label")}${txt(b.heading, "h2", "cs-h")}${txt(b.lead, "p", "cs-lead")}</section>`,
   subsection: b => `<div class="cs-sub">${txt(b.heading, "h3", "cs-h3")}${txt(b.lead, "p", "cs-lead")}</div>`,
-  points: b => `<div class="cs-points-wrap">${txt(b.label, "div", "cs-label")}
+  points: b => `<div class="cs-points-wrap">${b.count ? `<div class="cs-labelrow">${txt(b.label, "div", "cs-label")}<span class="cs-count"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c.6-3.2 3-5 6-5s5.4 1.8 6 5"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.6.2 4.4 1.8 5 4.8"/></svg>${esc(b.count)}</span></div>` : txt(b.label, "div", "cs-label")}
       <div class="cs-points" style="--n:${b.items.length === 4 ? 2 : Math.min(3, b.items.length)}">${b.items.map(i => `<div>${txt(i.title, "h3", "cs-h4")}${txt(i.text)}</div>`).join("")}</div></div>`,
   panel: b => `<figure class="cs-panel"><figcaption class="cs-label">${esc(b.caption || "")}</figcaption>
       <div class="cs-panel-body">${
