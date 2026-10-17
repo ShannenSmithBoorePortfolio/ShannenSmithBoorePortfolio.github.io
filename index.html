@@ -1752,10 +1752,7 @@ function caseStudyTemplate() {
     { type: "quote", text: "A one-line statement of why the trade-off is worth it." },
 
     { type: "section", label: "Reflection", heading: "What I learned" },
-    { type: "points", items: [
-      { title: "Lesson one.", text: "What you learned and how it changes how you design." },
-      { title: "Lesson two.", text: "What you learned and how it changes how you design." },
-    ]},
+    { type: "bullets", items: ["Lesson one: what you learned and how it changes how you design.", "Lesson two: what you learned and how it changes how you design."] },
   ];
 }
 
@@ -2042,11 +2039,10 @@ function beoNuaBlocks() {
     ]},
     { type: "bullets", label: "What we changed", items: ["Events higher up: testers wanted local events first, so they moved above the fold.", "Bigger type: the brochure's text sizes increased, keeping the bold style.", "Clear commitments for cafés: hubs now set their own time slots and capacity."] },
 
-    { type: "section", label: "Impact", heading: "Small cost, big saving.",
-      lead: "We planned a pilot in Clontarf, Dublin, and costed the service against the health costs it could help avoid." },
-    { type: "bullets", items: ["€6.30: per person per year to run, by year two.", "€400: saved per person each year in health costs, at a low 10% impact.", "€593,700: net saving for the state in year three."] },
+    { type: "section", label: "Impact", heading: "Small cost, big saving." },
+    { type: "bullets", items: ["Low running cost: about €6.30 per person per year, by year two.", "Health savings: around €400 saved per person each year, even at a low 10% impact.", "Net saving: €593,700 for the state in year three, with a pilot planned for Clontarf, Dublin."] },
 
-    { type: "section", label: "Next steps", heading: "Where BEO NUA could go next." },
+    { type: "section", label: "Reflection", heading: "What I'd do next" },
     { type: "bullets", items: ["Start earlier: a pre-retirement pack so people plan their next chapter before it begins.", "Personalise: events recommended around each person's interests.", "Meet WCAG: stronger contrast, keyboard access and alt text across the site."] },
   ];
 }
@@ -2214,11 +2210,7 @@ function cortexusBlocks() {
     ]},
 
     { type: "section", label: "Reflection", heading: "What I learned" },
-    { type: "points", items: [
-      { title: "Designing for designers is harder", text: "Every designer works differently, so I had to separate personal preference from shared needs." },
-      { title: "Speculative design needs evidence", text: "Provocation only worked once it was grounded in real quotes and tested reactions." },
-      { title: "AI is a tool, not a co-designer", text: "My best work came from deciding first, then using AI to build." },
-    ]},
+    { type: "bullets", items: ["Designing for designers is harder: every designer works differently, so I had to separate personal preference from shared needs.", "Speculative design needs evidence: provocation only worked once it was grounded in real quotes and tested reactions.", "AI is a tool, not a co-designer: my best work came from deciding first, then using AI to build."] },
   ];
 }
 
@@ -2346,12 +2338,8 @@ function agriliteBlocks() {
       lead: "The 2024 product: four probes read nitrogen, phosphorus, potassium, moisture and temperature, and send readings over long-range radio. I designed it through sketching, foam models and CAD, and built a working prototype." },
     { type: "board", kind: "gallery", caption: "The Agrilite sensor", c: 3, ratio: "1 / 1", images: [[p("in-grass"), ""], [p("in-hand"), ""], [p("phone-field"), ""]] },
 
-    { type: "section", label: "Next steps", heading: "What I'd do next." },
-    { type: "points", items: [
-      { title: "Test with farmers", text: "Run tasks outdoors, in gloves and in sunlight, with older farmers and contractors." },
-      { title: "Screen reader and voice", text: "Audit with VoiceOver and TalkBack, and explore asking \"can I spread today?\" out loud." },
-      { title: "Season-long pilot", text: "Check the decisions against real readings across a full season." },
-    ]},
+    { type: "section", label: "Reflection", heading: "What I'd do next" },
+    { type: "bullets", items: ["Test with farmers: run tasks outdoors, in gloves and in sunlight, with older farmers and contractors.", "Screen reader and voice: audit with VoiceOver and TalkBack, and explore asking \"can I spread today?\" out loud.", "Season-long pilot: check the decisions against real readings across a full season."] },
   ];
 }
 
@@ -2403,12 +2391,7 @@ function materBlocks() {
     ]},
 
     { type: "section", label: "Reflection", heading: "What I learned" },
-    { type: "points", items: [
-      { title: "Frontline staff know the failure points.", text: "Unsecured equipment and injury risk only surfaced through clinicians and nurses." },
-      { title: "Non-clinical experts matter just as much.", text: "Engineers and cleaning staff flagged what clinicians alone wouldn't have." },
-      { title: "Real constraints come first.", text: "Quick emergency removal mattered more than simpler materials." },
-      { title: "Keep iterating.", text: "Dimensions, materials and mounting all changed between rounds." },
-    ]},
+    { type: "bullets", items: ["Frontline staff know the failure points: unsecured equipment and injury risk only surfaced through clinicians and nurses.", "Non-clinical experts matter just as much: engineers and cleaning staff flagged what clinicians alone wouldn't have.", "Real constraints come first: quick emergency removal mattered more than simpler materials.", "Keep iterating: dimensions, materials and mounting all changed between rounds."] },
   ];
 }
 
@@ -2445,11 +2428,7 @@ function nutricureBlocks() {
     { type: "quote", intro: "The biggest result wasn't the crop data.", text: "Families started meeting regularly to talk about growing conditions, materials and each other. Nutricure rebuilt a small piece of community infrastructure that people chose to keep." },
 
     { type: "section", label: "Reflection", heading: "What I learned" },
-    { type: "points", items: [
-      { title: "A working service beats a working prototype.", text: "It held up in someone else's life, not just ours." },
-      { title: "The metric wasn't the story.", text: "We measured crop growth. What mattered was people reconnecting." },
-      { title: "Respect comes before design.", text: "Every workshop only worked because people were patient and let us in." },
-    ]},
+    { type: "bullets", items: ["A working service beats a working prototype: it held up in someone else's life, not just ours.", "The metric wasn't the story: we measured crop growth. What mattered was people reconnecting.", "Respect comes before design: every workshop only worked because people were patient and let us in."] },
   ];
 }
 
