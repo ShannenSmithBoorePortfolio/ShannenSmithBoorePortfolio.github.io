@@ -1392,8 +1392,7 @@ footer { border-top: 1px solid var(--line); }
 .cs-aff-img .cs-label.sm { text-align: left; }
 .cs-aff-text { display: grid; gap: 18px; }
 .cs-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; counter-reset: st; }
-.cs-steps li { counter-increment: st; position: relative; padding-left: 44px; }
-.cs-steps li::before { content: counter(st, decimal-leading-zero); position: absolute; left: 0; top: .35em; font-family: var(--mono); font-size: 13px; color: var(--accent); }
+.cs-steps li { position: relative; }
 .cs-steps .cs-h4 { margin: 0 0 4px; }
 .cs-steps p { margin: 0; color: var(--muted); font-size: clamp(16px, 1.5vw, 17px); line-height: 1.7; }
 
