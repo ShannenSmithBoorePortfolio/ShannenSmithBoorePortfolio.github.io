@@ -1530,6 +1530,8 @@ body.zoom-open { overflow: hidden; }
 .pp-intro .arc-role + .pp-name { margin-top: -6px; }
 .arc-ref { font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); white-space: nowrap; }
 .pp-cols.arc-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 48px; border-top: 0; padding-top: 0; }
+.arc-bio { margin: 14px 0 0; color: var(--muted); font-size: 16px; line-height: 1.65; max-width: 52ch; }
+.arc-scn p { margin: 0; color: var(--ink); opacity: .8; font-size: 15px; line-height: 1.65; }
 .arc-qs p { margin: 0 0 10px; font-family: var(--serif-text); font-style: italic; font-size: 17px; line-height: 1.5; color: var(--ink); }
 @media (max-width: 760px) { .pp-cols.arc-cols { grid-template-columns: minmax(0, 1fr); } }
 
@@ -1958,7 +1960,7 @@ function beoNuaBlocks() {
       lead: "BEO NUA (Irish for \"new life\") is a government-led service that welcomes every new retiree into their local community. I worked on it with Rebecca and Abbie, from research on the street to a working website." },
     { type: "points", items: [
       { title: "Listening to 74 people", text: "A national survey, a research probe and guerrilla interviews across Dublin." },
-      { title: "Defining the real problem", text: "Six archetypes and four insights about loss, value and health." },
+      { title: "Defining the real problem", text: "Six personas and four insights about loss, value and health." },
       { title: "Designing a service", text: "A pack, a website and community hubs, tested with retirees and cafés." },
     ]},
 
@@ -1987,18 +1989,26 @@ function beoNuaBlocks() {
       "I feel like we're regarded as not making a contribution to society.",
       "I'm scared I'll be too old and slow to enjoy what I want to do.",
     ]},
-    { type: "section", label: "Archetypes", heading: "Three archetypes, formed from real quotes.",
-      lead: "We grouped every survey answer, probe response and interview into six archetypes. These three shaped the service most: people at the point of retirement, each losing something different." },
-    { type: "board", kind: "carousel", caption: "Archetypes", slides: [
-      { label: "Unplanned retiree", kind: "archetype", name: "Andy MacAvoy", age: "67", job: "Retired cybersecurity manager", photo: p("a-andy"), quote: "It can be a vacuum unless you have something to fill your time.",
-        cols: [["Behavioural patterns", ["Meets friends regularly.", "Thinks about his career often.", "Never really planned for retirement."]], ["Goals", ["Stay busy and purposeful.", "Find new groups and skills."]], ["Frustrations", ["Misses his job.", "Struggles without routine."]]],
-        quotes: [["You're defined by your work… and then what?", "Research"]], qlabel: "Quotes from the research" },
-      { label: "Planned retiree", kind: "archetype", name: "Paul Leonard", age: "67", job: "Retired civil engineer", photo: p("a-paul"), quote: "40 years work was sufficient.",
-        cols: [["Behavioural patterns", ["Coaches local football.", "Socialises at golf and the pub."]], ["Goals", ["Relax and play golf.", "Time with family."]], ["Frustrations", ["Loss of routine.", "Still cares about his old job."]]],
-        quotes: [["You go from a daily routine to days you're trying to fill.", "Research"]], qlabel: "Quotes from the research" },
-      { label: "Lifelong carer", kind: "archetype", name: "Stacy Walsh", age: "65", job: "Nurse and carer for her adult son", photo: p("a-stacy"), quote: "I feel like I'll never really retire.",
-        cols: [["Behavioural patterns", ["Brings her son to meet-ups.", "Planning his long-term care."]], ["Goals", ["Stay social and active.", "Make sure her son is cared for."]], ["Frustrations", ["Worried about her son's future.", "Feels caring isn't valued."]]],
-        quotes: [["I feel like we're regarded as not making a contribution to society.", "Research"]], qlabel: "Quotes from the research" },
+    { type: "section", label: "Affinity mapping", count: "Every response", heading: "Sorting every voice by age and theme.",
+      lead: "We grouped every survey answer, written response and audio quote by age group, under five themes: freedom, purpose, finance, health and community." },
+    { type: "board", kind: "gallery", caption: "Affinity mapping the research", c: 1, ratio: "1400 / 788", contain: true, images: [[p("affinity"), ""]] },
+
+    { type: "section", label: "Personas", heading: "Three personas, formed from real quotes.",
+      lead: "From the research we built six personas, including people who are often overlooked. These three shaped the service most: people at the point of retirement, each losing something different." },
+    { type: "board", kind: "carousel", caption: "Personas", slides: [
+      { label: "Unplanned retiree", kind: "archetype", name: "Andy MacAvoy", age: "67", job: "Cybersecurity manager · Wexford", photo: p("a-andy"), quote: "It can be a vacuum unless you have something to fill your time.",
+        bio: "Recently retired, with a partner and no kids. He spent his whole life working and never really thought about retirement.",
+        cols: [["Goals", ["Stay busy and make the most of his day.", "Find new activities, groups and ways to stay engaged.", "Learn new skills or go back to education.", "Keep retirement purposeful and fulfilling."]], ["Behaviours", ["Regularly meets up with friends.", "Thinks about his career often."]], ["Pain points", ["Misses his job.", "Finds it hard to fill his days.", "Struggles with the loss of routine."]]],
+        scenario: "Work was always the focus, so retirement felt more sudden than he expected. He's unsure how to structure his days, and often reflects on how much his career shaped who he is.",
+        quotes: [["It comes up quicker than you think.", ""]], qlabel: "In his words" },
+      { label: "Planned retiree", kind: "archetype", name: "Paul Leonard", age: "67", job: "Civil engineer · Wicklow", photo: p("a-paul"), quote: "I've always looked forward to retirement, 40 years work was sufficient.",
+        bio: "Married with four adult children. He went straight from college into one company and stayed there his whole career.",
+        cols: [["Goals", ["Stop working at retirement age.", "Relax and enjoy the things he put off.", "Spend time with family and friends, hoping for grandkids.", "Play more golf."]], ["Behaviours", ["Coaches the community football team.", "Socialises with friends at golf and the pub."]], ["Pain points", ["Will struggle with the loss of routine.", "Finds it hard to stop caring about his old workplace."]]],
+        scenario: "Retirement was always part of the plan, and he feels he's earned it. He's looking forward to slowing down, but losing the routine of a steady career may hit harder than he expects." },
+      { label: "Lifelong carer", kind: "archetype", name: "Stacy Walsh", age: "65", job: "Paediatric nurse · Limerick", photo: p("a-stacy"), quote: "I feel like I'll never really retire you know, my son is my priority now.",
+        bio: "Married with two adult children. Her 40-year-old son has severe needs, and caring for him has shaped most of her life.",
+        cols: [["Goals", ["Stay social and active in retirement.", "Make sure her son is well cared for.", "Keep her own health and independence."]], ["Behaviours", ["Attends community functions.", "Meets friends for lunch.", "Brings her son to meet-ups.", "Planning his long-term care."]], ["Pain points", ["Worried about who will care for her son in future.", "Worried about her own health.", "Never had the chance to do some things she wanted.", "Feels the system doesn't value caregiving."]]],
+        scenario: "She hopes retirement will still bring small moments of freedom: time for herself, her hobbies, and life beyond her responsibilities." },
     ]},
 
     { type: "section", label: "Key insights", heading: "Retirement isn't feared because of money. It's feared because it feels like the end.",
@@ -2020,7 +2030,7 @@ function beoNuaBlocks() {
 
     { type: "section", label: "Exploring directions", heading: "From six How Might We questions to one focus.",
       lead: "We explored how we might reframe retirement, support people with non-linear careers, help communities keep people active, and communicate information people can rely on." },
-    { type: "board", kind: "gallery", caption: "Sketches and branding exploration", c: 3, ratio: "4 / 3", images: [[p("sketch1"), ""], [p("sketch2"), ""], [p("branding-wall"), ""]] },
+    { type: "board", kind: "gallery", caption: "Branding exploration", c: 1, ratio: "16 / 9", images: [[p("branding-wall"), ""]] },
     { type: "points", label: "Why this direction?", items: [
       { title: "It meets people where they are", text: "Revenue already knows when someone retires, so the service can start automatically." },
       { title: "Digital first, not digital only", text: "A posted pack reaches people a website alone would miss." },
@@ -2765,10 +2775,12 @@ const LC = {
         <h3 class="pp-name arc-name">${esc(b.name)}</h3>
         <p class="pp-meta">${esc(b.age)} · ${esc(b.job)}</p>
         ${b.quote ? `<blockquote class="pp-quote">“${esc(b.quote)}”${b.qref ? ` <span class="arc-ref">(${esc(b.qref)})</span>` : ""}</blockquote>` : ""}
+        ${b.bio ? `<p class="arc-bio">${esc(b.bio)}</p>` : ""}
       </div>
     </div>
     <div class="pp-cols arc-cols">
       ${(b.cols || [["Behavioural patterns", b.patterns], ["Relationship with AI", b.relationship], ["Potential trigger points", b.triggers]]).filter(c => c[1] && c[1].length).map(c => `<div><h5>${c[0]}</h5>${ul(c[1])}</div>`).join("")}
+      ${b.scenario ? `<div class="arc-scn"><h5>Scenario</h5><p>${esc(b.scenario)}</p></div>` : ""}
       ${b.quotes && b.quotes.length ? `<div class="arc-qs"><h5>${esc(b.qlabel || "Quotes forming the archetype")}</h5>${b.quotes.map(q => `<p>“${esc(q[0])}”${q[1] && q[1] !== "Research" ? ` <span class="arc-ref">(${esc(q[1])})</span>` : ""}</p>`).join("")}</div>` : ""}
     </div>`,
 
