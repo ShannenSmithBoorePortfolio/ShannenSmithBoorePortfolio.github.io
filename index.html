@@ -164,6 +164,16 @@ main { min-height: 70vh; }
 .pill svg { width: 18px; height: 18px; fill: currentColor; }
 .thumb:hover .pill, .card:focus-visible .pill { opacity: 1; transform: none; }
 @media (hover: none) { .pill { opacity: 1; transform: none; } }
+/* TOUCH SCREENS: no hover, so the pill becomes a small tag in the image's corner instead of covering the middle */
+@media (hover: none), (pointer: coarse) {
+  .thumb .follow { left: auto; top: auto; right: 12px; bottom: 12px; transform: none; }
+  .thumb .pill { opacity: 1; transform: none; filter: none; gap: 6px; font-size: 11px; letter-spacing: .06em; padding: 7px 12px 7px 10px; box-shadow: 0 6px 16px -8px rgba(20, 24, 32, .55); }
+  .thumb .pill svg { width: 14px; height: 14px; }
+  .thumb .pill .pill-long { display: none; }
+  .card:hover .thumb::after { background: rgba(20, 24, 32, 0); }
+}
+.pill-short { display: none; }
+@media (hover: none), (pointer: coarse) { .thumb .pill .pill-short { display: inline; } }
 .card-title { font-family: var(--serif); font-weight: 400; font-size: clamp(22px, 2.4vw, 26px); line-height: 1.2; margin: 0 0 6px; }
 .card:hover .card-title { color: var(--accent); }
 .card-title { transition: color .2s; }
@@ -2486,7 +2496,7 @@ function workView() {
     <section class="projects" aria-label="Projects">
       ${PROJECTS.map(p => `
         <a class="card" href="#${p.id}">
-          <div class="thumb">${img(p.image, p.title)}${p.id === "cortexus" ? cxAnim() : ""}<span class="follow"><span class="pill">${eye}View project process</span></span></div>
+          <div class="thumb">${img(p.image, p.title)}${p.id === "cortexus" ? cxAnim() : ""}<span class="follow"><span class="pill">${eye}<span class="pill-long">View project process</span><span class="pill-short">View project</span></span></span></div>
           <div><div class="card-top"><h2 class="card-title">${esc(p.title)}</h2></div><div class="label">${esc(p.tag)}${p.when ? ` · ${esc(p.when)}` : ""}</div></div>
         </a>`).join("")}
     </section>
@@ -2494,7 +2504,7 @@ function workView() {
       <div class="label" id="other-h">Other projects</div>
       <div class="other-grid">${SIDE.map(p => `
         <a class="card" href="#${p.id}">
-          <div class="thumb">${img(p.image, p.title)}<span class="follow"><span class="pill">${eye}View project process</span></span></div>
+          <div class="thumb">${img(p.image, p.title)}<span class="follow"><span class="pill">${eye}<span class="pill-long">View project process</span><span class="pill-short">View project</span></span></span></div>
           <div><div class="card-top"><h2 class="card-title">${esc(p.title)}</h2></div><div class="label">${esc(p.tag)}${p.when ? ` · ${esc(p.when)}` : ""}</div></div>
         </a>`).join("")}</div>
     </section>
@@ -3035,7 +3045,7 @@ function funView() {
       <div class="label">Volunteering and design sprints</div>
       <div class="side-grid">${SIDE.map(p => `
         <a class="card side-card" href="#${p.id}">
-          <div class="thumb">${img(p.image, p.title)}<span class="follow"><span class="pill">${eye}View project process</span></span></div>
+          <div class="thumb">${img(p.image, p.title)}<span class="follow"><span class="pill">${eye}<span class="pill-long">View project process</span><span class="pill-short">View project</span></span></span></div>
           <div><h2 class="card-title">${esc(p.title)}</h2><div class="label">${esc(p.tag)}</div><p class="side-q">${esc(p.question)}</p></div>
         </a>`).join("")}</div>
     </section>
