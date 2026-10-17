@@ -1384,7 +1384,7 @@ footer { border-top: 1px solid var(--line); }
 /* ONE-IMAGE BOARDS stay full width on every screen */
 .lcgrid.one { grid-template-columns: minmax(0, 1fr) !important; }
 /* ZOOM: tap or click a board image to see it full screen */
-.gal-cell .lcb-img img { cursor: zoom-in; }
+.gal-cell .lcb-img img, .fade-img img { cursor: zoom-in; }
 .zoom { position: fixed; inset: 0; z-index: 120; background: rgba(14, 16, 20, .92); display: grid; place-items: center; padding: 56px 12px 12px; overflow: auto; touch-action: pinch-zoom; }
 .zoom img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; background: #FFFFFF; }
 .zoom button { position: fixed; top: 12px; right: 12px; display: inline-flex; align-items: center; gap: 8px; padding: 10px 18px; border-radius: 999px; border: 1px solid rgba(255,255,255,.6); background: transparent; color: #FFFFFF; font: inherit; font-size: 12.5px; letter-spacing: .05em; text-transform: uppercase; cursor: pointer; }
@@ -1445,7 +1445,7 @@ body.zoom-open { overflow: hidden; }
 .ws-why p, .ws-find p, .ws-into p { margin: 6px 0 0; color: var(--muted); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.75; }
 .ws-find, .ws-into { display: grid; gap: 18px; }
 .ws-find-grid { display: grid; grid-template-columns: repeat(var(--c, 2), minmax(0, 1fr)); gap: 24px 48px; }
-.ws-find .cs-h4 { margin: 0; }
+.ws-find .cs-h4 { margin: 0; font-size: clamp(19px, 1.8vw, 22px); line-height: 1.35; }
 .ws-quote { margin: 4px 0 0; padding: 0; border-left: 0; font-family: var(--serif-text); font-style: italic; font-size: clamp(19px, 2vw, 23px); line-height: 1.4; color: var(--ink); max-width: 40em; }
 .ws-into-grid { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 24px; }
 .ws-into figure { margin: 0; display: grid; gap: 12px; align-content: start; }
@@ -1456,6 +1456,27 @@ body.zoom-open { overflow: hidden; }
 @media (max-width: 860px) {
   .ws-top, .ws-find-grid, .ws-top.multi .ws-why { grid-template-columns: minmax(0, 1fr); }
   .ws-into-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* FADER: auto-changing images */
+.fade { display: grid; gap: 14px; }
+.fade-stack { display: grid; }
+.fade-slide { grid-area: 1 / 1; margin: 0; display: grid; gap: 10px; align-content: start; opacity: 0; visibility: hidden; transition: opacity .9s ease, visibility 0s linear .9s; }
+.fade-slide.on { opacity: 1; visibility: visible; transition: opacity .9s ease; }
+.fade-img { overflow: hidden; }
+.fade-img img { width: 100%; height: 100%; object-fit: contain; display: block; }
+.ws-fade .fade-img img { object-fit: cover; }
+.fade-slide figcaption { font-size: 14px; line-height: 1.5; color: var(--muted); }
+.fade-slide figcaption b { font-weight: 500; color: var(--ink); }
+.fade-bars { display: flex; gap: 10px; }
+.fade-bars i { width: clamp(40px, 5vw, 64px); height: 2px; background: var(--line); position: relative; overflow: hidden; }
+.fade-bars i::after { content: ""; position: absolute; inset: 0; background: var(--accent); transform: scaleX(0); transform-origin: left; }
+.fade-bars i.done::after { transform: scaleX(1); }
+.fade-bars i.run::after { animation: fadeBar var(--fade-t, 5s) linear forwards; }
+.fade.paused .fade-bars i.run::after { animation-play-state: paused; }
+@keyframes fadeBar { to { transform: scaleX(1); } }
+@media (prefers-reduced-motion: reduce) {
+  .fade-stack { gap: 24px; } .fade-slide { grid-area: auto; opacity: 1; visibility: visible; } .fade-bars { display: none; }
 }
 
 /* RESPONSIVE */
@@ -2026,9 +2047,9 @@ function cortexusBlocks() {
     { type: "board", kind: "gallery", caption: "Speculative moodboards: the four directions explored", c: 1, ratio: "1405 / 916", contain: true, images: [[p("directions"), ""]] },
     { type: "subsection", heading: "Round 1: two concepts into testing.",
       lead: "After an open discussion in the studio, Brain Rot and Distorting Relationships drew the strongest reactions, so I tested both with two designers." },
-    { type: "board", kind: "carousel", caption: "Round 1 concepts", slides: [
-      { label: "Brain Rot", kind: "image", image: p("brainrot-concept"), ratio: "1033 / 482", caption: "Mould grows on your brain scan as you offload. Mobile and desktop." },
-      { label: "Distorting Relationships", kind: "image", image: p("relationships-concept"), ratio: "1359 / 774", caption: "AI replies like four colleagues, each with a different cost for leaning on them." },
+    { type: "board", kind: "fade", caption: "Round 1 concepts", slides: [
+      { label: "Brain Rot", image: p("brainrot-concept"), ratio: "1033 / 482", caption: "Mould grows on your brain scan as you offload. Mobile and desktop." },
+      { label: "Distorting Relationships", image: p("relationships-concept"), ratio: "1359 / 774", caption: "AI replies like four colleagues, each with a different cost for leaning on them." },
     ]},
     { type: "points", label: "What round 1 showed", count: "2 designers", items: [
       { title: "Brain Rot made designers reflect", text: "\"As you're showing me the idea, I'm reflecting on my own use.\"" },
@@ -2037,40 +2058,40 @@ function cortexusBlocks() {
 
     { type: "subsection", heading: "Developing two concepts.",
       lead: "I developed Brain Rot into Mouldy Thoughts, and Nurturing Skills into Growing Beyond AI, a version where your skills grow as flowers. Both were built out for mobile and desktop, ready for designers to compare." },
-    { type: "board", kind: "carousel", caption: "Developed concepts", slides: [
-      { label: "Mouldy Thoughts", kind: "image", image: p("mouldy-thoughts"), ratio: "1576 / 735", caption: "Mould grows on your brain as you offload. Mobile and desktop." },
-      { label: "Growing Beyond AI", kind: "image", image: p("growing-beyond"), ratio: "1527 / 718", caption: "Your skills grow as flowers when you practise them. Mobile and desktop." },
+    { type: "board", kind: "fade", caption: "Developed concepts", slides: [
+      { label: "Mouldy Thoughts", image: p("mouldy-thoughts"), ratio: "1576 / 735", caption: "Mould grows on your brain as you offload. Mobile and desktop." },
+      { label: "Growing Beyond AI", image: p("growing-beyond"), ratio: "1527 / 718", caption: "Your skills grow as flowers when you practise them. Mobile and desktop." },
     ]},
 
     { type: "section", label: "Co-designing", count: "14 designers", heading: "Two workshops, two questions only designers could answer.",
-      lead: "Designers were the users, so the big decisions shouldn't be mine alone. The feedback workshop compared the two developed concepts, to decide which direction to build. The reflective workshop defined the functionality behind it: what Cortexus protects, and how it steps in." },
+      lead: "Designers were the users, so they made the big calls. The first workshop chose the concept. The second defined how it works." },
     { type: "workshop", tag: "Workshop 1 · Feedback", count: "10 designers", title: "Mouldy Thoughts or Growing Beyond AI?",
       images: [[p("critique"), "Presenting both concepts to Accenture designers"], ["me/workshop.webp", "Designers giving feedback on sticky notes"]],
       parts: [
-        ["Why", "Both concepts had been developed for mobile and desktop. I needed the people they were for to decide which one would keep them reflecting."],
-        ["What happened", "I presented both concepts to ten Accenture designers, then they gave their feedback on each one on sticky notes."],
+        ["Why", "To decide which concept to take forward."],
+        ["What happened", "Ten Accenture designers compared both concepts and gave feedback on sticky notes."],
       ],
       findings: [
-        ["Growing Beyond AI felt comfortable, but too easy", "Comfort came with a motivation risk. One participant lost interest in her flowers once the novelty wore off, and plant-style tracker apps are already on the market."],
-        ["Mouldy Thoughts made people reflect", "It made designers feel uncomfortable about their own AI use, in a way they found useful. Mouldy Thoughts was selected."],
-        ["Show the healthy brain too", "Four designers asked for the brain to be colourful when healthy and bleach when it isn't, rather than constantly being negative."],
+        ["Growing Beyond AI was comfortable, but lost its pull once the novelty wore off.", ""],
+        ["Mouldy Thoughts made designers reflect, so it moved forward.", ""],
+        ["Four designers wanted a colourful brain that bleaches, not constant negativity.", ""],
       ],
       quote: "I reflected on my usage and it made me feel bad but in a good way.",
       into: [
         [p("scr-dashboard"), "Mouldy Thoughts became Cortexus", "Each skill gets its own region of a brain scan, and mould grows on the skill you hand over."],
         [p("vibrant-brains"), "A colourful, healthy brain", "The brain starts vibrant and loses its colour as mould spreads, so there's always something to work back towards."],
       ]},
-    { type: "workshop", tag: "Workshop 2 · Reflective", count: "4 designers", title: "Defining how Cortexus works.",
+    { type: "workshop", tag: "Workshop 2 · Co-design", count: "4 designers", title: "Defining how Cortexus works.",
       image: p("reflective"), alt: "Four designers working through reflective thinking worksheets, with feedback questions on the wall behind them",
       parts: [
-        ["Why", "With Mouldy Thoughts chosen, I needed designers to define the functionality behind it: which skills it should protect, where it should live, and how it should step in."],
-        ["What happened", "Four designers worked through reflective thinking worksheets on their own process, then answered questions on the wall: should this be on desktop, app or both? Does it make you want to use AI in a more intentional way? How did the concept make you feel, and why?"],
+        ["Why", "After the Accenture workshop, to define what Cortexus protects and how it steps in."],
+        ["What happened", "Four designers mapped their own process on worksheets and answered questions on the wall."],
       ],
       findings: [
-        ["Protect soft skills, not tools", "Nobody picked a technical skill. Everyone chose judgement, empathy and creativity."],
-        ["Think on paper first", "Designers wanted to start with their own thinking before going near a screen."],
-        ["The pause should come from the AI", "They wanted the AI itself to stop and question them, rather than another app to remember."],
-        ["Designers stay in control", "AI should act on what designers decide, not decide for them."],
+        ["Protect soft skills, not tools.", ""],
+        ["Think on paper first.", ""],
+        ["The pause should come from the AI.", ""],
+        ["Designers stay in control.", ""],
       ],
       quote: "Paper first, screen second is something I would want to make a part of my process.",
       into: [
@@ -2665,6 +2686,10 @@ const boardHead = (cap, extra = "") => `<div class="lcb-head"><span class="lcpil
 const MOODS = [["happy", "Happy"], ["neutral", "Neutral"], ["unhappy", "Unhappy"]];
 
 const APP_BOARDS = new Set(["vids"]);
+/* FADER: images that change on their own, with thin progress lines (not buttons) */
+const fader = (slides, ratioOf) => `<div class="fade" data-fade>
+    <div class="fade-stack">${slides.map((sl, i) => `<figure class="fade-slide${i ? "" : " on"}"${i ? ' aria-hidden="true"' : ""}><div class="fade-img" style="aspect-ratio:${ratioOf(sl)}">${img(sl.image, sl.caption || sl.label || "")}</div>${sl.caption ? `<figcaption>${sl.label ? `<b>${esc(sl.label)}</b> · ` : ""}${esc(sl.caption)}</figcaption>` : ""}</figure>`).join("")}</div>
+    ${slides.length > 1 ? `<div class="fade-bars" aria-hidden="true">${slides.map((_, i) => `<i${i ? "" : ' class="run"'}></i>`).join("")}</div>` : ""}</div>`;
 const LC = {
   photo: b => `<figure class="lcb" style="margin:0">${boardHead(b.caption)}<div class="lcb-img">${img(b.image, b.caption)}</div></figure>`,
 
@@ -2709,6 +2734,8 @@ const LC = {
     return `<div class="lcj-legend">${legend}</div><div class="lcj${b.stages.some(s => s.opp) ? " opp" : ""}" style="--n:${b.stages.length}">${cols}</div>`;
   },
   journey: b => `<div class="lcb">${boardHead("User journey map: " + b.who)}${LC.journeyBody(b)}</div>`,
+
+  fade: b => `<div class="lcb">${boardHead(b.caption)}${fader(b.slides, sl => sl.ratio || "16 / 9")}</div>`,
 
   carousel: b => {
     const id = "car" + Math.random().toString(36).slice(2, 7);
@@ -3000,10 +3027,10 @@ const BLOCKS = {
   media: b => `<div class="cs-media">${stage(b, "wide")}</div>`,
   workshop: b => `<article class="ws">
       <header class="ws-head"><div class="cs-labelrow"><div class="cs-label">${esc(b.tag)}</div>${b.count ? `<span class="cs-count"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c.6-3.2 3-5 6-5s5.4 1.8 6 5"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.6.2 4.4 1.8 5 4.8"/></svg>${esc(b.count)}</span>` : ""}</div>${txt(b.title, "h3", "cs-h3")}</header>
-      <div class="ws-top${b.images ? " multi" : ""}">${b.images ? `<div class="ws-imgs">${b.images.map(([src, cap]) => `<figure class="ws-img">${img(src, cap)}<figcaption>${esc(cap)}</figcaption></figure>`).join("")}</div>` : `<figure class="ws-img">${img(b.image, b.alt || "")}</figure>`}
+      <div class="ws-top">${b.images ? `<div class="ws-fade">${fader(b.images.map(([image, caption]) => ({ image, caption })), () => "4 / 3")}</div>` : `<figure class="ws-img">${img(b.image, b.alt || "")}</figure>`}
         <div class="ws-why">${b.parts.map(([k, t]) => `<div><div class="cs-label">${esc(k)}</div><p>${esc(t)}</p></div>`).join("")}</div></div>
       <div class="ws-find"><div class="cs-label">What I found</div>
-        <div class="ws-find-grid" style="--c:${b.findings.length === 4 ? 2 : Math.min(3, b.findings.length)}">${b.findings.map(([h, t]) => `<div><h4 class="cs-h4">${esc(h)}</h4><p>${esc(t)}</p></div>`).join("")}</div>
+        <div class="ws-find-grid" style="--c:${b.findings.length === 4 ? 2 : Math.min(3, b.findings.length)}">${b.findings.map(([h, t]) => `<div><h4 class="cs-h4">${esc(h)}</h4>${t ? `<p>${esc(t)}</p>` : ""}</div>`).join("")}</div>
         ${b.quote ? `<blockquote class="ws-quote">“${esc(b.quote)}”</blockquote>` : ""}</div>
       <div class="ws-into"><div class="cs-label">How it shaped the design</div>
         <div class="ws-into-grid" style="--n:${b.into.length === 4 ? 2 : Math.max(2, Math.min(3, b.into.length))}">${b.into.map(([src, h, t]) => `<figure>${src ? `<div class="ws-shot">${img(src, h)}</div>` : ""}<figcaption><h4>${esc(h)}</h4><p>${esc(t)}</p></figcaption></figure>`).join("")}</div></div>
@@ -3689,9 +3716,37 @@ function setupCx() {
   });
 }
 
+/* FADER: step through the slides every few seconds; pause while hovered */
+let fadeTimers = [];
+function setupFaders() {
+  fadeTimers.forEach(clearInterval); fadeTimers = [];
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  const STEP = 5000;
+  app.querySelectorAll("[data-fade]").forEach(f => {
+    const slides = [...f.querySelectorAll(".fade-slide")], bars = [...f.querySelectorAll(".fade-bars i")];
+    if (slides.length < 2) return;
+    f.style.setProperty("--fade-t", STEP + "ms");
+    let i = 0, left = STEP, last = performance.now(), paused = false;
+    const show = n => {
+      i = (n + slides.length) % slides.length;
+      slides.forEach((s, k) => { s.classList.toggle("on", k === i); s.setAttribute("aria-hidden", k !== i); });
+      bars.forEach((b, k) => { b.classList.remove("run"); b.classList.toggle("done", k < i); });
+      void (bars[i] && bars[i].offsetWidth); bars[i] && bars[i].classList.add("run");
+      left = STEP; last = performance.now();
+    };
+    f.addEventListener("mouseenter", () => { paused = true; f.classList.add("paused"); left -= performance.now() - last; });
+    f.addEventListener("mouseleave", () => { paused = false; f.classList.remove("paused"); last = performance.now(); });
+    fadeTimers.push(setInterval(() => {
+      if (!f.isConnected) return;
+      if (paused) return;
+      if (performance.now() - last >= left) show(i + 1);
+    }, 200));
+  });
+}
+
 /* ZOOM: open a board image full screen; close with the button, a tap on the backdrop, or Esc */
 app.addEventListener("click", e => {
-  const im = e.target.closest(".gal-cell .lcb-img img"); if (!im) return;
+  const im = e.target.closest(".gal-cell .lcb-img img, .fade .fade-img img"); if (!im) return;
   const z = document.createElement("div"); z.className = "zoom"; z.setAttribute("role", "dialog"); z.setAttribute("aria-modal", "true"); z.setAttribute("aria-label", "Enlarged image");
   z.innerHTML = `<button type="button">Close ✕</button><img src="${esc(im.getAttribute("src"))}" alt="${esc(im.alt || "")}">`;
   const close = () => { z.remove(); document.body.classList.remove("zoom-open"); document.removeEventListener("keydown", key); };
@@ -3801,7 +3856,7 @@ function render() {
   const project = PROJECTS.find(p => p.id === key) || SIDE.find(p => p.id === key);
   let tab = "work";
   document.body.classList.toggle("is-project", !!project);
-  if (project) { app.innerHTML = projectView(project); setupCx(); setupToc(); setupVideos(); setupApps(); setupDevs(); updateProgress(); }
+  if (project) { app.innerHTML = projectView(project); setupFaders(); setupCx(); setupToc(); setupVideos(); setupApps(); setupDevs(); updateProgress(); }
   else if (key === "fun") { location.replace("#work"); return; }
   else if (key === "about") { app.innerHTML = aboutView(); tab = "about"; setupReel(); }
   else if (key === "resume") { app.innerHTML = cvView(); tab = "resume"; showDl(); waitImgs(app); { const c = app.querySelector("[data-refs-cue]"), t = app.querySelector(".cv-refs"); if (c && t) setupCue(c, t); } }
