@@ -1382,12 +1382,19 @@ footer { border-top: 1px solid var(--line); }
 
 /* image slides in a carousel */
 .car-img { margin: 0; }
-/* EMBED: a live Figma board inside the page */
-.cs-embed { margin: 0; background: var(--panel); border: 1px solid var(--panel-line); padding: clamp(16px, 2.4vw, 24px); }
-.cs-embed .lcb-head { align-items: center; }
-.cs-embed-open { font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--accent-text); }
-.cs-embed-frame { position: relative; height: min(560px, 68vh); background: #FFFFFF; border: 1px solid var(--panel-line); }
-.cs-embed-frame iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+/* EMBED: a Notion-style preview of the Figma board that opens it */
+.cs-embed { display: grid; max-width: 780px; background: #FFFFFF; border: 1px solid var(--panel-line); border-radius: 8px; overflow: hidden; transition: border-color .2s, box-shadow .2s; }
+.cs-embed:hover { border-color: var(--accent); box-shadow: 0 14px 34px -22px rgba(20, 24, 32, .45); }
+.cs-embed-bar { display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-bottom: 1px solid var(--panel-line); }
+.cs-embed-bar .cs-link-ic { width: 32px; height: 32px; }
+.cs-embed-bar .cs-link-ic svg { width: 13px; height: 20px; }
+.cs-embed-name { display: grid; line-height: 1.3; }
+.cs-embed-name b { font-weight: 500; font-size: 15px; color: var(--ink); }
+.cs-embed-name small { font-size: 12.5px; color: var(--muted); }
+.cs-embed-open { margin-left: auto; font-family: var(--mono); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--accent-text); white-space: nowrap; }
+.cs-embed-img { display: block; aspect-ratio: 1640 / 1025; overflow: hidden; background: #F5F5F5; }
+.cs-embed-img img { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; transition: transform .8s ease; }
+.cs-embed:hover .cs-embed-img img { transform: scale(1.02); }
 
 /* LINK CARD: a bookmark to an outside page, like Notion */
 .cs-link { display: flex; align-items: center; gap: 18px; padding: 18px 22px; background: #FFFFFF; border: 1px solid var(--panel-line); border-radius: 6px; max-width: 640px; transition: border-color .2s, box-shadow .2s; }
@@ -2113,7 +2120,7 @@ function cortexusBlocks() {
     { type: "board", kind: "gallery", caption: "Co-design workshop", c: 1, ratio: "3 / 2", images: [[p("reflective"), ""]] },
     { type: "section", label: "Building the prototype", heading: "Designed by hand, built with AI.",
       lead: "Before building anything, I mapped how Cortexus would work: what each mould phase looks like, what causes it, and which prompts count as offloading. I designed every screen by hand in Figma first, then used AI only to build the working prototype." },
-    { type: "embed", href: "https://www.figma.com/board/BrmLm1t9sBUKswsHdw95Jl/Ideation?node-id=0-1&t=1j1lItRNCi56ZH2i-1", caption: "Prototyping journey: drag and zoom to explore" },
+    { type: "embed", href: "https://www.figma.com/board/BrmLm1t9sBUKswsHdw95Jl/Ideation?node-id=0-1&t=1j1lItRNCi56ZH2i-1", title: "Ideation and prototyping journey", image: p("board") },
     { type: "points", label: "Tools I used", items: [
       { title: "Figma", text: "Every screen and the design system, designed by hand first." },
       { title: "Claude", text: "Coding the interactive desktop app and the Claude extension." },
@@ -3090,8 +3097,9 @@ const BLOCKS = {
       <div class="ws-into"><div class="cs-label">How it shaped the design</div>
         <div class="ws-into-grid" style="--n:${b.into.length === 4 ? 2 : Math.max(2, Math.min(3, b.into.length))}">${b.into.map(([src, h, t]) => `<figure>${src ? `<div class="ws-shot">${img(src, h)}</div>` : ""}<figcaption><h4>${esc(h)}</h4><p>${esc(t)}</p></figcaption></figure>`).join("")}</div></div>
     </article>`,
-  embed: b => `<figure class="lcb plain cs-embed"><div class="lcb-head"><span class="lcpill k">${esc(b.caption)}</span><a class="cs-embed-open" href="${esc(b.href)}" target="_blank" rel="noopener">Open in Figma ↗</a></div>
-      <div class="cs-embed-frame"><iframe src="https://www.figma.com/embed?embed_host=share&url=${encodeURIComponent(b.href)}" title="${esc(b.caption)}" loading="lazy" allowfullscreen></iframe></div></figure>`,
+  embed: b => `<a class="cs-embed" href="${esc(b.href)}" target="_blank" rel="noopener">
+      <span class="cs-embed-bar"><span class="cs-link-ic" aria-hidden="true"><svg viewBox="0 0 38 57"><path fill="#1ABCFE" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0ACF83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#FF7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#F24E1E" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#A259FF" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg></span><span class="cs-embed-name"><b>${esc(b.title)}</b><small>FigJam board</small></span><span class="cs-embed-open">Open in Figma ↗</span></span>
+      <span class="cs-embed-img">${img(b.image, b.title)}</span></a>`,
   link: b => `<a class="cs-link" href="${esc(b.href)}" target="_blank" rel="noopener"><span class="cs-link-ic" aria-hidden="true"><svg viewBox="0 0 38 57"><path fill="#1ABCFE" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0ACF83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#FF7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#F24E1E" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#A259FF" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg></span><span class="cs-link-txt"><b>${esc(b.title)}</b><span>${esc(b.text)}</span><small>${esc(b.site)} ↗</small></span></a>`,
   affinity: b => `<div class="cs-aff${b.steps && b.steps.length ? "" : " solo"}"><figure class="cs-aff-img">${img(b.image, b.alt || "")}${b.caption ? `<figcaption class="cs-label sm">${esc(b.caption)}</figcaption>` : ""}</figure>
       ${b.steps && b.steps.length ? `<div class="cs-aff-text">${txt(b.label, "div", "cs-label")}<ol class="cs-steps">${b.steps.map(st => `<li><h3 class="cs-h4">${esc(st[0])}</h3><p>${esc(st[1])}</p></li>`).join("")}</ol></div>` : ""}</div>`,
