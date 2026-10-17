@@ -1428,25 +1428,23 @@ body.zoom-open { overflow: hidden; }
 @media (max-width: 760px) { .pp-cols.arc-cols { grid-template-columns: minmax(0, 1fr); } }
 
 /* WORKSHOPS: why, what happened, findings, and where each finding went in the design */
-.ws { display: grid; gap: 26px; padding: clamp(20px, 3vw, 36px); background: #FFFFFF; border: 1px solid var(--panel-line); }
-.ws + .ws { margin-top: 8px; }
+.ws { display: grid; gap: 28px; padding-top: 24px; }
 .ws-head { display: grid; gap: 10px; }
 .ws-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(20px, 3.4vw, 44px); align-items: start; }
 .ws-img { margin: 0; aspect-ratio: 4 / 3; overflow: hidden; background: var(--panel); }
 .ws-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .ws-why { display: grid; gap: 20px; }
-.ws-why p, .ws-find p, .ws-into p { margin: 6px 0 0; color: var(--muted); font-size: clamp(15.5px, 1.4vw, 17px); line-height: 1.7; }
-.ws-why .cs-label, .ws-find > .cs-label, .ws-into > .cs-label { font-size: 12.5px; color: var(--accent); }
-.ws-find, .ws-into { display: grid; gap: 16px; padding-top: 24px; border-top: 1px solid var(--line); }
-.ws-find-grid { display: grid; grid-template-columns: repeat(var(--c, 2), minmax(0, 1fr)); gap: 20px 40px; }
-.ws-find .cs-h4 { margin: 0; font-size: clamp(20px, 2vw, 23px); }
+.ws-why p, .ws-find p, .ws-into p { margin: 6px 0 0; color: var(--muted); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.75; }
+.ws-find, .ws-into { display: grid; gap: 18px; }
+.ws-find-grid { display: grid; grid-template-columns: repeat(var(--c, 2), minmax(0, 1fr)); gap: 24px 48px; }
+.ws-find .cs-h4 { margin: 0; }
 .ws-quote { margin: 4px 0 0; padding: 0; border-left: 0; font-family: var(--serif-text); font-style: italic; font-size: clamp(19px, 2vw, 23px); line-height: 1.4; color: var(--ink); max-width: 40em; }
-.ws-into-grid { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 18px; }
+.ws-into-grid { display: grid; grid-template-columns: repeat(var(--n), minmax(0, 1fr)); gap: 24px; }
 .ws-into figure { margin: 0; display: grid; gap: 12px; align-content: start; }
-.ws-shot { aspect-ratio: 16 / 9; overflow: hidden; background: var(--panel); border: 1px solid var(--panel-line); }
+.ws-shot { aspect-ratio: 16 / 9; overflow: hidden; background: var(--panel); }
 .ws-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; }
-.ws-into h4 { margin: 0; font-family: var(--serif-text); font-weight: 400; font-size: 19px; line-height: 1.3; color: var(--ink); }
-.ws-into p { margin-top: 4px; font-size: 15px; }
+.ws-into h4 { margin: 0; font-family: var(--serif-text); font-weight: 400; font-size: 21px; line-height: 1.3; color: var(--ink); }
+.ws-into p { margin-top: 4px; font-size: 16px; }
 @media (max-width: 860px) {
   .ws-top, .ws-find-grid { grid-template-columns: minmax(0, 1fr); }
   .ws-into-grid { grid-template-columns: minmax(0, 1fr); }
@@ -2016,22 +2014,23 @@ function cortexusBlocks() {
     ]},
 
     { type: "section", label: "Exploring directions", heading: "Speculative design: provoke, don't lecture.",
-      lead: "Because cognitive offloading is a future-facing problem, I chose speculative design to provoke reflection and productive discomfort. I explored four territories, then built two to test." },
+      lead: "Because cognitive offloading is a future-facing problem, I chose speculative design to provoke reflection and productive discomfort. I explored four directions." },
     { type: "board", kind: "gallery", caption: "Speculative moodboards: the four directions explored", c: 1, ratio: "1405 / 916", contain: true, images: [[p("directions"), ""]] },
-    { type: "board", kind: "gallery", caption: "Concept tested: Brain Rot, on mobile and desktop", c: 1, ratio: "1033 / 492", contain: true, images: [[p("brainrot-concept"), ""]] },
+    { type: "subsection", heading: "Round 1: two concepts into testing.",
+      lead: "I shared all four directions in an open discussion in the studio. Brain Rot and Distorting Relationships drew the strongest reactions, Brain Rot through disgust and Distorting Relationships through intrigue, so I took both into initial testing. They sit in different zones of the speculative design spectrum, Brain Rot in Possible and Distorting Relationships in Plausible, and work in opposite ways: aversion versus reflection. Testing both gave a real comparison of which one changes behaviour." },
+    { type: "board", kind: "gallery", caption: "Concept tested: Brain Rot, on mobile and desktop", c: 1, ratio: "1033 / 482", contain: true, images: [[p("brainrot-concept"), ""]] },
     { type: "board", kind: "gallery", caption: "Concept tested: Distorting Relationships", c: 1, ratio: "1359 / 774", contain: true, images: [[p("relationships-concept"), ""]] },
-    { type: "points", label: "Why Brain Rot?", items: [
-      { title: "It changed behaviour", text: "\"As you're showing me the idea, I'm reflecting on my own use.\" The other concept was \"more of a talking point\"." },
-      { title: "It was unlike anything else", text: "A garden version tested equally well, but felt like apps already on the market." },
+    { type: "points", label: "What round 1 showed", items: [
+      { title: "Brain Rot changed behaviour", text: "\"As you're showing me the idea, I'm reflecting on my own use.\" Distorting Relationships was \"more of a talking point\"." },
       { title: "It tied to how it feels", text: "Designers described heavy AI use as \"brain breaking\" and feeling \"like a zombie\"." },
     ]},
 
     { type: "section", label: "Co-designing", count: "14 designers", heading: "Two workshops, two questions only designers could answer.",
-      lead: "Designers were the users, so the big decisions shouldn't be mine alone. The first workshop decided which direction to build. The second decided what Cortexus should protect, and how it should behave." },
+      lead: "Designers were the users, so the big decisions shouldn't be mine alone. The critique workshop was a second round of concept testing, to decide which direction to build. The reflective workshop decided what Cortexus should protect, and how it should behave." },
     { type: "workshop", tag: "Workshop 1 · Critique", count: "10 designers", title: "Mould or garden: which one makes you think?",
       image: p("critique"), alt: "Shannen presenting the mould and garden concepts to Accenture designers at the critique workshop",
       parts: [
-        ["Why", "Two directions had tested equally well with designers: mould growing on a brain scan, and a garden that grows when you practise. I couldn't pick on my own preference, so I asked the people it was for."],
+        ["Why", "Brain Rot came out of round 1 strongest, but a garden version, where skills grow when you practise, had tested equally well. I couldn't pick on my own preference, so I asked the people it was for."],
         ["What happened", "I presented both concepts to ten Accenture designers and asked them to critique each one: how it made them feel, whether it would change what they did, and which they'd actually keep using."],
       ],
       findings: [
