@@ -1396,6 +1396,16 @@ footer { border-top: 1px solid var(--line); }
 .cs-embed-img img { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; transition: transform .8s ease; }
 .cs-embed:hover .cs-embed-img img { transform: scale(1.02); }
 
+/* FEATURE: screens changing on the left, what and why on the right */
+.feat { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(24px, 3.4vw, 48px); align-items: center; padding-top: 16px; }
+.feat .fade-img { background: none; }
+.feat-media .fade-img { width: 100%; }
+.feat-text { display: grid; gap: 16px; align-content: center; }
+.feat-text .cs-h3 { font-size: clamp(24px, 2.4vw, 30px); }
+.feat-text p { margin: 6px 0 0; color: var(--muted); font-size: 16px; line-height: 1.7; }
+.feat-text .cs-label { font-size: 12px; }
+@media (max-width: 860px) { .feat { grid-template-columns: minmax(0, 1fr); } }
+
 /* BULLETS */
 .cs-bullets { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; max-width: 46em; }
 .cs-bullets li { position: relative; padding-left: 22px; color: var(--muted); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.65; }
@@ -2162,35 +2172,27 @@ function cortexusBlocks() {
     { type: "media", stage: "grey", image: p("cover") },
 
     { type: "section", label: "Features", heading: "What designers asked for, built in." },
-
-    { type: "subsection", heading: "Personalised onboarding.",
-      lead: "Testers wanted consent first and more explanation of the soft skills, and co-design wanted designers in control. So onboarding starts with consent, explains what's tracked, and lets each designer pick their skills and set their own limits." },
-    { type: "board", kind: "fade", walk: true, caption: "", slides: [
-      { label: "Step 1", image: "cx/w/o1-welcome.webp", ratio: "16 / 9", hot: [41.9, 76.1, "Consent comes first"] },
-      { label: "Step 2", image: "cx/w/o2-track.webp", ratio: "16 / 9", hot: [50, 30.8, "Every skill explained"] },
-      { label: "Step 3", image: "cx/w/o3-skills.webp", ratio: "16 / 9", hot: [50, 28.7, "Pick the skills you protect"] },
-      { label: "Step 4", image: "cx/w/o4-limits.webp", ratio: "16 / 9", hot: [68.8, 68, "Set your own limits"] },
-      { label: "Step 5", image: "cx/w/o5-display.webp", ratio: "16 / 9", hot: [62.8, 23.7, "Journal it first"] },
-      { label: "Step 6", image: "cx/w/o6-journal.webp", ratio: "16 / 9", hot: [50, 64.8, "A quick tour of the dashboard"] },
-    ]},
-
-    { type: "subsection", heading: "A brain that shows what you're losing.",
-      lead: "Four designers asked for a brain that's colourful when healthy and bleaches as mould spreads, so there's always something to work back towards." },
-    { type: "board", kind: "fade", walk: true, caption: "", slides: [
-      { label: "Phase 1", image: "cx/w/d1.webp", ratio: "16 / 9", hot: [89.5, 7.8, "Healthy brain"] },
-      { label: "Phase 2", image: "cx/w/d2.webp", ratio: "16 / 9", hot: [91.3, 7.8, "Phase 2: mould spreads"] },
-      { label: "Phase 3", image: "cx/w/d3.webp", ratio: "16 / 9", hot: [93.1, 7.8, "Phase 3: it takes hold"] },
-      { label: "Phase 4", image: "cx/w/d4.webp", ratio: "16 / 9", hot: [94.9, 7.8, "Phase 4: the brain bleaches"] },
-    ]},
-
-    { type: "subsection", heading: "A pause from the AI itself.",
-      lead: "Co-design asked for the pause to come from the AI, not another app to remember. So Cortexus sits inside Claude, and when a designer asks it to decide for them, it flags the mould and offers the journal." },
-    { type: "board", kind: "fade", walk: true, caption: "", slides: [
-      { label: "Step 1", image: "cx/w/c1-claude.webp", ratio: "16 / 9", hot: [96.7, 94.1, "Cortexus lives in Claude"] },
-      { label: "Step 2", image: "cx/w/c2-enable.webp", ratio: "16 / 9", hot: [85.8, 84.1, "Enable the extension"] },
-      { label: "Step 3", image: "cx/w/c3-ask.webp", ratio: "16 / 9", hot: [81, 11, "\"Decide for me\""] },
-      { label: "Step 4", image: "cx/w/c4-mould.webp", ratio: "16 / 9", hot: [91.3, 80.5, "Mould detected: open your journal"] },
-    ]},
+    { type: "feat", title: "Where it lives", screens: ["cx/w/i1-store.webp", "cx/w/i2-install.webp", "cx/w/i3-open.webp", "cx/w/i4-splash.webp", "cx/w/i5-welcome.webp"],
+      what: "A desktop app for Windows, installed from the Microsoft Store like any other tool.",
+      why: "Designers use AI at their desks, not on their phones, so Cortexus lives where the work happens." },
+    { type: "feat", title: "What we track", screens: ["cx/w/o2-track.webp"],
+      what: "A plain explanation of what Cortexus reads: prompts that are AI decided, user decided, or journaled first.",
+      why: "Round 1 testers wanted more explanation and clearer language, so nothing is tracked without being explained." },
+    { type: "feat", title: "Journaling", screens: ["cx/w/o5-display.webp", "cx/scr-claude-journal.webp"],
+      what: "A journal designers can write in before turning to AI. Journaling first clears the mould.",
+      why: "In co-design, designers wanted to think on paper first: \"paper first, screen second\"." },
+    { type: "feat", title: "The dashboard", screens: ["cx/w/d1.webp", "cx/w/d2.webp", "cx/w/d3.webp", "cx/w/d4.webp"],
+      what: "A brain scan with a region for each skill. Mould grows through four phases as that skill is offloaded.",
+      why: "Designers asked for a brain that's colourful when healthy and bleaches as mould spreads, so there's something to work back to." },
+    { type: "feat", title: "Descriptive onboarding", screens: ["cx/w/o1-welcome.webp", "cx/w/o3-skills.webp", "cx/w/o4-limits.webp", "cx/w/o6-journal.webp"],
+      what: "Consent first, then each designer picks the four skills they protect and sets their own limits, with a short dashboard tour.",
+      why: "Late consent was flagged as a dark pattern, and every designer values different skills, so they set the rules." },
+    { type: "feat", title: "Tracking", screens: ["cx/scr-phase.webp"],
+      what: "Every AI-decided prompt counts towards that skill's limit, with the phase and prompts left shown as you work.",
+      why: "Designers hand over thinking without noticing. You can't change a habit you can't see." },
+    { type: "feat", title: "The Claude extension", screens: ["cx/w/c1-claude.webp", "cx/w/c2-enable.webp", "cx/w/c3-ask.webp", "cx/w/c4-mould.webp"],
+      what: "A browser extension inside Claude. When a prompt hands over a skill, it flags the mould and offers the journal.",
+      why: "Co-design asked for the pause to come from the AI itself, not another app to remember." },
 
     { type: "section", label: "Impact", heading: "What Cortexus changes." },
     { type: "points", items: [
@@ -3089,6 +3091,11 @@ const BLOCKS = {
   embed: b => `<a class="cs-embed" href="${esc(b.href)}" target="_blank" rel="noopener">
       <span class="cs-embed-bar"><span class="cs-link-ic" aria-hidden="true"><svg viewBox="0 0 38 57"><path fill="#1ABCFE" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0ACF83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#FF7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#F24E1E" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#A259FF" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg></span><span class="cs-embed-name"><b>${esc(b.title)}</b><small>FigJam board</small></span><span class="cs-embed-open">Open in Figma ↗</span></span>
       <span class="cs-embed-img">${img(b.image, b.title)}</span></a>`,
+  feat: b => `<div class="feat">
+      <div class="feat-media">${fader(b.screens.map(image => ({ image })), () => "16 / 9", true)}</div>
+      <div class="feat-text">${txt(b.title, "h3", "cs-h3")}
+        <div><div class="cs-label">What it is</div><p>${esc(b.what)}</p></div>
+        <div><div class="cs-label">Why</div><p>${esc(b.why)}</p></div></div></div>`,
   bullets: b => `<div class="cs-points-wrap">${txt(b.label, "div", "cs-label")}<ul class="cs-bullets">${b.items.map(i => `<li>${esc(i)}</li>`).join("")}</ul></div>`,
   link: b => `<a class="cs-link" href="${esc(b.href)}" target="_blank" rel="noopener"><span class="cs-link-ic" aria-hidden="true"><svg viewBox="0 0 38 57"><path fill="#1ABCFE" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0ACF83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#FF7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#F24E1E" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#A259FF" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg></span><span class="cs-link-txt"><b>${esc(b.title)}</b><span>${esc(b.text)}</span><small>${esc(b.site)} ↗</small></span></a>`,
   affinity: b => `<div class="cs-aff${b.steps && b.steps.length ? "" : " solo"}"><figure class="cs-aff-img">${img(b.image, b.alt || "")}${b.caption ? `<figcaption class="cs-label sm">${esc(b.caption)}</figcaption>` : ""}</figure>
