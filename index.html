@@ -1396,6 +1396,23 @@ footer { border-top: 1px solid var(--line); }
 .cs-embed-img img { width: 100%; height: 100%; object-fit: cover; object-position: top left; display: block; transition: transform .8s ease; }
 .cs-embed:hover .cs-embed-img img { transform: scale(1.02); }
 
+/* BULLETS */
+.cs-bullets { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; max-width: 46em; }
+.cs-bullets li { position: relative; padding-left: 22px; color: var(--muted); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.65; }
+.cs-bullets li::before { content: ""; position: absolute; left: 0; top: .78em; width: 10px; height: 1.5px; background: var(--accent-text); }
+
+/* HOTSPOT: an animated cursor clicks the key part of a screen */
+.hot { position: absolute; left: var(--x); top: var(--y); width: 0; height: 0; z-index: 2; pointer-events: none; }
+.hot-cur { position: absolute; left: -3px; top: -2px; width: 22px; height: 22px; filter: drop-shadow(0 2px 3px rgba(0,0,0,.5)); animation: hotCur 4.2s cubic-bezier(.45,0,.2,1) infinite; }
+.hot-ring { position: absolute; left: -20px; top: -20px; width: 40px; height: 40px; border-radius: 50%; border: 2.5px solid var(--accent); background: rgba(184,151,228,.25); opacity: 0; animation: hotRing 4.2s ease-out infinite; }
+.hot-tip { position: absolute; bottom: 22px; left: 50%; transform: translate(-50%, 6px); white-space: nowrap; background: var(--accent); color: var(--accent-ink); font-size: 12px; font-weight: 500; padding: 5px 11px; border-radius: 999px; opacity: 0; animation: hotTip 4.2s ease infinite; box-shadow: 0 6px 16px -8px rgba(0,0,0,.6); }
+.hot.r .hot-tip { left: auto; right: -14px; transform: translate(0, 6px); animation-name: hotTipR; }
+@keyframes hotTipR { 0%, 48% { opacity: 0; transform: translate(0, 6px); } 56%, 86% { opacity: 1; transform: none; } 100% { opacity: 0; transform: none; } }
+@keyframes hotCur { 0% { transform: translate(70px, 60px); opacity: 0; } 10% { opacity: 1; } 38% { transform: translate(0, 0); } 44% { transform: translate(0, 0) scale(.85); } 50%, 85% { transform: translate(0, 0); opacity: 1; } 100% { transform: translate(0, 0); opacity: 0; } }
+@keyframes hotRing { 0%, 42% { opacity: 0; transform: scale(.3); } 46% { opacity: 1; } 70%, 100% { opacity: 0; transform: scale(1.4); } }
+@keyframes hotTip { 0%, 48% { opacity: 0; transform: translate(-50%, 6px); } 56%, 86% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; transform: translate(-50%, 0); } }
+@media (prefers-reduced-motion: reduce) { .hot-cur, .hot-ring { animation: none; } .hot-tip { animation: none; opacity: 1; transform: translate(-50%, 0); } }
+
 /* LINK CARD: a bookmark to an outside page, like Notion */
 .cs-link { display: flex; align-items: center; gap: 18px; padding: 18px 22px; background: #FFFFFF; border: 1px solid var(--panel-line); border-radius: 6px; max-width: 640px; transition: border-color .2s, box-shadow .2s; }
 .cs-link:hover { border-color: var(--accent); box-shadow: 0 8px 24px -16px rgba(20, 24, 32, .4); }
@@ -2122,86 +2139,49 @@ function cortexusBlocks() {
       lead: "Before building anything, I mapped how Cortexus would work: what each mould phase looks like, what causes it, and which prompts count as offloading. I designed every screen by hand in Figma first, then used AI only to build the working prototype." },
     { type: "embed", href: "https://www.figma.com/board/BrmLm1t9sBUKswsHdw95Jl/Ideation?node-id=0-1&t=1j1lItRNCi56ZH2i-1", title: "Ideation and prototyping journey", image: p("board") },
 
-    { type: "section", label: "User testing round 1", count: "10 designers", heading: "Prototype 1: does it make designers reflect?",
-      lead: "I tested the first prototype with ten product and interaction designers at Accenture." },
+    { type: "section", label: "User testing round 1", count: "10 designers", heading: "Prototype 1: it made designers reflect.",
+      lead: "\"I'd be actually scared if the company could see it, mine would be so covered in mould.\"" },
     { type: "board", kind: "fade", caption: "", slides: [
       { label: "Prototype 1", image: p("p1-onboarding"), ratio: "973 / 520", caption: "onboarding" },
       { label: "Prototype 1", image: p("p1-dashboard"), ratio: "1023 / 517", caption: "dashboard and Claude overlays" },
     ]},
-    { type: "board", kind: "quotes", caption: "Success criteria", c: 2, quotes: [
-      "I'd be actually scared if the company could see it, because mine would be so covered in mould.",
-      "We need to definitely look at our usage, and this is just the tool for making us reflect.",
-    ]},
-    { type: "points", label: "What needed to change", items: [
-      { title: "Onboarding", text: "Needed more explanation, especially of the soft skills." },
-      { title: "Terminology", text: "Inaccessible and inconsistent." },
-      { title: "Dashboard", text: "Cluttered, with an unclear hierarchy." },
-      { title: "Consent", text: "Data sharing came too late, and was flagged as a dark pattern." },
-    ]},
-
-    { type: "section", label: "What I changed", heading: "Clearer, calmer and consent first.",
-      lead: "Every change came straight from round 1." },
-    { type: "points", items: [
-      { title: "Consent first", text: "Data consent moved to the welcome screen." },
-      { title: "Plain language", text: "\"Patient identity\" and medical jargon were removed." },
-      { title: "A calmer dashboard", text: "Cut back, with a clear hierarchy and info icons." },
-      { title: "Skills explained", text: "A new \"What we track\" step explains each soft skill." },
-    ]},
+    { type: "bullets", label: "What I changed", items: ["Consent moved to the first screen. Late consent was flagged as a dark pattern.", "Plain language, with no medical jargon like \"patient identity\".", "A calmer dashboard with a clear hierarchy.", "A new step explaining each soft skill."] },
 
     { type: "section", label: "User testing round 2", count: "2 designers", heading: "Prototype 2: the real Cortexus.",
-      lead: "I tested the revised prototype with two more designers. This version became the actual product." },
+      lead: "\"I really like that it gives you the liberty to select your prompting boundaries, and doesn't force it on you.\"" },
     { type: "board", kind: "gallery", caption: "Testing prototype 2", c: 1, ratio: "997 / 558", images: [[p("test2"), ""]] },
-    { type: "board", kind: "quotes", caption: "Success criteria", c: 2, quotes: [
-      "The brain makes me want to take bleach and pour it over the top of it.",
-      "I really like that the concept gives you the liberty to select your prompting boundaries, and it doesn't force it on you.",
-    ]},
-    { type: "points", label: "What still needed to change", items: [
-      { title: "Language", text: "Still too complex, and needed simplifying further." },
-      { title: "Info page", text: "Confusing, because the boxes looked like functions." },
-      { title: "Introduction", text: "Overwhelming, with too much to learn at once." },
-      { title: "Colours and extension", text: "The colour scheme was hard to read, and extensions don't work like this." },
-    ]},
+    { type: "bullets", label: "What I changed", items: ["Simpler language throughout.", "The introduction split into short steps.", "Higher-contrast colours.", "The extension rebuilt to install like a real browser extension."] },
 
-    { type: "section", label: "Finalising the prototype", heading: "Clinical, sci-fi and a little unsettling.",
-      lead: "After round 2 I simplified the language, split the introduction into short steps, rebranded with higher-contrast colours, and rebuilt the extension to install the way real browser extensions do." },
+    { type: "section", label: "Finalising the prototype", heading: "Clinical, sci-fi and a little unsettling." },
     { type: "board", kind: "gallery", caption: "Final design system", c: 1, ratio: "1429 / 811", contain: true, images: [[p("design-system"), ""]] },
 
     { type: "section", label: "Solution", heading: "Cortexus: a clinic for your design brain.",
       lead: "A desktop app and Claude extension. You choose the four soft skills you want to protect. Every time you offload one to AI, mould grows on that part of your brain scan. Write in your journal instead, and it clears." },
     { type: "media", stage: "grey", image: p("cover") },
 
-    { type: "section", label: "Features", heading: "How each insight became a feature.",
-      lead: "Recorded in the working prototype." },
-    { type: "pairs", tag: "Insight 1", heading: "Offloading has already begun.", lead: "So Cortexus makes it visible, in real time.", items: [
-      { ...W, video: "cx/v/f-dash", title: "Your brain, scanned", text: "Each skill sits on a region of the brain, and mould spreads through four phases as you hand it over." },
-      { ...W, image: p("scr-claude-ext"), title: "Beside the AI you already use", text: "Designers use AI at their desks, so Cortexus lives in Claude as a browser extension." },
+    { type: "section", label: "Features", heading: "What designers asked for, built in." },
+    { type: "pairs", tag: "Insight 1", heading: "Offloading has already begun.", lead: "So Cortexus makes it visible, where designers use AI.", items: [
+      { ...W, image: p("scr-dashboard"), hot: [73, 51, "Mould grows on each skill"], title: "Your brain, scanned", text: "Each skill sits on a region of the brain, and mould spreads as you hand it over." },
+      { ...W, image: p("scr-claude-ext"), hot: [84, 82, "Enable extension"], title: "Inside Claude", text: "Designers use AI at their desks, so Cortexus lives in Claude as an extension." },
     ]},
     { type: "pairs", tag: "Insight 2", heading: "Juniors lose the struggle where learning happens.", lead: "So the pause comes from the AI itself, as co-design asked.", items: [
-      { ...W, video: "cx/v/f-claude", title: "A nudge at the moment of offloading", text: "Ask Claude to decide for you, and Cortexus flags the mould before you move on." },
-      { ...W, image: p("scr-claude-journal"), title: "Paper first, AI second", text: "Opening your journal clears the mould. \"Paper first, screen second\" came straight from co-design." },
+      { ...W, image: p("scr-phase"), hot: [90, 76, "Open journal"], title: "A nudge at the moment of offloading", text: "Ask Claude to decide for you, and Cortexus flags it before you move on." },
+      { ...W, image: p("scr-claude-journal"), hot: [39, 54, "New journal entry"], title: "Paper first, AI second", text: "Journaling your own thinking clears the mould, straight from co-design." },
     ]},
     { type: "pairs", tag: "Insight 3", heading: "Confidence erodes before ability does.", lead: "So there's always a healthy brain to work back to.", items: [
-      { ...W, image: p("vibrant-brains"), title: "A colourful, healthy brain", text: "Four designers asked for a brain that's vibrant when healthy and bleaches as mould spreads." },
-      { ...W, image: p("scr-phase"), title: "Four phases, never a dead end", text: "Each skill shows its phase and how many prompts are left, so there's always a way back." },
+      { ...W, image: "cx/v/f-dash.webp", hot: [44, 30, "Phase 4: necrosis"], title: "A brain that bleaches", text: "As four designers asked, the brain loses its colour as mould spreads." },
+      { ...W, image: p("scr-welcome"), hot: [31, 74, "Accept terms"], title: "Consent before anything", text: "Round 1 flagged late consent, so it's now the very first step." },
     ]},
     { type: "pairs", tag: "Insight 4", heading: "Every designer values different skills.", lead: "So designers set the rules, not the tool.", items: [
-      { ...W, video: "cx/v/f-skills", title: "Choose your skills, set your limits", text: "\"I really like that the concept gives you the liberty to select your prompting boundaries.\"" },
-      { ...W, video: "cx/v/f-consent", title: "Consent before anything", text: "Round 1 flagged late consent as a dark pattern, so it moved to the very first screen." },
+      { ...W, image: p("scr-skills"), hot: [50, 35, "Pick your four skills"], title: "Choose your skills", text: "Designers pick the four skills they'd never give to AI." },
+      { ...W, image: "cx/v/f-skills.webp", hot: [63, 50, "Set your limit"], title: "Set your own limits", text: "\"It gives you the liberty to select your prompting boundaries.\"" },
     ]},
 
     { type: "section", label: "Impact", heading: "What Cortexus changes." },
-    { type: "points", items: [
-      { title: "Awareness", text: "The striking visuals of the rot can't be ignored, breaking the habit of reaching for AI without thinking." },
-      { title: "Skill building", text: "Designers refocus on building their own skills, using AI to prevent further losses rather than cause them." },
-      { title: "Independence", text: "Designers regain confidence and trust in themselves to make their own decisions again." },
-    ]},
+    { type: "bullets", items: ["Awareness: the mould can't be ignored, so designers notice their offloading.", "Skill building: designers practise their own skills again.", "Independence: designers trust their own decisions again."] },
 
     { type: "section", label: "Reflection", heading: "What I learned" },
-    { type: "points", items: [
-      { title: "Designing for designers is harder.", text: "Every designer works differently, so I had to separate personal preference from shared needs." },
-      { title: "Speculative design needs evidence too.", text: "Provocation only worked once it was grounded in real quotes and tested reactions." },
-      { title: "AI is a tool, not a co-designer.", text: "My best work came from deciding first and using AI to build, the same habit Cortexus encourages." },
-    ]},
+    { type: "bullets", items: ["Designing for designers is harder: separating preference from shared needs.", "Speculative design needs evidence: provocation only worked once grounded in real quotes.", "AI is a tool, not a co-designer: decide first, then use AI to build."] },
   ];
 }
 
@@ -2720,7 +2700,7 @@ function stage(it, shape) {
   if (it.zoom) shape += " zoom";
   if (it.video) inner = `<video poster="${esc(it.video)}.webp" autoplay muted loop playsinline><source src="${esc(it.video)}.webm" type="video/webm"><source src="${esc(it.video)}.mp4" type="video/mp4"></video>
       <div class="vid-ctrl"><button type="button" data-vid="toggle" aria-label="Pause video">${ICON_PAUSE}</button><button type="button" data-vid="replay" aria-label="Replay video">${ICON_REPLAY}</button></div>`;
-  else if (it.image) inner = img(it.image, it.title || "");
+  else if (it.image) inner = img(it.image, it.title || "") + (it.hot ? `<span class="hot${it.hot[0] > 70 ? " r" : ""}" aria-hidden="true" style="--x:${it.hot[0]}%;--y:${it.hot[1]}%"><span class="hot-ring"></span><span class="hot-tip">${esc(it.hot[2])}</span><svg class="hot-cur" viewBox="0 0 24 24"><path d="M4 2l15 11-6.5 1.2L16 21l-3 1.3-3.4-6.8L4 20z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg></span>` : "");
   else inner = phone(it.screen);
   if (it.fit === "phone") return `<div class="stage stage-grey phonefit">${img(it.image, it.title || "")}</div>`;
   return `<div class="stage stage-${kind} ${shape}"${bg}>${inner}</div>`;
@@ -3089,6 +3069,7 @@ const BLOCKS = {
   embed: b => `<a class="cs-embed" href="${esc(b.href)}" target="_blank" rel="noopener">
       <span class="cs-embed-bar"><span class="cs-link-ic" aria-hidden="true"><svg viewBox="0 0 38 57"><path fill="#1ABCFE" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0ACF83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#FF7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#F24E1E" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#A259FF" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg></span><span class="cs-embed-name"><b>${esc(b.title)}</b><small>FigJam board</small></span><span class="cs-embed-open">Open in Figma ↗</span></span>
       <span class="cs-embed-img">${img(b.image, b.title)}</span></a>`,
+  bullets: b => `<div class="cs-points-wrap">${txt(b.label, "div", "cs-label")}<ul class="cs-bullets">${b.items.map(i => `<li>${esc(i)}</li>`).join("")}</ul></div>`,
   link: b => `<a class="cs-link" href="${esc(b.href)}" target="_blank" rel="noopener"><span class="cs-link-ic" aria-hidden="true"><svg viewBox="0 0 38 57"><path fill="#1ABCFE" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0ACF83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#FF7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#F24E1E" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#A259FF" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg></span><span class="cs-link-txt"><b>${esc(b.title)}</b><span>${esc(b.text)}</span><small>${esc(b.site)} ↗</small></span></a>`,
   affinity: b => `<div class="cs-aff${b.steps && b.steps.length ? "" : " solo"}"><figure class="cs-aff-img">${img(b.image, b.alt || "")}${b.caption ? `<figcaption class="cs-label sm">${esc(b.caption)}</figcaption>` : ""}</figure>
       ${b.steps && b.steps.length ? `<div class="cs-aff-text">${txt(b.label, "div", "cs-label")}<ol class="cs-steps">${b.steps.map(st => `<li><h3 class="cs-h4">${esc(st[0])}</h3><p>${esc(st[1])}</p></li>`).join("")}</ol></div>` : ""}</div>`,
