@@ -1461,7 +1461,7 @@ body.zoom-open { overflow: hidden; }
 /* FADER: auto-changing images */
 .fade { display: grid; gap: 14px; }
 .fade-stack { display: grid; }
-.fade-slide { grid-area: 1 / 1; margin: 0; display: grid; gap: 10px; align-content: start; opacity: 0; visibility: hidden; transition: opacity .9s ease, visibility 0s linear .9s; }
+.fade-slide { grid-area: 1 / 1; margin: 0; display: grid; gap: 16px; align-content: start; opacity: 0; visibility: hidden; transition: opacity .9s ease, visibility 0s linear .9s; }
 .fade-slide.on { opacity: 1; visibility: visible; transition: opacity .9s ease; }
 .fade-img { overflow: hidden; background: #F4F4F4; display: grid; place-items: center; }
 .fade-img img { width: 100%; height: 100%; object-fit: contain; display: block; }
@@ -1478,6 +1478,15 @@ body.zoom-open { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) {
   .fade-stack { gap: 24px; } .fade-slide { grid-area: auto; opacity: 1; visibility: visible; } .fade-bars { display: none; }
 }
+
+/* IMAGE CAPTIONS: one style everywhere */
+.lcb .gal-cell figcaption, .lcb .shot figcaption, .fade-slide figcaption, .cs-aff-img figcaption.cs-label, .cx-faces figcaption, .ws-imgs figcaption, .ux-sim figcaption, .ux-ia figcaption, .about-team figcaption {
+  font-family: var(--mono); font-size: 12px; font-weight: 400; line-height: 1.5; letter-spacing: .04em; text-transform: uppercase; text-align: left; color: var(--muted); max-width: none;
+}
+.fade-slide figcaption { font-size: 13px; }
+.lcb.plain:has(.fade) { background: var(--panel); border: 1px solid var(--panel-line); padding: clamp(16px, 2.4vw, 24px); }
+.fade-slide figcaption b { font-weight: 400; color: inherit; }
+.lcb .shot.phone-shot figcaption { justify-self: center; text-align: center; }
 
 /* RESPONSIVE */
 @media (max-width: 860px) {
@@ -2006,7 +2015,7 @@ function cortexusBlocks() {
 
     { type: "section", label: "Affinity mapping", count: "20 interviews", heading: "Turning 20 conversations into evidence.",
       lead: "One interview is an anecdote. A pattern that shows up across twenty is evidence. I affinity mapped every interview so the insights would come from what designers said again and again, not from the quotes I personally found most striking." },
-    { type: "affinity", image: p("affinity"), alt: "Interview notes grouped into clusters during affinity mapping", caption: "Affinity mapping the interview notes" },
+    { type: "board", kind: "gallery", caption: "Affinity mapping the interview notes", c: 1, ratio: "16 / 9", contain: true, images: [[p("affinity"), ""]] },
 
     { type: "section", label: "Key insights", heading: "The risk isn't that AI replaces designers. It's that designers lose the core skills that define who they are.",
       lead: "Four clusters came up again and again. Each one became a design requirement." },
@@ -2048,8 +2057,8 @@ function cortexusBlocks() {
     { type: "subsection", heading: "Round 1: two concepts into testing.",
       lead: "After an open discussion in the studio, Brain Rot and Distorting Relationships drew the strongest reactions, so I tested both with two designers." },
     { type: "board", kind: "fade", caption: "", slides: [
-      { label: "Brain Rot", image: p("brainrot-concept"), ratio: "1033 / 482", caption: "Mould grows on your brain scan as you offload. Mobile and desktop." },
-      { label: "Distorting Relationships", image: p("relationships-concept"), ratio: "1359 / 774", caption: "AI replies like four colleagues, each with a different cost for leaning on them." },
+      { label: "Brain Rot", image: p("brainrot-concept"), ratio: "1033 / 482", caption: "mould grows on your brain scan as you offload" },
+      { label: "Distorting Relationships", image: p("relationships-concept"), ratio: "1359 / 774", caption: "AI replies like four colleagues" },
     ]},
     { type: "points", label: "What round 1 showed", items: [
       { title: "Brain Rot made designers reflect", text: "\"As you're showing me the idea, I'm reflecting on my own use.\"" },
@@ -2059,10 +2068,10 @@ function cortexusBlocks() {
     { type: "subsection", heading: "Round 2: two developed concepts.",
       lead: "I developed Brain Rot into Mouldy Thoughts, and Nurturing Skills into Growing Beyond AI, where your skills grow as flowers. Ten Accenture designers compared them in a feedback workshop." },
     { type: "board", kind: "fade", caption: "", slides: [
-      { label: "Mouldy Thoughts", image: p("mouldy-thoughts"), ratio: "1576 / 735", caption: "Mould grows on your brain as you offload. Mobile and desktop." },
-      { label: "Growing Beyond AI", image: p("growing-beyond"), ratio: "1527 / 718", caption: "Your skills grow as flowers when you practise them. Mobile and desktop." },
+      { label: "Mouldy Thoughts", image: p("mouldy-thoughts"), ratio: "1576 / 735", caption: "mould grows on your brain as you offload" },
+      { label: "Growing Beyond AI", image: p("growing-beyond"), ratio: "1527 / 718", caption: "skills grow as flowers when you practise" },
     ]},
-    { type: "board", kind: "gallery", caption: "", c: 2, ratio: "4 / 3", images: [[p("critique"), "Presenting both concepts to Accenture designers"], ["me/workshop.webp", "Designers giving feedback on sticky notes"]] },
+    { type: "board", kind: "gallery", caption: "Feedback workshop with Accenture designers", c: 1, ratio: "3 / 2", images: [[p("critique"), ""], ["me/workshop.webp", ""]] },
     { type: "points", label: "What round 2 showed", items: [
       { title: "Growing Beyond AI lost its pull", text: "Comfortable, but the novelty wore off, and plant-style tracker apps already exist." },
       { title: "Mouldy Thoughts moved forward", text: "\"I reflected on my usage and it made me feel bad but in a good way.\"" },
@@ -2677,7 +2686,7 @@ const MOODS = [["happy", "Happy"], ["neutral", "Neutral"], ["unhappy", "Unhappy"
 const APP_BOARDS = new Set(["vids"]);
 /* FADER: images that change on their own, with thin progress lines (not buttons) */
 const fader = (slides, ratioOf) => `<div class="fade" data-fade>
-    <div class="fade-stack">${slides.map((sl, i) => `<figure class="fade-slide${i ? "" : " on"}"${i ? ' aria-hidden="true"' : ""}><div class="fade-img" style="aspect-ratio:${ratioOf(sl)}">${img(sl.image, sl.caption || sl.label || "")}</div>${sl.caption ? `<figcaption>${sl.label ? `<b>${esc(sl.label)}</b> · ` : ""}${esc(sl.caption)}</figcaption>` : ""}</figure>`).join("")}</div>
+    <div class="fade-stack">${slides.map((sl, i) => `<figure class="fade-slide${i ? "" : " on"}"${i ? ' aria-hidden="true"' : ""}>${sl.caption || sl.label ? `<figcaption>${esc([sl.label, sl.caption].filter(Boolean).join(": "))}</figcaption>` : ""}<div class="fade-img" style="aspect-ratio:${ratioOf(sl)}">${img(sl.image, sl.caption || sl.label || "")}</div></figure>`).join("")}</div>
 </div>`;
 const LC = {
   photo: b => `<figure class="lcb" style="margin:0">${boardHead(b.caption)}<div class="lcb-img">${img(b.image, b.caption)}</div></figure>`,
