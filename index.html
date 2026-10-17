@@ -1405,7 +1405,7 @@ footer { border-top: 1px solid var(--line); }
 
 /* ARCHETYPES: the portfolio's own persona layout, with four lists in two columns */
 .cs-label.arc-role { font-size: 12.5px; color: var(--accent); }
-.pp-intro:has(.arc-role) .pp-quote { border-left: 0; padding-left: 0; }
+.pp-intro:has(.arc-name) .pp-quote { border-left: 0; padding-left: 0; }
 .pp-intro .arc-role + .pp-name { margin-top: -6px; }
 .arc-ref { font-style: normal; font-family: var(--mono); font-size: 12px; color: var(--muted); white-space: nowrap; }
 .pp-cols.arc-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 48px; border-top: 0; padding-top: 0; }
@@ -2655,8 +2655,7 @@ const LC = {
   archetypeBody: b => `<div class="pp">
       <div class="pp-photo">${img(b.photo, b.name)}</div>
       <div class="pp-intro">
-        <div class="cs-label arc-role">${esc(b.label)}</div>
-        <h3 class="pp-name">${esc(b.name)}</h3>
+        <h3 class="pp-name arc-name">${esc(b.name)}</h3>
         <p class="pp-meta">${esc(b.age)} · ${esc(b.job)}</p>
         <blockquote class="pp-quote">“${esc(b.quote)}”${b.qref ? ` <span class="arc-ref">(${esc(b.qref)})</span>` : ""}</blockquote>
       </div>
