@@ -1379,6 +1379,8 @@ footer { border-top: 1px solid var(--line); }
 .other-grid .thumb { aspect-ratio: 16 / 10; }
 @media (max-width: 760px) { .lens, .skill-row { grid-template-columns: minmax(0, 1fr); } .other-grid { grid-auto-columns: 85%; } .lens > div:nth-child(even) { padding-left: 0; border-left: 0; } }
 
+/* image slides in a carousel */
+.car-img { margin: 0; }
 /* ONE-IMAGE BOARDS stay full width on every screen */
 .lcgrid.one { grid-template-columns: minmax(0, 1fr) !important; }
 /* ZOOM: tap or click a board image to see it full screen */
@@ -1433,6 +1435,12 @@ body.zoom-open { overflow: hidden; }
 .ws-top { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: clamp(20px, 3.4vw, 44px); align-items: start; }
 .ws-img { margin: 0; aspect-ratio: 4 / 3; overflow: hidden; background: var(--panel); }
 .ws-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ws-top.multi { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+.ws-top.multi .ws-imgs { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.ws-top.multi .ws-why { grid-column: 1 / -1; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px 48px; }
+.ws-imgs .ws-img { aspect-ratio: auto; background: none; display: grid; gap: 8px; }
+.ws-imgs .ws-img img { aspect-ratio: 4 / 3; height: auto; }
+.ws-imgs figcaption { font-size: 13px; color: var(--muted); }
 .ws-why { display: grid; gap: 20px; }
 .ws-why p, .ws-find p, .ws-into p { margin: 6px 0 0; color: var(--muted); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.75; }
 .ws-find, .ws-into { display: grid; gap: 18px; }
@@ -1446,7 +1454,7 @@ body.zoom-open { overflow: hidden; }
 .ws-into h4 { margin: 0; font-family: var(--serif-text); font-weight: 400; font-size: 21px; line-height: 1.3; color: var(--ink); }
 .ws-into p { margin-top: 4px; font-size: 16px; }
 @media (max-width: 860px) {
-  .ws-top, .ws-find-grid { grid-template-columns: minmax(0, 1fr); }
+  .ws-top, .ws-find-grid, .ws-top.multi .ws-why { grid-template-columns: minmax(0, 1fr); }
   .ws-into-grid { grid-template-columns: minmax(0, 1fr); }
 }
 
@@ -2017,30 +2025,40 @@ function cortexusBlocks() {
       lead: "Because cognitive offloading is a future-facing problem, I chose speculative design to provoke reflection and productive discomfort. I explored four directions, each a different way to deliver the three opportunity pillars: awareness, by making offloading visible; friction, by adding a pause before AI; and independence, by keeping skills in practice." },
     { type: "board", kind: "gallery", caption: "Speculative moodboards: the four directions explored", c: 1, ratio: "1405 / 916", contain: true, images: [[p("directions"), ""]] },
     { type: "subsection", heading: "Round 1: two concepts into testing.",
-      lead: "After an open discussion in the studio, Brain Rot (disgust) and Distorting Relationships (intrigue) drew the strongest reactions. They work in opposite ways, so I tested both with two designers to see which one actually changes behaviour." },
-    { type: "board", kind: "gallery", caption: "Concept tested: Brain Rot, on mobile and desktop", c: 1, ratio: "1033 / 482", contain: true, images: [[p("brainrot-concept"), ""]] },
-    { type: "board", kind: "gallery", caption: "Concept tested: Distorting Relationships", c: 1, ratio: "1359 / 774", contain: true, images: [[p("relationships-concept"), ""]] },
+      lead: "After an open discussion in the studio, Brain Rot and Distorting Relationships drew the strongest reactions, so I tested both with two designers." },
+    { type: "board", kind: "carousel", caption: "Round 1 concepts", slides: [
+      { label: "Brain Rot", kind: "image", image: p("brainrot-concept"), ratio: "1033 / 482", caption: "Mould grows on your brain scan as you offload. Mobile and desktop." },
+      { label: "Distorting Relationships", kind: "image", image: p("relationships-concept"), ratio: "1359 / 774", caption: "AI replies like four colleagues, each with a different cost for leaning on them." },
+    ]},
     { type: "points", label: "What round 1 showed", count: "2 designers", items: [
-      { title: "Brain Rot changed behaviour", text: "\"As you're showing me the idea, I'm reflecting on my own use.\" Distorting Relationships was \"more of a talking point\"." },
-      { title: "It tied to how it feels", text: "Designers described heavy AI use as \"brain breaking\" and feeling \"like a zombie\"." },
+      { title: "Brain Rot made designers reflect", text: "\"As you're showing me the idea, I'm reflecting on my own use.\"" },
+      { title: "Distorting Relationships stayed a talking point", text: "Designers found it interesting, but \"more of a talking point\"." },
+    ]},
+
+    { type: "subsection", heading: "Developing two concepts.",
+      lead: "I developed Brain Rot into Mouldy Thoughts, and Nurturing Skills into Growing Beyond AI, a version where your skills grow as flowers. Both were built out for mobile and desktop, ready for designers to compare." },
+    { type: "board", kind: "carousel", caption: "Developed concepts", slides: [
+      { label: "Mouldy Thoughts", kind: "image", image: p("mouldy-thoughts"), ratio: "1576 / 735", caption: "Mould grows on your brain as you offload. Mobile and desktop." },
+      { label: "Growing Beyond AI", kind: "image", image: p("growing-beyond"), ratio: "1527 / 718", caption: "Your skills grow as flowers when you practise them. Mobile and desktop." },
     ]},
 
     { type: "section", label: "Co-designing", count: "14 designers", heading: "Two workshops, two questions only designers could answer.",
-      lead: "Designers were the users, so the big decisions shouldn't be mine alone. The critique workshop was a second round of concept testing, to decide which direction to build. The reflective workshop decided what Cortexus should protect, and how it should behave." },
-    { type: "workshop", tag: "Workshop 1 · Critique", count: "10 designers", title: "Mould or garden: which one makes you think?",
-      image: p("critique"), alt: "Shannen presenting the mould and garden concepts to Accenture designers at the critique workshop",
+      lead: "Designers were the users, so the big decisions shouldn't be mine alone. The feedback workshop compared the two developed concepts, to decide which direction to build. The reflective workshop decided what Cortexus should protect, and how it should behave." },
+    { type: "workshop", tag: "Workshop 1 · Feedback", count: "10 designers", title: "Mouldy Thoughts or Growing Beyond AI?",
+      images: [[p("critique"), "Presenting both concepts to Accenture designers"], ["me/workshop.webp", "Designers giving feedback on sticky notes"]],
       parts: [
-        ["Why", "Brain Rot came out of round 1 strongest, but a garden version, where skills grow when you practise, had tested equally well. I couldn't pick on my own preference, so I asked the people it was for."],
-        ["What happened", "I presented both concepts to ten Accenture designers and asked them to critique each one: how it made them feel, whether it would change what they did, and which they'd actually keep using."],
+        ["Why", "Both concepts had been developed for mobile and desktop. I needed the people they were for to decide which one would keep them reflecting."],
+        ["What happened", "I presented both concepts to ten Accenture designers, then they gave their feedback on each one on sticky notes."],
       ],
       findings: [
-        ["Discomfort made them reflect", "The mould made designers think about their own AI use while they were looking at it. The garden felt pleasant, but easy to ignore."],
-        ["The garden felt familiar", "It was too close to habit and wellbeing apps already on the market, so it didn't stand out."],
-        ["The mould matched how it feels", "Designers already described heavy AI use as \"brain breaking\" and feeling \"like a zombie\"."],
+        ["Growing Beyond AI felt comfortable, but too easy", "Comfort came with a motivation risk. One participant lost interest in her flowers once the novelty wore off, and plant-style tracker apps are already on the market."],
+        ["Mouldy Thoughts made people reflect", "It made designers feel uncomfortable about their own AI use, in a way they found useful. Mouldy Thoughts was selected."],
+        ["Show the healthy brain too", "Four designers asked for the brain to be colourful when healthy and bleach when it isn't, rather than constantly being negative."],
       ],
-      quote: "If the AI is doing the empathising and everything, then why the hell am I even here? I would feel like I'm a zombie.",
+      quote: "I reflected on my usage and it made me feel bad but in a good way.",
       into: [
-        [p("scr-dashboard"), "Brain Rot became the direction", "Each skill gets its own region of a brain scan, and mould grows on the skill you hand over."],
+        [p("scr-dashboard"), "Mouldy Thoughts became Cortexus", "Each skill gets its own region of a brain scan, and mould grows on the skill you hand over."],
+        [p("vibrant-brains"), "A colourful, healthy brain", "The brain starts vibrant and loses its colour as mould spreads, so there's always something to work back towards."],
       ]},
     { type: "workshop", tag: "Workshop 2 · Reflective", count: "4 designers", title: "Which skills would you never give to AI?",
       image: p("reflective"), alt: "Four designers writing on reflection worksheets at the reflective workshop",
@@ -2697,7 +2715,7 @@ const LC = {
     const nav = `<div class="car-nav"><div class="chips">${tabs}</div>
       <div class="chips"><button type="button" class="btn-lc ic car-arrow" data-car="${id}" data-step="-1" aria-label="Previous">‹</button><button type="button" class="btn-lc ic car-arrow" data-car="${id}" data-step="1" aria-label="Next">›</button></div></div>`;
     return `<div class="lcb">${boardHead(b.caption)}${nav}
-      <div class="car-track" id="${id}">${b.slides.map(sl => `<div class="car-slide">${sl.kind === "journey" ? LC.journeyBody(sl) : sl.kind === "archetype" ? LC.archetypeBody(sl) : LC.personaBody(sl)}</div>`).join("")}</div></div>`;
+      <div class="car-track" id="${id}">${b.slides.map(sl => `<div class="car-slide">${sl.kind === "image" ? `<figure class="gal-cell contain car-img" style="--r:${sl.ratio}"><div class="lcb-img">${img(sl.image, sl.label)}</div>${sl.caption ? `<figcaption>${esc(sl.caption)}</figcaption>` : ""}</figure>` : sl.kind === "journey" ? LC.journeyBody(sl) : sl.kind === "archetype" ? LC.archetypeBody(sl) : LC.personaBody(sl)}</div>`).join("")}</div></div>`;
   },
 
   stats: b => `<div class="lcb">${b.caption ? boardHead(b.caption) : ""}
@@ -2981,7 +2999,7 @@ const BLOCKS = {
   media: b => `<div class="cs-media">${stage(b, "wide")}</div>`,
   workshop: b => `<article class="ws">
       <header class="ws-head"><div class="cs-labelrow"><div class="cs-label">${esc(b.tag)}</div>${b.count ? `<span class="cs-count"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 19c.6-3.2 3-5 6-5s5.4 1.8 6 5"/><circle cx="17" cy="9" r="2.6"/><path d="M16 14.2c2.6.2 4.4 1.8 5 4.8"/></svg>${esc(b.count)}</span>` : ""}</div>${txt(b.title, "h3", "cs-h3")}</header>
-      <div class="ws-top"><figure class="ws-img">${img(b.image, b.alt || "")}</figure>
+      <div class="ws-top${b.images ? " multi" : ""}">${b.images ? `<div class="ws-imgs">${b.images.map(([src, cap]) => `<figure class="ws-img">${img(src, cap)}<figcaption>${esc(cap)}</figcaption></figure>`).join("")}</div>` : `<figure class="ws-img">${img(b.image, b.alt || "")}</figure>`}
         <div class="ws-why">${b.parts.map(([k, t]) => `<div><div class="cs-label">${esc(k)}</div><p>${esc(t)}</p></div>`).join("")}</div></div>
       <div class="ws-find"><div class="cs-label">What I found</div>
         <div class="ws-find-grid" style="--c:${b.findings.length === 4 ? 2 : Math.min(3, b.findings.length)}">${b.findings.map(([h, t]) => `<div><h4 class="cs-h4">${esc(h)}</h4><p>${esc(t)}</p></div>`).join("")}</div>
