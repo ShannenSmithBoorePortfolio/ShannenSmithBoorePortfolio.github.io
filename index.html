@@ -1415,6 +1415,7 @@ footer { border-top: 1px solid var(--line); }
 /* BULLETS */
 .cs-bullets { margin: 0; padding: 0; list-style: none; display: grid; gap: 12px; max-width: 46em; }
 .cs-bullets li { position: relative; padding-left: 22px; color: var(--muted); font-size: clamp(16px, 1.6vw, 18px); line-height: 1.65; }
+.cs-bullets li b { font-weight: 500; color: var(--ink); }
 .cs-bullets li::before { content: ""; position: absolute; left: 0; top: .78em; width: 10px; height: 1.5px; background: var(--accent-text); }
 
 /* HOTSPOT: an animated cursor clicks the key part of a screen */
@@ -1937,7 +1938,7 @@ function beoNuaBlocks() {
     ]},
     { type: "text", paragraphs: ["Most retirees are able to stay active, yet many are lonely. The gap isn't ability. It's connection."] },
 
-    { type: "section", label: "Research", heading: "We took the question to the street.",
+    { type: "section", label: "Research", count: "74 people", heading: "We took the question to the street.",
       lead: "Surveys alone gave us facts. To hear feelings, we built a research probe: written questions on pegs and a box people could speak into, asking one thing. \"What are your feelings about retirement?\"" },
     { type: "board", kind: "gallery", caption: "Our research probe in Dublin", c: 3, ratio: "3 / 2", images: [[p("probe-beach"), ""], [p("g4"), ""], [p("probe-box"), ""]] },
     { type: "points", items: [
@@ -1981,10 +1982,10 @@ function beoNuaBlocks() {
     { type: "section", label: "Key insights", heading: "Retirement isn't feared because of money. It's feared because it feels like the end.",
       lead: "Grouping every quote and response revealed four insights. Each became a design requirement." },
     { type: "points", items: [
-      { title: "1. Nobody reaches out.", text: "Help exists, but people have to find it and join it themselves, at the moment they feel least able to." },
-      { title: "2. Life suddenly stops.", text: "A full routine becomes empty days. People need something to get up for." },
-      { title: "3. Retirees feel undervalued.", text: "Society treats contribution as paid work. People want to give back." },
-      { title: "4. The clock is ticking.", text: "People fear their health will fade before they enjoy their time." },
+      { title: "1. Nobody reaches out." },
+      { title: "2. Life suddenly stops." },
+      { title: "3. Retirees feel undervalued." },
+      { title: "4. The clock is ticking." },
     ]},
 
     { type: "section", label: "Opportunity", heading: "Reach every retiree at the moment they retire, and lead them straight into their community.",
@@ -2008,23 +2009,22 @@ function beoNuaBlocks() {
       lead: "A celebration pack arrives when you retire. It leads to one website for every local event, which leads you into a community hub." },
     { type: "media", stage: "grey", image: p("cover") },
 
-    { type: "section", label: "Design decisions", heading: "How each insight shaped the service." },
-    { type: "pairs", tag: "Insight 1", heading: "Nobody reaches out.", lead: "So the service reaches out first, triggered by Revenue.", items: [
-      { ...W, image: p("brochure-front"), title: "A pack that arrives on its own", text: "Sent automatically at 66, when you start retirement on Revenue, or on request. Nobody has to know it exists." },
-      { ...W, image: p("brochure-back"), title: "Local from the first page", text: "The brochure maps hubs near you, with a QR code straight to the website." },
-    ]},
-    { type: "pairs", tag: "Insight 2", heading: "Life suddenly stops.", lead: "So it takes seconds to find something to get up for.", items: [
-      { ...W, video: v("browse"), title: "Every local event in one place", text: "Filter by category and area. No membership needed." },
-      { ...W, video: v("signup"), title: "Sign up with just a phone number", text: "Confirmation and reminders arrive on WhatsApp, an app people already use." },
-    ]},
-    { type: "pairs", tag: "Insight 3", heading: "Retirees feel undervalued.", lead: "So retirees aren't only guests. They can host.", items: [
-      { ...W, video: v("setup"), title: "Set up your own event", text: "Anyone can run a craft class or a sea swim, with times matched to partner hubs." },
-      { ...W, image: p("hub-sign"), title: "Make a place your own", text: "Groups can claim a regular spot as an official BEO NUA hub, with a plaque." },
-    ]},
-    { type: "pairs", tag: "Insight 4", heading: "The clock is ticking.", lead: "So staying active becomes part of everyday life, close to home.", items: [
-      { ...W, video: v("hubs"), title: "Hubs on every street", text: "Cafés and community centres host events in their quiet hours." },
-      { ...W, image: p("hub-cafe"), title: "A reason to get out", text: "Regular, local and social: the routine people lost when they stopped working." },
-    ]},
+    { type: "section", label: "Features", heading: "How each insight became part of the service." },
+    { type: "feat", title: "A pack that arrives on its own", screens: [p("brochure-front"), p("brochure-back")],
+      what: "A celebration pack, sent automatically at 66 or on request, with local hubs and a QR code to the website.",
+      why: "Nobody reaches out, so the service reaches out first." },
+    { type: "feat", title: "Every local event in one place", video: v("browse"),
+      what: "One website to browse events by category and area, with no membership needed.",
+      why: "Life suddenly stops, so it takes seconds to find something to get up for." },
+    { type: "feat", title: "Sign up with a phone number", video: v("signup"),
+      what: "Confirmation and reminders arrive on WhatsApp, an app people already use.",
+      why: "Testers wanted it simple, with nothing new to learn." },
+    { type: "feat", title: "Host your own event", video: v("setup"),
+      what: "Anyone can run a craft class or a sea swim, with times matched to partner hubs.",
+      why: "Retirees feel undervalued, so they can host, not only attend." },
+    { type: "feat", title: "Hubs on every street", video: v("hubs"),
+      what: "Cafés and community centres host events in their quiet hours, and groups can claim a regular spot.",
+      why: "The clock is ticking, so staying active happens close to home." },
 
     { type: "section", label: "Visual identity", heading: "Playful, but never juvenile.",
       lead: "Bold, muted colours and a warm serif make it feel like an invitation, not a government form. The Irish name is easy to say for those who don't speak it." },
@@ -2040,21 +2040,14 @@ function beoNuaBlocks() {
       "It's nice to know you're thought of.",
       "I wouldn't have known where to look for events like that.",
     ]},
-    { type: "points", label: "What we changed", items: [
-      { title: "Events higher up", text: "Testers wanted local events first, so we moved them above the fold." },
-      { title: "Bigger type", text: "The brochure's text sizes increased for clarity, keeping the bold style." },
-      { title: "Clear commitments for cafés", text: "Owners worried about upkeep, so hubs now set their own time slots and capacity." },
-    ]},
+    { type: "bullets", label: "What we changed", items: ["Events higher up: testers wanted local events first, so they moved above the fold.", "Bigger type: the brochure's text sizes increased, keeping the bold style.", "Clear commitments for cafés: hubs now set their own time slots and capacity."] },
 
-    { type: "section", label: "Impact", heading: "What Cortexus changes." },
-    { type: "bullets", items: [
-      "Awareness. Designers start to notice how often they hand their thinking to AI. One tester said it was \"just the tool for making us reflect.\"",
-      "Skill building. Designers think things through before turning to AI. A co-design participant wanted \"paper first, screen second\" to become part of their process.",
-      "Independence. Designers stay in control of their own limits. A second-round tester liked that \"it doesn't force it on you.\"",
-    ]},
+    { type: "section", label: "Impact", heading: "Small cost, big saving.",
+      lead: "We planned a pilot in Clontarf, Dublin, and costed the service against the health costs it could help avoid." },
+    { type: "bullets", items: ["€6.30: per person per year to run, by year two.", "€400: saved per person each year in health costs, at a low 10% impact.", "€593,700: net saving for the state in year three."] },
 
-    { type: "section", label: "Reflection", heading: "What I learned" },
-    { type: "bullets", items: ["Designing for designers is harder: separating preference from shared needs.", "Speculative design needs evidence: provocation only worked once grounded in real quotes.", "AI is a tool, not a co-designer: decide first, then use AI to build."] },
+    { type: "section", label: "Next steps", heading: "Where BEO NUA could go next." },
+    { type: "bullets", items: ["Start earlier: a pre-retirement pack so people plan their next chapter before it begins.", "Personalise: events recommended around each person's interests.", "Meet WCAG: stronger contrast, keyboard access and alt text across the site."] },
   ];
 }
 
@@ -2172,12 +2165,12 @@ function cortexusBlocks() {
       { label: "Prototype 1", image: p("p1-onboarding"), ratio: "973 / 520", caption: "onboarding" },
       { label: "Prototype 1", image: p("p1-dashboard"), ratio: "1023 / 517", caption: "dashboard and Claude overlays" },
     ]},
-    { type: "bullets", label: "What I changed", items: ["Consent moved to the first screen. Late consent was flagged as a dark pattern.", "Plain language, with no medical jargon like \"patient identity\".", "A calmer dashboard with a clear hierarchy.", "A new step explaining each soft skill."] },
+    { type: "bullets", label: "What I changed", items: ["Consent first: it moved to the first screen, after late consent was flagged as a dark pattern.", "Plain language: no more medical jargon like \"patient identity\".", "A calmer dashboard: cut back, with a clear hierarchy.", "Skills explained: a new step describes each soft skill."] },
 
     { type: "section", label: "User testing round 2", count: "2 designers", heading: "Prototype 2: the real Cortexus.",
       lead: "\"I really like that it gives you the liberty to select your prompting boundaries, and doesn't force it on you.\"" },
     { type: "board", kind: "gallery", caption: "Testing prototype 2", c: 1, ratio: "997 / 558", images: [[p("test2"), ""]] },
-    { type: "bullets", label: "What I changed", items: ["Simpler language throughout.", "The introduction split into short steps.", "Higher-contrast colours.", "The extension rebuilt to install like a real browser extension."] },
+    { type: "bullets", label: "What I changed", items: ["Simpler language: the wording was simplified throughout.", "A shorter introduction: split into short, guided steps.", "Readable colours: a higher-contrast colour scheme.", "A real extension: it now installs like a real browser extension."] },
 
 
     { type: "section", label: "Solution", heading: "Cortexus: see what you're giving away to AI.",
@@ -2209,7 +2202,7 @@ function cortexusBlocks() {
     { type: "feat", title: "The Claude extension", live: "ext", screens: ["cx/w/c1-claude.webp"],
       what: "Cortexus added to Claude in a few clicks.",
       why: "The pause should come from the AI itself." },
-    { type: "feat", title: "The nudge", live: "tracking", screens: ["cx/w/c3-ask.webp"],
+    { type: "feat", title: "The nudge", live: "nudge", screens: ["cx/w/c3-ask.webp"],
       what: "Ask Claude to decide for you, and Cortexus flags the mould.",
       why: "You can't change a habit you can't see." },
 
@@ -2486,28 +2479,6 @@ const LENS = {
 [
 "Prioritisation",
 "A Kano questionnaire separated what farmers expect from what would delight them."
-]
-],
-"beo-nua": [
-[
-"Customer",
-"New retirees, and the state services, cafés and community groups that support them. 74 people heard."
-],
-[
-"Problem",
-"Support exists across many organisations, but none of them reach out first."
-],
-[
-"Key decision",
-"Trigger the service from data the state already holds at retirement, and build on cafés that exist in every town instead of new centres."
-],
-[
-"Trade-off",
-"Digital first, not digital only: a posted pack reaches people a website would miss."
-],
-[
-"Business case",
-"Costed at €6.30 per person per year by year two, with a projected €593,700 net saving for the state in year three. A pilot was planned for Clontarf."
 ]
 ],
 "love-chores": [
@@ -3115,13 +3086,13 @@ const BLOCKS = {
       <span class="cs-embed-bar"><span class="cs-link-ic" aria-hidden="true"><svg viewBox="0 0 38 57"><path fill="#1ABCFE" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0ACF83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#FF7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#F24E1E" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#A259FF" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg></span><span class="cs-embed-name"><b>${esc(b.title)}</b><small>FigJam board</small></span><span class="cs-embed-open">Open in Figma ↗</span></span>
       <span class="cs-embed-img">${img(b.image, b.title)}</span></a>`,
   feat: b => `<div class="feat">
-      <div class="feat-media">${b.live ? `<div class="live" data-live="${b.live}"><img class="live-poster" src="${esc(b.screens[0])}" alt="${esc(b.title)}" loading="lazy"><span class="live-cur" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 2l15 11-6.5 1.2L16 21l-3 1.3-3.4-6.8L4 20z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg></span></div>` : fader(b.screens.map(image => ({ image })), () => "16 / 9", true)}</div>
+      <div class="feat-media">${b.video ? `<div class="live on"><video autoplay muted loop playsinline poster="${esc(b.video)}.webp" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"><source src="${esc(b.video)}.webm" type="video/webm"><source src="${esc(b.video)}.mp4" type="video/mp4"></video></div>` : b.live ? `<div class="live" data-live="${b.live}"><img class="live-poster" src="${esc(b.screens[0])}" alt="${esc(b.title)}" loading="lazy"><span class="live-cur" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 2l15 11-6.5 1.2L16 21l-3 1.3-3.4-6.8L4 20z" fill="#fff" stroke="#111" stroke-width="1.4" stroke-linejoin="round"/></svg></span></div>` : fader(b.screens.map(image => ({ image })), () => "16 / 9", true)}</div>
       <div class="feat-text">${txt(b.title, "h3", "cs-h3")}
         <div><div class="cs-label">What it is</div><p>${esc(b.what)}</p></div>
         <div><div class="cs-label">Why</div><p>${esc(b.why)}</p></div></div></div>`,
   thesis: () => `<div class="thesis"><p>There's a lot more to the journey than fits here.</p><a class="fill-btn thesis-btn" href="mailto:${SITE.email}?subject=${encodeURIComponent("Request: Cortexus thesis")}">Request my thesis <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>`,
   cxcover: b => `<div class="hero-img cs-cover">${img(b.image, "Cortexus dashboard")}${cxAnim()}</div>`,
-  bullets: b => `<div class="cs-points-wrap">${txt(b.label, "div", "cs-label")}<ul class="cs-bullets">${b.items.map(i => `<li>${esc(i)}</li>`).join("")}</ul></div>`,
+  bullets: b => `<div class="cs-points-wrap">${txt(b.label, "div", "cs-label")}<ul class="cs-bullets">${b.items.map(i => { const k = i.indexOf(": "); return `<li>${k > 0 && k < 48 ? `<b>${esc(i.slice(0, k))}:</b> ${esc(i.slice(k + 2))}` : esc(i)}</li>`; }).join("")}</ul></div>`,
   link: b => `<a class="cs-link" href="${esc(b.href)}" target="_blank" rel="noopener"><span class="cs-link-ic" aria-hidden="true"><svg viewBox="0 0 38 57"><path fill="#1ABCFE" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0ACF83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#FF7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#F24E1E" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#A259FF" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg></span><span class="cs-link-txt"><b>${esc(b.title)}</b><span>${esc(b.text)}</span><small>${esc(b.site)} ↗</small></span></a>`,
   affinity: b => `<div class="cs-aff${b.steps && b.steps.length ? "" : " solo"}"><figure class="cs-aff-img">${img(b.image, b.alt || "")}${b.caption ? `<figcaption class="cs-label sm">${esc(b.caption)}</figcaption>` : ""}</figure>
       ${b.steps && b.steps.length ? `<div class="cs-aff-text">${txt(b.label, "div", "cs-label")}<ol class="cs-steps">${b.steps.map(st => `<li><h3 class="cs-h4">${esc(st[0])}</h3><p>${esc(st[1])}</p></li>`).join("")}</ol></div>` : ""}</div>`,
@@ -3833,72 +3804,45 @@ function setupFaders() {
 }
 
 /* LIVE PROTOTYPE: loads the real Cortexus app and walks through it like a user, one feature at a time */
-const LIVE_DOC = () => `<!DOCTYPE html><html><head><meta charset="UTF-8"><base href="${new URL("proto/cxfull/", location.href).href}"><link rel="stylesheet" href="tw.css?v=191"><style>html,body{margin:0;padding:0;background:#0e0e0e;height:100%;overflow:hidden}#root{width:100vw;height:100vh}</style></head><body><div id="root"></div><script src="react.js?v=191"><\/script><script src="app.js?v=191"><\/script></body></html>`;
+const LIVE_DOC = cfg => `<!DOCTYPE html><html><head><meta charset="UTF-8"><base href="${new URL("proto/cxfull/", location.href).href}"><link rel="stylesheet" href="tw.css?v=191"><style>html,body{margin:0;padding:0;background:#0e0e0e;height:100%;overflow:hidden}#root{width:100vw;height:100vh}</style><script>window.__CX=${JSON.stringify(cfg)}<\/script></head><body><div id="root"></div><script src="react.js?v=191"><\/script><script src="../cxlive/app.js?v=3"><\/script></body></html>`;
+/* each feature opens straight on its own screen of the real prototype, then does one simple interaction */
 const LIVE_FLOWS = (() => {
   const vis = e => { if (!e) return false; const r = e.getBoundingClientRect(); return r.width > 0 && r.height > 0; };
   const btn = (d, re, last) => { const all = [...d.querySelectorAll("button")].filter(b => re.test(b.textContent.trim()) && vis(b)); return last ? all[all.length - 1] : all[0]; };
   const text = (d, re) => [...d.querySelectorAll("div,span,p,label,h1,h2,h3,h4")].find(e => e.childElementCount === 0 && re.test(e.textContent.trim()) && vis(e));
-  const at = (d, x, y) => d.elementFromPoint(x * 1440, y * 810);
   const typeIn = async (L, el, str) => { const set = Object.getOwnPropertyDescriptor(L.win.HTMLInputElement.prototype, "value").set; el.focus(); for (let i = 1; i <= str.length; i++) { set.call(el, str.slice(0, i)); el.dispatchEvent(new L.win.Event("input", { bubbles: true })); await L.wait(110); } };
   const enter = (L, el) => ["keydown", "keypress", "keyup"].forEach(t => el.dispatchEvent(new L.win.KeyboardEvent(t, { key: "Enter", code: "Enter", keyCode: 13, which: 13, bubbles: true })));
-  const install = async (L, show) => {
-    const d = L.doc(); const inp = d.querySelector("input");
-    if (show) { await L.move(inp); await L.wait(300); await typeIn(L, inp, "Cortexus"); } else { const set = Object.getOwnPropertyDescriptor(L.win.HTMLInputElement.prototype, "value").set; set.call(inp, "Cortexus"); inp.dispatchEvent(new L.win.Event("input", { bubbles: true })); }
-    enter(L, inp); await L.wait(show ? 1200 : 500);
-    await L.click(() => btn(L.doc(), /^Install$/), show); await L.wait(5300);
-    await L.click(() => btn(L.doc(), /^Open$/), show); await L.wait(show ? 7200 : 6800);
-  };
-  const step = async (L, n) => { for (let i = 0; i < n; i++) { const b = btn(L.doc(), /^›$/); b && b.click(); await L.wait(450); } };
-  const toClaude = async L => {
-    await step(L, 6); await L.wait(600); const sk = text(L.doc(), /^Skip for now$/) || btn(L.doc(), /^Skip for now$/); sk && sk.click(); await L.wait(900);
-    const d = L.doc(); const x = [...d.querySelectorAll("button")].filter(e => vis(e) && e.getBoundingClientRect().top < 50).sort((a, b) => b.getBoundingClientRect().right - a.getBoundingClientRect().right)[0]; x && x.click(); await L.wait(1000);
-    const c = [...L.doc().querySelectorAll("span")].find(e => e.textContent.trim() === "Claude" && vis(e)); c && c.click(); await L.wait(2600);
-  };
-  const ct = d => [...d.querySelectorAll("button")].filter(b => /^CT/.test(b.textContent.trim()) && vis(b)).pop();
-  const enableExt = async (L, show) => {
-    await L.click(() => ct(L.doc()), show); await L.wait(1300);
-    await L.click(() => btn(L.doc(), /^Enable Extension$/), show); await L.wait(2200);
-    await L.click(() => btn(L.doc(), /^Add to Chrome$/), show); await L.wait(2200);
-    await L.click(() => btn(L.doc(), /^Enable now$/), show); await L.wait(2600);
-  };
+  const plus = d => [...d.querySelectorAll("button")].filter(b => b.textContent.trim() === "+" && vis(b));
   return {
-    install: { boot: async () => {}, run: async L => {
-      const d = L.doc(); const inp = d.querySelector("input"); await L.move(inp); await L.wait(300); await typeIn(L, inp, "Cortexus"); enter(L, inp); await L.wait(1200);
-      await L.click(() => btn(L.doc(), /^Install$/), true); await L.wait(5300);
-      await L.click(() => btn(L.doc(), /^Open$/), true); await L.wait(3500); } },
-    consent: { boot: async L => { await install(L); }, run: async L => {
-      await L.click(() => L.doc().querySelector("input[type=checkbox]") || text(L.doc(), /I accept/), true); await L.wait(1000);
-      await L.click(() => btn(L.doc(), /^GET STARTED$/i), true); await L.wait(1800); } },
-    skills: { boot: async L => { await install(L); await step(L, 3); }, run: async L => {
-      await L.click(() => btn(L.doc(), /^Decision making$/, true), true); await L.wait(1200);
-      for (let i = 0; i < 3; i++) { await L.click(() => [...L.doc().querySelectorAll("button")].filter(b => b.textContent.trim() === "+" && vis(b))[1], true); await L.wait(600); }
-      await L.wait(1500); } },
-    track: { boot: async L => { await install(L); await step(L, 2); }, run: async L => {
-      for (const re of [/^Prompt Types$/, /^AI Decided$/, /^User Decided$/, /^Journaling$/]) { await L.move(text(L.doc(), re)); await L.wait(1100); }
-      await L.wait(800); } },
-    journal: { boot: async L => { await install(L); await step(L, 5); }, run: async L => {
-      const t = () => { const d = L.doc(); const row = text(d, /^Journal It First$/i); if (!row) return null; let n = row; for (let i = 0; i < 4 && n; i++) { const c = [...n.querySelectorAll("button,[role=switch],input")].find(vis); if (c) return c; n = n.parentElement; } return null; };
-      await L.wait(800); await L.click(t, true); await L.wait(2200); await L.click(t, true); await L.wait(1800); await L.click(t, true); await L.wait(2200); } },
-    tour: { boot: async L => { await install(L); await step(L, 6); await L.wait(600); }, run: async L => {
-      await L.click(() => btn(L.doc(), /^TAKE THE TOUR$/i), true); await L.wait(2200);
-      for (let i = 0; i < 8; i++) { const nx = () => btn(L.doc(), /^(NEXT|DONE)/i); if (!nx()) break; const done = /^DONE/i.test(nx().textContent.trim()); await L.click(nx, true); await L.wait(2400); if (done) break; }
-      await L.wait(1200); } },
-    dash: { boot: async L => { await install(L); await step(L, 6); await L.wait(500); }, run: async L => {
-      await L.click(() => text(L.doc(), /^Skip for now$/) || btn(L.doc(), /^Skip for now$/), true); await L.wait(1500);
-      for (const n of ["2", "3", "4"]) { await L.click(() => btn(L.doc(), new RegExp("^" + n + "$")), true); await L.wait(3000); }
-      await L.click(() => btn(L.doc(), /^1$/), true); await L.wait(2200); } },
-    onboard: { boot: async L => { await install(L); }, run: async L => {
-      await L.click(() => L.doc().querySelector("input[type=checkbox]") || text(L.doc(), /I accept/), true); await L.wait(900);
-      await L.click(() => btn(L.doc(), /^GET STARTED$/i), true); await L.wait(1600);
-      for (let i = 0; i < 6 && !text(L.doc(), /^Prompt Types$/); i++) { await step(L, 1); await L.wait(500); }
-      await L.click(() => btn(L.doc(), /^CONTINUE$/i), true); await L.wait(1500);
-      await L.click(() => btn(L.doc(), /^Decision making$/, true), true); await L.wait(1200);
-      for (let i = 0; i < 3; i++) { await L.click(() => [...L.doc().querySelectorAll("button")].filter(b => b.textContent.trim() === "+" && vis(b))[1], true); await L.wait(500); }
-      await L.wait(800); await L.click(() => btn(L.doc(), /^CONTINUE$/i), true); await L.wait(2200); } },
-    tracking: { boot: async L => { await install(L); await toClaude(L); await enableExt(L); }, run: async L => {
-      await L.click(() => btn(L.doc(), /^Simulate Conversation$/), true); await L.wait(9000);
-      await L.click(() => btn(L.doc(), /^OPEN JOURNAL$/i), true); await L.wait(3200); } },
-    ext: { boot: async L => { await install(L); await toClaude(L); }, run: async L => { await enableExt(L, true); await L.wait(1500); } },
+    install: { cfg: {}, run: async L => {
+      const inp = L.doc().querySelector("input"); await L.move(inp); await L.wait(300); await typeIn(L, inp, "Cortexus"); enter(L, inp); await L.wait(1400);
+      await L.click(() => btn(L.doc(), /^Install$/), true);
+      for (let i = 0; i < 40 && !btn(L.doc(), /^Open$/); i++) await L.wait(250);
+      await L.wait(500); await L.click(() => btn(L.doc(), /^Open$/), true); await L.wait(3200); } },
+    consent: { cfg: { screen: "app", step: 1 }, run: async L => {
+      await L.wait(700); await L.click(() => text(L.doc(), /I accept/), true); await L.wait(1100);
+      await L.move(btn(L.doc(), /^GET STARTED$/i)); await L.wait(1400); } },
+    track: { cfg: { screen: "app", step: 4 }, run: async L => {
+      await L.wait(700); for (const re of [/^AI Decided$/, /^User Decided$/, /^Journaling$/]) { await L.move(text(L.doc(), re)); await L.wait(1500); } } },
+    skills: { cfg: { screen: "app", step: 5 }, run: async L => {
+      await L.wait(700); await L.click(() => btn(L.doc(), /^Decision making$/, true), true); await L.wait(1300);
+      for (let i = 0; i < 3; i++) { await L.click(() => plus(L.doc())[1], true); await L.wait(650); } await L.wait(900); } },
+    journal: { cfg: { screen: "app", step: 8 }, run: async L => {
+      await L.wait(700); await L.click(() => L.doc().querySelector(".intervention-row"), true); await L.wait(1600);
+      await L.move(btn(L.doc(), /^GO TO DASHBOARD$/i)); await L.wait(1300); } },
+    tour: { cfg: { screen: "app", step: 9 }, run: async L => {
+      await L.wait(1200); await L.click(() => btn(L.doc(), /^TAKE THE TOUR$/i), true); await L.wait(2600);
+      for (let i = 0; i < 8; i++) { const nx = () => btn(L.doc(), /^(NEXT|DONE)/i); const b = nx(); if (!b) break; const done = /^DONE/i.test(b.textContent.trim()); await L.click(nx, true); await L.wait(2600); if (done) break; } } },
+    dash: { cfg: { screen: "app", step: 9, seen: true }, run: async L => {
+      await L.wait(1400); for (const n of ["2", "3", "4"]) { await L.click(() => btn(L.doc(), new RegExp("^" + n + "$")), true); await L.wait(2800); } } },
+    ext: { cfg: { screen: "claude" }, run: async L => {
+      await L.wait(1200); const ct = () => [...L.doc().querySelectorAll("button")].filter(b => /^CT/.test(b.textContent.trim()) && vis(b)).pop();
+      await L.click(ct, true); await L.wait(1300);
+      for (const re of [/^Enable Extension$/, /^Add to Chrome$/, /^Enable now$/]) { await L.click(() => btn(L.doc(), re), true); await L.wait(2200); } } },
+    nudge: { cfg: { screen: "claude", ext: true }, run: async L => {
+      await L.wait(1200); await L.click(() => btn(L.doc(), /^Simulate Conversation$/), true);
+      for (let i = 0; i < 60 && !btn(L.doc(), /^OPEN JOURNAL$/i); i++) await L.wait(250);
+      await L.wait(1500); await L.click(() => btn(L.doc(), /^OPEN JOURNAL$/i), true); await L.wait(2400); } },
   };
 })();
 let liveIO, liveActive = null;
@@ -3923,10 +3867,10 @@ function setupLive() {
       try {
         while (!run.stop) {
           f.classList.remove("on"); cur.style.transform = "translate(60%, 60%)";
-          await new Promise(res => { ifr.onload = res; ifr.srcdoc = LIVE_DOC(); });
+          await new Promise(res => { ifr.onload = res; ifr.srcdoc = LIVE_DOC(flow.cfg); });
           L.win = ifr.contentWindow; await L.wait(1200);
           const hide = setInterval(() => { try { const d = L.doc(); const e = [...d.querySelectorAll("div,span")].find(x => x.childElementCount === 0 && /^DEV:/.test(x.textContent.trim())); if (e) { let n = e; for (let i = 0; i < 3 && n.parentElement; i++) { if (n.parentElement.querySelectorAll("button").length >= 2) { n = n.parentElement; break; } n = n.parentElement; } n.style.visibility = "hidden"; } } catch (x) {} }, 150);
-          try { await flow.boot(L); while (!f._inView) await L.wait(120); f.classList.add("on"); await L.wait(200); await flow.run(L); await L.wait(1800); } finally { clearInterval(hide); }
+          try { await L.wait(600); while (!f._inView) await L.wait(120); f.classList.add("on"); await flow.run(L); await L.wait(1500); } finally { clearInterval(hide); }
         }
       } catch (e) { /* stopped */ }
     })();
@@ -3939,7 +3883,7 @@ function setupLive() {
       if (!f.isConnected) return;
       const r = f.getBoundingClientRect();
       f._inView = r.top < vh * .85 && r.bottom > vh * .15;
-      const close = r.top < vh * 3.6 && r.bottom > -vh * 1.2;
+      const close = r.top < vh * 1.8 && r.bottom > -vh * .8;
       if (close) { near.add(f); start(f); } else if (f._run) { near.delete(f); stop(f); }
     });
   };
