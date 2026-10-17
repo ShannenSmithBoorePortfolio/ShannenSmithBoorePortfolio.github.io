@@ -1424,6 +1424,38 @@ footer { border-top: 1px solid var(--line); }
 /* FEATURE: screens changing on the left, what and why on the right */
 .feat { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: clamp(24px, 3.4vw, 48px); align-items: center; padding-top: 16px; }
 .feat .fade-img { background: none; }
+.bnj-wrap { display: grid; gap: 14px; }
+.bnj { display: grid; grid-template-columns: repeat(var(--n), minmax(104px, 1fr)); column-gap: 14px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: thin; }
+.bnj-line { grid-column: 1 / -1; position: relative; height: 130px; margin-bottom: 18px; }
+.bnj-line svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.bnj-line polyline { fill: none; stroke: var(--ink); stroke-width: 1.4; opacity: .55; }
+.bnj-dot { position: absolute; width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px var(--bg, #F8F9FB); }
+.bnj-dot b { position: absolute; left: 50%; top: 18px; transform: translateX(-50%); white-space: nowrap; font-family: var(--mono); font-weight: 400; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.bnj-st { border-top: 1px solid var(--line); padding-top: 14px; }
+.bnj-st h4 { margin: 6px 0 6px; font-family: var(--serif); font-weight: 400; font-size: 19px; color: var(--ink); }
+.bnj-st p { margin: 0; font-size: 14px; line-height: 1.6; color: var(--muted); }
+.bns { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 28px clamp(24px, 4vw, 56px); }
+.bns-who { font-family: var(--serif); font-size: 22px; color: var(--ink); padding-bottom: 12px; border-bottom: 1px solid var(--line); margin-bottom: 16px; }
+.bns-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.bns-row.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.bns-el h4 { margin: 6px 0 8px; font-size: 17px; font-weight: 600; color: var(--ink); }
+.bns-el ul { margin: 0; padding-left: 18px; color: var(--muted); font-size: 14px; line-height: 1.7; }
+.bns-link { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 10px 28px; margin: 0; font-family: var(--mono); font-size: 12px; letter-spacing: .05em; text-transform: uppercase; color: var(--accent-text); }
+.bns-link span::before { content: "- - -  "; letter-spacing: 0; }
+@media (max-width: 860px) { .bns { grid-template-columns: minmax(0, 1fr); } .bns-row { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } }
+@font-face { font-family: "BN Display"; src: url("proto/bnlive/fonts/fraunces.ttf") format("truetype"); font-weight: 100 900; font-display: swap; }
+.bnid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: clamp(28px, 4vw, 64px); align-items: center; padding-top: 8px; }
+.bnid-text { display: grid; gap: 22px; }
+.bnid-text p { margin: 6px 0 0; color: var(--muted); font-size: 16px; line-height: 1.7; }
+.bnid-text b { color: var(--ink); font-weight: 600; }
+.bnid-sw { display: grid; gap: 10px; }
+.bnid-row { display: grid; grid-template-columns: 72px 14px minmax(0, 1fr); gap: 14px; align-items: stretch; }
+.bnid-hex { align-self: center; justify-self: end; font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: .04em; }
+.bnid-row > i { display: block; }
+.bnid-mark { display: flex; align-items: center; justify-content: space-between; padding: clamp(14px, 2vw, 22px) clamp(18px, 2.6vw, 30px); container-type: inline-size; }
+.bnid-mark b { font-family: "BN Display", Georgia, serif; font-weight: 800; font-size: clamp(26px, 11cqw, 56px); line-height: 1; letter-spacing: -.01em; }
+.bnid-mark svg { width: clamp(28px, 9cqw, 48px); height: auto; flex: none; }
+@media (max-width: 860px) { .bnid { grid-template-columns: minmax(0, 1fr); } .bnid-row { grid-template-columns: 64px 10px minmax(0, 1fr); gap: 10px; } }
 .feat.feat-full { grid-template-columns: minmax(0, 1fr); gap: 28px; }
 .feat-full .feat-text { grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr); gap: clamp(20px, 3vw, 40px); align-items: start; }
 .feat-full .feat-text .cs-h3 { margin: 0; }
@@ -1981,7 +2013,8 @@ function beoNuaBlocks() {
 
     { type: "section", label: "Research", count: "74 people", heading: "We took the question to the street.",
       lead: "Surveys alone gave us facts. To hear feelings, we built a research probe: written questions on pegs and a box people could speak into, asking one thing. \"What are your feelings about retirement?\"" },
-    { type: "board", kind: "gallery", caption: "Our research probe in Dublin", c: 3, ratio: "3 / 2", images: [[p("probe-beach"), ""], [p("g4"), ""], [p("probe-box"), ""]] },
+    { type: "board", kind: "gallery", caption: "The research probe", c: 3, ratio: "3 / 2", images: [[p("probe-beach"), ""], [p("probe-box"), ""], [p("probe-cards"), ""]] },
+    { type: "board", kind: "gallery", caption: "Guerrilla research across Dublin", c: 4, ratio: "7 / 5", images: [[p("g4"), ""], [p("r-canal"), ""], [p("r-bench"), ""], [p("r-hivis"), ""], [p("r-box"), ""], [p("g6"), ""], [p("g8"), ""], [p("r-cyclist"), ""]] },
     { type: "points", items: [
       { title: "39 survey responses", text: "From 11 counties, using open, reflective questions." },
       { title: "36 written responses", text: "Collected with the probe in Irishtown, Sandymount and the city centre." },
@@ -1997,8 +2030,8 @@ function beoNuaBlocks() {
       lead: "We grouped every survey answer, written response and audio quote by age group, under five themes: freedom, purpose, finance, health and community." },
     { type: "board", kind: "gallery", caption: "Affinity mapping the research", c: 1, ratio: "1400 / 788", contain: true, images: [[p("affinity"), ""]] },
 
-    { type: "section", label: "Personas", heading: "Three personas, formed from real quotes.",
-      lead: "From the research we built six personas, including people who are often overlooked. These three shaped the service most: people at the point of retirement, each losing something different." },
+    { type: "section", label: "Personas", heading: "Six personas, formed from real quotes.",
+      lead: "We built six personas from what we heard, including people who are often overlooked or fall through the cracks, so the service would work for as much of the public as possible." },
     { type: "board", kind: "carousel", caption: "Personas", slides: [
       { label: "Unplanned retiree", kind: "archetype", name: "Andy MacAvoy", age: "67", job: "Cybersecurity manager · Wexford", photo: p("a-andy"), quote: "It can be a vacuum unless you have something to fill your time.",
         bio: "Recently retired, with a partner and no kids. He spent his whole life working and never really thought about retirement.",
@@ -2009,10 +2042,23 @@ function beoNuaBlocks() {
         bio: "Married with four adult children. He went straight from college into one company and stayed there his whole career.",
         cols: [["Goals", ["Stop working at retirement age.", "Relax and enjoy the things he put off.", "Spend time with family and friends, hoping for grandkids.", "Play more golf."]], ["Behaviours", ["Coaches the community football team.", "Socialises with friends at golf and the pub."]], ["Pain points", ["Will struggle with the loss of routine.", "Finds it hard to stop caring about his old workplace."]]],
         scenario: "Retirement was always part of the plan, and he feels he's earned it. He's looking forward to slowing down, but losing the routine of a steady career may hit harder than he expects." },
+      { label: "Community participant", kind: "archetype", name: "Mary Cassidy", age: "69", job: "Retail sales · Cork", photo: p("a-mary"), quote: "It's been the best thing I've ever done because now I've gone back to adult education classes, which I absolutely love.",
+        bio: "Widowed, with adult children. A retired sales assistant enjoying a very active retirement.",
+        cols: [["Goals", ["Spend more time with family and friends.", "Join active groups and have more fun.", "Travel abroad and try new places and activities."]], ["Behaviours", ["Spends several days a week with family and friends.", "Loves talking about her life and hearing others' stories.", "Very proactive about a happy retirement."]], ["Pain points", ["Doesn't have much free time.", "Misses her husband.", "Wants to live a longer, healthier life.", "Wishes she'd retired sooner to focus on herself."]]],
+        scenario: "She meets her friends most weekends to chat and reminisce. They often talk about group activities to try, but rarely take the first step.",
+        quotes: [["Gym in the morning, craft classes in the afternoon, the only day I have free is Friday.", ""]], qlabel: "In her words" },
       { label: "Lifelong carer", kind: "archetype", name: "Stacy Walsh", age: "65", job: "Paediatric nurse · Limerick", photo: p("a-stacy"), quote: "I feel like I'll never really retire you know, my son is my priority now.",
         bio: "Married with two adult children. Her 40-year-old son has severe needs, and caring for him has shaped most of her life.",
         cols: [["Goals", ["Stay social and active in retirement.", "Make sure her son is well cared for.", "Keep her own health and independence."]], ["Behaviours", ["Attends community functions.", "Meets friends for lunch.", "Brings her son to meet-ups.", "Planning his long-term care."]], ["Pain points", ["Worried about who will care for her son in future.", "Worried about her own health.", "Never had the chance to do some things she wanted.", "Feels the system doesn't value caregiving."]]],
         scenario: "She hopes retirement will still bring small moments of freedom: time for herself, her hobbies, and life beyond her responsibilities." },
+      { label: "Interrupted contributor", kind: "archetype", name: "Sarah Murphy", age: "35", job: "Chef · Galway", photo: p("a-sarah"), quote: "Because I didn't work consistently I don't know how to even begin looking for information.",
+        bio: "A single mother who has just had her baby and is on maternity leave.",
+        cols: [["Goals", ["Return to work eventually.", "Care for her child.", "Make sure she can support herself and the baby."]], ["Behaviours", ["Goes to mother and baby classes.", "Spends a lot of time with friends and family.", "Reflecting on motherhood and her future priorities."]], ["Pain points", ["Misses work.", "Worried about changes at work before she returns.", "Financial strain if she takes the extra 16 weeks' leave.", "Looking for support and stability with a new baby."]]],
+        scenario: "Most of her energy goes on a stable routine for her newborn. She knows financial planning matters, but retirement feels distant next to childcare, work and the household." },
+      { label: "Excluded participant", kind: "archetype", name: "Micheal Cummins", age: "38", job: "Dublin", photo: p("a-micheal"),
+        bio: "A single adult relying on state supports. Growing up with limited chances for education and stable work, he never entered long-term employment.",
+        cols: [["Goals", ["Keep stability and independence with the resources he has.", "Understand the entitlements and supports available to him."]], ["Behaviours", ["His routine revolves around familiar local spaces.", "Small social interactions help structure his week."]], ["Pain points", ["Navigating entitlements is confusing.", "Staying stable and independent on a tight budget."]]],
+        scenario: "Day-to-day life is about getting by. Retirement feels abstract, as his future security depends on the state pension, and the system can feel overwhelming." },
     ]},
 
     { type: "section", label: "Key insights", heading: "Retirement isn't feared because of money. It's feared because it feels like the end.",
@@ -2032,8 +2078,24 @@ function beoNuaBlocks() {
       { title: "Healthier ageing", text: "Active routines that could save the state far more than they cost." },
     ]},
 
-    { type: "section", label: "Exploring directions", heading: "From six How Might We questions to one focus.",
-      lead: "We explored how we might reframe retirement, support people with non-linear careers, help communities keep people active, and communicate information people can rely on." },
+    { type: "section", label: "Exploring directions", heading: "From eight How Might We questions to one focus.",
+      lead: "We turned the insights and pain points into eight How Might We questions, then narrowed our scope to one idea: retirement is seen as the end, a sudden stop that sparks fear and inactivity." },
+    { type: "bullets", label: "'How might we' questions", items: [
+      "How might we communicate retirement information in a way people can understand and rely on?",
+      "How might we support more flexible transitions into retirement?",
+      "How might we support people to stay active and maintain their physical health as they age?",
+      "How might we reframe retirement not as a financial milestone but as a meaningful life transition?",
+      "How might we get people to invest in long-term health?",
+      "How might we design a retirement system that supports people with non-linear careers?",
+      "How might retirement become a stage of opportunity rather than loss?",
+      "How might communities support people in staying active and connected in retirement?",
+    ]},
+    { type: "cxquotes", label: "Quotes driving our concepts", quotes: [
+      "All those things you didn't have time to do, this is your opportunity.",
+      "My dad struggles with loneliness and no routine, but he doesn't want to just go to the pub with old men either, but sure where else is there?",
+      "Well retirement for me has been the best thing ever because I've gone back to sort of adult classes, these craft classes which I absolutely love and don't think I could live without.",
+      "Well you know, you're defined by your work... and then what?",
+    ]},
     { type: "board", kind: "gallery", caption: "Branding exploration", c: 1, ratio: "16 / 9", images: [[p("branding-wall"), ""]] },
     { type: "points", label: "Why this direction?", items: [
       { title: "It meets people where they are", text: "Revenue already knows when someone retires, so the service can start automatically." },
@@ -2044,6 +2106,8 @@ function beoNuaBlocks() {
     { type: "section", label: "Solution", heading: "BEO NUA: connect, explore, thrive.",
       lead: "A celebration pack arrives when you retire. It leads to one website for every local event, which leads you into a community hub." },
     { type: "bncover" },
+    { type: "subsection", heading: "How it fits together", lead: "Three elements for retirees and two for partners, all connected through one website." },
+    { type: "bnsystem" },
 
     { type: "section", label: "Features", heading: "How each insight became part of the service." },
     { type: "feat", title: "A pack that arrives on its own", booklet: true, screens: [p("brochure-front"), p("brochure-back")],
@@ -2062,20 +2126,40 @@ function beoNuaBlocks() {
       what: "Cafés and community centres host events in their quiet hours, and groups can claim a regular spot.",
       why: "The clock is ticking, so staying active happens close to home." },
 
+    { type: "subsection", heading: "Thanking our partners", lead: "Hubs receive a thank you card and a window sticker, so people can spot Beo Nua spaces and businesses feel part of something bigger." },
+    { type: "bullets", items: ["Good relationships: local businesses, community centres and parishes give members somewhere to meet.", "Shared benefit: businesses get noticed and bring in more customers, while quiet spaces get used.", "Recognition: cards and stickers show appreciation and help Beo Nua grow."] },
+    { type: "board", kind: "gallery", caption: "The thank you pack", c: 2, ratio: "3 / 4", images: [[p("thanks-card"), ""], [p("thanks-cafe"), ""]] },
+
+    { type: "section", label: "User journey", heading: "From turning 66 to finding a new routine.",
+      lead: "We mapped how a retiree moves through the service, and how they feel at each stage." },
+    { type: "bnjourney", label: "Retiree's journey map", stages: [
+      ["Turns 66", "A pack arrives with a brochure and a frame, and a warm welcome.", "Uncertain", 0],
+      ["Reads the pack", "The brochure celebrates this new chapter.", "Curious", 1.1],
+      ["Visits the website", "They scan the QR code and find events for everyone.", "Interested", 1.9],
+      ["Picks an event", "They tap Sign me up and enter their phone number.", "Enthusiastic", 3.6],
+      ["Gets a WhatsApp", "The organiser sends a welcome and says what to expect.", "Welcomed", 3.5],
+      ["Goes to the event", "Someone asks if it's their first time, and they relax.", "Anticipatory", .4],
+      ["At the event", "They meet new people and share tips over tea.", "Included", 1.3],
+      ["Connecting", "WhatsApp keeps the group in touch about the next one.", "Belonging", 3.2],
+      ["Tries something new", "They go back to the website, maybe even a sea swim.", "Inspired", 1.6],
+    ]},
+
     { type: "section", label: "Visual identity", heading: "Playful, but never juvenile.",
       lead: "Bold, muted colours and a warm serif make it feel like an invitation, not a government form. The Irish name is easy to say for those who don't speak it." },
-    { type: "board", kind: "identity", caption: "Visual identity", logo: p("logo"),
-      colours: [["Teal", "#133F41", "Trust and contrast."], ["Burnt orange", "#D8552C", "Energy and welcome."], ["Cream", "#E5DECC", "Soft on the eyes."], ["Lavender", "#BEC2E5", "A calm accent."]],
-      fonts: [["Headings", "'Young Serif', Georgia, serif", 26, "Bright", "Familiar, not overly modern."], ["Body", "'Outfit', Arial, sans-serif", 16, "Satoshi", "Clean and easy to read."]],
-      story: ["Beo Nua means \"new life\".", "Tagline: Connect, Explore, Thrive.", "The logo suggests people reaching out to each other."] },
+    { type: "bnid" },
+    { type: "subsection", heading: "Branding and campaigning", lead: "The campaign should make people stop and think: \"What is that? I want to be part of it!\" Bright colours and playful visuals show people having fun, and clear signs make every hub easy to recognise." },
+    { type: "bullets", label: "Campaign pillars", items: ["Excitement: make people curious, intrigued and eager to join.", "Belonging: create a sense of community and connection.", "Joy: highlight fun, laughter and enjoyable experiences.", "Pride: make people proud to be part of something meaningful."] },
+    { type: "board", kind: "gallery", caption: "The campaign out in Dublin", c: 2, ratio: "4 / 3", images: [[p("postbox"), ""], [p("hub-sign"), ""]] },
     { type: "board", kind: "gallery", caption: "Campaign posters", c: 3, ratio: "5 / 7", images: [[p("poster1"), ""], [p("poster2"), ""], [p("poster3"), ""]] },
 
     { type: "section", label: "Testing and iterating", heading: "Testing with the people who'd use it.",
       lead: "We tested paper wireframes, the brochure in a local café, the website, and the hub model with café owners." },
+    { type: "board", kind: "gallery", caption: "Testing the brochure in a local café", c: 1, ratio: "16 / 10", contain: true, images: [[p("test-cafe"), ""]] },
     { type: "board", kind: "quotes", caption: "Key user insights", c: 2, quotes: [
       "It's nice to know you're thought of.",
       "I wouldn't have known where to look for events like that.",
     ]},
+    { type: "bullets", label: "What businesses told us", items: ["Off-peak hours: cafés liked the idea of using their quiet times for community events.", "More footfall: staff saw it could bring new people to their business.", "Window stickers: there was real interest in showing they're part of the network.", "Clearer benefits: their main worry was committing to something they couldn't keep up, which set time slots and capacity solved."] },
     { type: "bullets", label: "What we changed", items: ["Events higher up: testers wanted local events first, so they moved above the fold.", "Bigger type: the brochure's text sizes increased, keeping the bold style.", "Clear commitments for cafés: hubs now set their own time slots and capacity."] },
 
     { type: "section", label: "Impact", heading: "Small cost, big saving." },
@@ -3112,6 +3196,36 @@ const BLOCKS = {
         <div><div class="cs-label">What it is</div><p>${esc(b.what)}</p></div>
         <div><div class="cs-label">Why</div><p>${esc(b.why)}</p></div></div></div>`,
   thesis: () => `<div class="thesis"><p>There's a lot more to the journey than fits here.</p><a class="fill-btn thesis-btn" href="mailto:${SITE.email}?subject=${encodeURIComponent("Request: Cortexus thesis")}">Request my thesis <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>`,
+  bnjourney: b => {
+    const n = b.stages.length, W = 100 / n, ys = b.stages.map(st => st[3]), lo = Math.min(...ys), hi = Math.max(...ys);
+    const y = v => 18 + (1 - (v - lo) / (hi - lo)) * 64;
+    const pts = b.stages.map((st, i) => `${(i + .5) * W},${y(st[3]).toFixed(1)}`).join(" ");
+    return `<div class="bnj-wrap">${txt(b.label, "div", "cs-label")}<div class="bnj" style="--n:${n}">
+      <div class="bnj-line"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline points="${pts}" vector-effect="non-scaling-stroke"/></svg>
+        ${b.stages.map((st, i) => `<span class="bnj-dot" style="left:${(i + .5) * W}%;top:${y(st[3])}%"><b>${esc(st[2])}</b></span>`).join("")}</div>
+      ${b.stages.map((st, i) => `<div class="bnj-st"><div class="cs-label">Stage ${i + 1}</div><h4>${esc(st[0])}</h4><p>${esc(st[1])}</p></div>`).join("")}
+    </div></div>`;
+  },
+  bnsystem: () => {
+    const el = (n, t, items) => `<div class="bns-el"><div class="cs-label">Element ${n}</div><h4>${esc(t)}</h4><ul>${items.map(i => `<li>${esc(i)}</li>`).join("")}</ul></div>`;
+    return `<div class="bns">
+      <div class="bns-side"><div class="bns-who">For retirees</div><div class="bns-row">${el(1, "Celebration pack", ["Brochure", "Frame"])}${el(2, "Website", ["Introduction", "Events", "Hub locations", "Partnering with us"])}${el(3, "Hubs", ["Primary hubs", "Secondary hubs"])}</div></div>
+      <div class="bns-side"><div class="bns-who">For partners</div><div class="bns-row two">${el(1, "Website", ["Introduction", "Events", "Hub locations", "Partnering with us"])}${el(2, "Thank you pack", ["Thank you card", "Window stickers"])}</div></div>
+      <p class="bns-link"><span>Same website for both</span><span>Partners provide the primary hubs</span></p>
+    </div>`;
+  },
+  bnid: () => {
+    const flower = c => `<svg viewBox="0 0 40 40" fill="${c}" aria-hidden="true"><ellipse cx="20" cy="9" rx="4" ry="8"/><ellipse cx="20" cy="31" rx="4" ry="8"/><ellipse cx="9" cy="20" rx="8" ry="4"/><ellipse cx="31" cy="20" rx="8" ry="4"/><ellipse cx="12.2" cy="12.2" rx="3.5" ry="7.5" transform="rotate(-45 12.2 12.2)"/><ellipse cx="27.8" cy="27.8" rx="3.5" ry="7.5" transform="rotate(-45 27.8 27.8)"/><ellipse cx="27.8" cy="12.2" rx="3.5" ry="7.5" transform="rotate(45 27.8 12.2)"/><ellipse cx="12.2" cy="27.8" rx="3.5" ry="7.5" transform="rotate(45 12.2 27.8)"/></svg>`;
+    const rows = [["#133F41", "#BEC2E5"], ["#BEC2E5", "#D8552C"], ["#E5DECC", "#133F41"], ["#D8552C", "#E5DECC"]];
+    return `<div class="bnid">
+      <div class="bnid-text">
+        <div><div class="cs-label">Colour</div><p>Burnt orange is the main colour: it feels energetic and welcoming, like community and social activity. A soft cream keeps it easy on the eyes for older users, and darker teal and lavender add contrast and trust.</p></div>
+        <div><div class="cs-label">Fonts</div><p><b>Bright</b> for headings: a serif that adds personality and feels familiar rather than overly modern. <b>Satoshi</b> for body text: a clean sans-serif that's easy to read in longer sections.</p></div>
+        <div><div class="cs-label">Name</div><p>Beo Nua is Irish for "new life", and easy to say for those who don't speak Irish. The tagline, Connect, Explore, Thrive, sums up what it offers.</p></div>
+      </div>
+      <div class="bnid-sw">${rows.map(([bg, fg]) => `<div class="bnid-row"><span class="bnid-hex">${bg}</span><i style="background:${bg}"></i><div class="bnid-mark" style="background:${bg};color:${fg}"><b>BEO NUA</b>${flower(fg)}</div></div>`).join("")}</div>
+    </div>`;
+  },
   bncover: () => `<div class="hero-img cs-cover">${img("bn/web-hero.webp", "Beo Nua website on desktop and phone")}${bnAnim()}</div>`,
   cxcover: b => `<div class="hero-img cs-cover">${img(b.image, "Cortexus dashboard")}${cxAnim()}</div>`,
   bullets: b => `<div class="cs-points-wrap">${txt(b.label, "div", "cs-label")}<ul class="cs-bullets">${b.items.map(i => { const k = i.indexOf(": "); return `<li>${k > 0 && k < 48 ? `<b>${esc(i.slice(0, k))}:</b> ${esc(i.slice(k + 2))}` : esc(i)}</li>`; }).join("")}</ul></div>`,
