@@ -225,6 +225,7 @@ body.pv-open { overflow: hidden; }
 /* HOVER: card image dims slightly and the pill springs in */
 .thumb::after { content: ""; position: absolute; inset: 0; background: rgba(20, 24, 32, 0); transition: background .5s ease; pointer-events: none; z-index: 1; }
 .card:hover .thumb::after { background: rgba(20, 24, 32, .12); }
+.card:hover .thumb:has(.bnw)::after { background: transparent; }
 .thumb .follow { z-index: 2; }
 @media (hover: hover) {
   .pill { transform: scale(.6); filter: blur(4px); transition: opacity .3s ease, transform .5s cubic-bezier(.34, 1.56, .64, 1), filter .3s ease; }
@@ -247,7 +248,7 @@ body.pv-open { overflow: hidden; }
 .bnp { position: absolute; right: 6%; bottom: 7%; height: 72%; aspect-ratio: 9 / 19; padding: .7%; border-radius: 12% / 5.7%; background: #17191C; pointer-events: none; box-shadow: 0 30px 50px -24px rgba(19, 40, 42, .55), 0 0 0 1px rgba(255, 255, 255, .08) inset; transition: transform .7s cubic-bezier(.2,.7,.2,1); }
 .card:hover .thumb .bnp { transform: translateY(-10px); }
 .bnp .bnp-view { width: 100%; height: 100%; aspect-ratio: auto; border-radius: 10% / 4.8%; box-shadow: none; background: #CC4A1E; }
-.bnp .live-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 30% top; }
+.bnp .live-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
 .bnp-notch { position: absolute; left: 50%; top: 2.6%; width: 30%; height: 3.2%; transform: translateX(-50%); border-radius: 99px; background: #17191C; z-index: 4; }
 /* CORTEXUS COVER: the real prototype dashboard, auto-playing, sits in the window */
 .cx-live { position: absolute; left: 11.25%; top: 14%; width: 77.5%; height: 74.4%; overflow: hidden; border-radius: 6px; pointer-events: none; opacity: 0; transition: opacity .8s ease; background: #1F1F1F; }
@@ -304,6 +305,7 @@ body.pv-open { overflow: hidden; }
   gap: 28px;
   padding-block: 40px;
 }
+.meta:has(> :nth-child(5)) { grid-template-columns: repeat(5, minmax(0, 1fr)); }
 .meta dt { margin-bottom: 8px; }
 .meta dd { margin: 0; font-size: 15px; color: var(--ink); opacity: .78; line-height: 1.7; }
 .section { padding-block: 24px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 14px; }
@@ -1611,7 +1613,7 @@ body.zoom-open { overflow: hidden; }
 @keyframes cxMarquee { to { transform: translateX(calc(-50% - 8px)); } }
 @media (prefers-reduced-motion: reduce) { .cx-faces-track { animation: none; } }
 
-.cx-qwrap { display: grid; justify-items: center; gap: 18px; padding: 8px 0; }
+.cx-qwrap { display: grid; justify-items: center; gap: 18px; padding: 8px 0; margin-top: clamp(32px, 5vw, 64px); }
 .cx-quotes { width: min(100%, 760px); display: grid; text-align: center; min-height: 4.6em; align-items: center; }
 .cx-quotes p { grid-area: 1 / 1; margin: 0; opacity: 0; font-family: var(--serif-text); font-style: italic; font-size: clamp(20px, 2.4vw, 26px); line-height: 1.4; color: var(--ink); text-wrap: balance; animation: cxRoll 20s infinite; }
 @keyframes cxRoll { 0% { opacity: 0; transform: translateY(18px); filter: blur(6px); } 5%, 21% { opacity: 1; transform: none; filter: none; } 25%, 100% { opacity: 0; transform: translateY(-14px); filter: blur(6px); } }
@@ -1968,19 +1970,18 @@ function beoNuaBlocks() {
       "I feel like we're regarded as not making a contribution to society.",
       "I'm scared I'll be too old and slow to enjoy what I want to do.",
     ]},
-    { type: "board", kind: "carousel", caption: "Six archetypes from real quotes", slides: [
+    { type: "section", label: "Archetypes", heading: "Three archetypes, formed from real quotes.",
+      lead: "We grouped every survey answer, probe response and interview into six archetypes. These three shaped the service most: people at the point of retirement, each losing something different." },
+    { type: "board", kind: "carousel", caption: "Archetypes", slides: [
       { label: "Unplanned retiree", kind: "archetype", name: "Andy MacAvoy", age: "67", job: "Retired cybersecurity manager", photo: p("a-andy"), quote: "It can be a vacuum unless you have something to fill your time.",
-        cols: [["Goals", ["Stay busy and purposeful.", "Find new groups and skills."]], ["Frustrations", ["Misses his job.", "Struggles without routine.", "Never really thought about retirement."]], ["Behaviours", ["Meets friends regularly.", "Thinks about his career often."]]] },
-      { label: "Community joiner", kind: "archetype", name: "Mary Cassidy", age: "69", job: "Retired sales assistant", photo: p("a-mary"), quote: "It's been the best thing I've ever done.",
-        cols: [["Goals", ["More time with friends and family.", "Join active groups."]], ["Frustrations", ["Misses her husband.", "Wishes she'd retired sooner."]], ["Behaviours", ["Went back to adult education.", "Busy most days of the week.", "Loves hearing others' stories."]]] },
+        cols: [["Behavioural patterns", ["Meets friends regularly.", "Thinks about his career often.", "Never really planned for retirement."]], ["Goals", ["Stay busy and purposeful.", "Find new groups and skills."]], ["Frustrations", ["Misses his job.", "Struggles without routine."]]],
+        quotes: [["You're defined by your work… and then what?", "Research"]], qlabel: "Quotes from the research" },
       { label: "Planned retiree", kind: "archetype", name: "Paul Leonard", age: "67", job: "Retired civil engineer", photo: p("a-paul"), quote: "40 years work was sufficient.",
-        cols: [["Goals", ["Relax and play golf.", "Time with family."]], ["Frustrations", ["Loss of routine.", "Still cares about his old job."]], ["Behaviours", ["Coaches local football.", "Socialises at golf and the pub."]]] },
+        cols: [["Behavioural patterns", ["Coaches local football.", "Socialises at golf and the pub."]], ["Goals", ["Relax and play golf.", "Time with family."]], ["Frustrations", ["Loss of routine.", "Still cares about his old job."]]],
+        quotes: [["You go from a daily routine to days you're trying to fill.", "Research"]], qlabel: "Quotes from the research" },
       { label: "Lifelong carer", kind: "archetype", name: "Stacy Walsh", age: "65", job: "Nurse and carer for her adult son", photo: p("a-stacy"), quote: "I feel like I'll never really retire.",
-        cols: [["Goals", ["Stay social and active.", "Make sure her son is cared for."]], ["Frustrations", ["Worried about her son's future.", "Feels caring isn't valued."]], ["Behaviours", ["Brings her son to meet-ups.", "Planning his long-term care."]]] },
-      { label: "Interrupted career", kind: "archetype", name: "Sarah Murphy", age: "35", job: "Chef and single mother", photo: p("a-sarah"), quote: "I don't know how to even begin looking for information.",
-        cols: [["Goals", ["Return to work.", "Support her child."]], ["Frustrations", ["Financial strain.", "Retirement feels far away."]], ["Behaviours", ["Goes to mother and baby classes.", "Leans on friends and family."]]] },
-      { label: "State supported", kind: "archetype", name: "Micheal Cummins", age: "38", job: "Never had stable, long-term work", photo: p("a-micheal"),
-        cols: [["Goals", ["Stay independent.", "Understand his entitlements."]], ["Frustrations", ["Entitlements are confusing.", "A tight budget."]], ["Behaviours", ["Routine built around local spaces."]]] },
+        cols: [["Behavioural patterns", ["Brings her son to meet-ups.", "Planning his long-term care."]], ["Goals", ["Stay social and active.", "Make sure her son is cared for."]], ["Frustrations", ["Worried about her son's future.", "Feels caring isn't valued."]]],
+        quotes: [["I feel like we're regarded as not making a contribution to society.", "Research"]], qlabel: "Quotes from the research" },
     ]},
 
     { type: "section", label: "Key insights", heading: "Retirement isn't feared because of money. It's feared because it feels like the end.",
@@ -2011,7 +2012,7 @@ function beoNuaBlocks() {
 
     { type: "section", label: "Solution", heading: "BEO NUA: connect, explore, thrive.",
       lead: "A celebration pack arrives when you retire. It leads to one website for every local event, which leads you into a community hub." },
-    { type: "media", stage: "grey", image: p("cover") },
+    { type: "bncover" },
 
     { type: "section", label: "Features", heading: "How each insight became part of the service." },
     { type: "feat", title: "A pack that arrives on its own", screens: [p("brochure-front"), p("brochure-back")],
@@ -2563,6 +2564,7 @@ const PROJECTS = [
     timeline: ["4 weeks"],
     team: ["Rebecca, Shannen", "and Abbie"],
     skills: ["Research", "Service Design", "Branding", "Web Prototyping"],
+    partner: ["Department of Public", "Expenditure"],
     blocks: beoNuaBlocks(),
   },
   {
@@ -2750,7 +2752,7 @@ const LC = {
     </div>
     <div class="pp-cols arc-cols">
       ${(b.cols || [["Behavioural patterns", b.patterns], ["Relationship with AI", b.relationship], ["Potential trigger points", b.triggers]]).filter(c => c[1] && c[1].length).map(c => `<div><h5>${c[0]}</h5>${ul(c[1])}</div>`).join("")}
-      ${b.quotes && b.quotes.length ? `<div class="arc-qs"><h5>Quotes forming the archetype</h5>${b.quotes.map(q => `<p>“${esc(q[0])}” <span class="arc-ref">(${esc(q[1])})</span></p>`).join("")}</div>` : ""}
+      ${b.quotes && b.quotes.length ? `<div class="arc-qs"><h5>${esc(b.qlabel || "Quotes forming the archetype")}</h5>${b.quotes.map(q => `<p>“${esc(q[0])}”${q[1] && q[1] !== "Research" ? ` <span class="arc-ref">(${esc(q[1])})</span>` : ""}</p>`).join("")}</div>` : ""}
     </div>`,
 
   journeyBody: b => {
@@ -3077,6 +3079,7 @@ const BLOCKS = {
         <div><div class="cs-label">What it is</div><p>${esc(b.what)}</p></div>
         <div><div class="cs-label">Why</div><p>${esc(b.why)}</p></div></div></div>`,
   thesis: () => `<div class="thesis"><p>There's a lot more to the journey than fits here.</p><a class="fill-btn thesis-btn" href="mailto:${SITE.email}?subject=${encodeURIComponent("Request: Cortexus thesis")}">Request my thesis <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>`,
+  bncover: () => `<div class="hero-img cs-cover">${img("bn/web-hero.webp", "Beo Nua website on desktop and phone")}${bnAnim()}</div>`,
   cxcover: b => `<div class="hero-img cs-cover">${img(b.image, "Cortexus dashboard")}${cxAnim()}</div>`,
   bullets: b => `<div class="cs-points-wrap">${txt(b.label, "div", "cs-label")}<ul class="cs-bullets">${b.items.map(i => { const k = i.indexOf(": "); return `<li>${k > 0 && k < 48 ? `<b>${esc(i.slice(0, k))}:</b> ${esc(i.slice(k + 2))}` : esc(i)}</li>`; }).join("")}</ul></div>`,
   link: b => `<a class="cs-link" href="${esc(b.href)}" target="_blank" rel="noopener"><span class="cs-link-ic" aria-hidden="true"><svg viewBox="0 0 38 57"><path fill="#1ABCFE" d="M19 28.5a9.5 9.5 0 1 1 19 0 9.5 9.5 0 0 1-19 0z"/><path fill="#0ACF83" d="M0 47.5A9.5 9.5 0 0 1 9.5 38H19v9.5a9.5 9.5 0 1 1-19 0z"/><path fill="#FF7262" d="M19 0v19h9.5a9.5 9.5 0 1 0 0-19H19z"/><path fill="#F24E1E" d="M0 9.5A9.5 9.5 0 0 0 9.5 19H19V0H9.5A9.5 9.5 0 0 0 0 9.5z"/><path fill="#A259FF" d="M0 28.5A9.5 9.5 0 0 0 9.5 38H19V19H9.5A9.5 9.5 0 0 0 0 28.5z"/></svg></span><span class="cs-link-txt"><b>${esc(b.title)}</b><span>${esc(b.text)}</span><small>${esc(b.site)} ↗</small></span></a>`,
@@ -3154,6 +3157,7 @@ function projectView(p) {
           <div><dt class="label">Timeline</dt><dd>${list(p.timeline)}</dd></div>
           <div><dt class="label">Team</dt><dd>${list(p.team)}</dd></div>
           <div><dt class="label">Skills</dt><dd>${list(p.skills)}</dd></div>
+          ${p.partner ? `<div><dt class="label">In collaboration with</dt><dd>${list(p.partner)}</dd></div>` : ""}
         </dl>
         ${p.story ? `<ol class="story">${p.story.map(([k, t]) => `<li><span class="label">${esc(k)}</span><p>${esc(t)}</p></li>`).join("")}</ol>` : ""}
         <div class="cs-body ${p.theme || ""}">${withLens(p, withDecisions(p, blocks)).map(b => (BLOCKS[b.type] || (() => ""))(b)).join("")}</div>
@@ -3706,7 +3710,7 @@ const pc = (x, y, w, h) => `left:${x / 16}%;top:${y / 8.2}%;width:${w / 16}%;hei
 const CX_SETS = [["iconPhaseGermination.png", "iconPhaseSporulation.png", "iconPhaseMyceliation.png", "iconPhaseNecrosis.png"], ["icon2PhaseGermination.webp", "icon2PhaseSporulation.webp", "icon2PhaseMyceliation.webp", "icon2PhaseNecrosis.webp"], ["icon3PhaseGermination.webp", "icon3PhaseMyceliation.webp", "icon3PhaseSporulation.webp", "icon3PhaseNecrosis.webp"], ["icon4PhaseGermination.png", "icon4PhaseSporulation.png", "icon4PhaseMyceliation.png", "icon4PhaseNecrosis.png"]];
 const CX_ROWS = [176, 262, 343, 430], CX_LINES = [219, 306, 392, 479], CX_BADGES = [187, 274, 360, 447];
 const CX_EKG = "M0,18 L20,18 L25,10 L30,26 L35,14 L40,20 L45,18 L70,18 L75,10 L80,26 L85,14 L90,20 L95,18 L120,18 L125,10 L130,26 L135,14 L140,20 L145,18 L170,18 L175,10 L180,26 L185,14 L190,20 L195,18 L220,18";
-const bnAnim = () => `<div class="bnw" aria-hidden="true"><div class="bnw-bar"><span class="bnw-dots"><i></i><i></i><i></i></span><span class="bnw-url"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>beonua.ie</span><span class="bnw-dots" style="visibility:hidden"><i></i><i></i><i></i></span></div><div class="live bnw-view" data-live="bnhero"><img class="live-poster" src="bn/web-hero.webp" alt=""><span class="live-cur"></span></div></div><div class="bnp" aria-hidden="true"><div class="live bnp-view" data-live="bnphone"><img class="live-poster" src="bn/web-hero.webp" alt=""><span class="live-cur"></span></div><span class="bnp-notch"></span></div>`;
+const bnAnim = () => `<div class="bnw" aria-hidden="true"><div class="bnw-bar"><span class="bnw-dots"><i></i><i></i><i></i></span><span class="bnw-url"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>beonua.ie</span><span class="bnw-dots" style="visibility:hidden"><i></i><i></i><i></i></span></div><div class="live bnw-view" data-live="bnhero"><img class="live-poster" src="bn/live-desk.webp" alt=""><span class="live-cur"></span></div></div><div class="bnp" aria-hidden="true"><div class="live bnp-view" data-live="bnphone"><img class="live-poster" src="bn/live-phone.webp" alt=""><span class="live-cur"></span></div><span class="bnp-notch"></span></div>`;
 const cxAnim = () => `<div class="cxa" aria-hidden="true">
   <div class="br" style="${pc(578, 174.5, 348, 348)}">${[1, 2, 3, 4].map(n => `<img src="cx/rot/brain${n}.webp" alt=""${n === 1 ? ' class="on"' : ""}>`).join("")}</div>
   ${CX_SETS.map((set, r) => `<div class="th" style="${pc(989, [176, 262, 344, 431][r], 56, 56)}">${set.map((f, i) => `<img src="cx/rot/${f}" alt=""${i ? "" : ' class="on"'}>`).join("")}</div>`).join("")}
