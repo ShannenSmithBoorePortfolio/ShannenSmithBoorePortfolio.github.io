@@ -234,7 +234,7 @@ body.pv-open { overflow: hidden; }
 /* BEO NUA COVER: the real website scrolling in a browser window on a brand gradient */
 .thumb:has(.bnw), .hero-img:has(.bnw) { background: radial-gradient(60% 70% at 50% 55%, rgba(255, 250, 244, .85) 0%, rgba(255, 250, 244, 0) 70%), linear-gradient(125deg, #F2A47F 0%, #F7CDB4 30%, #F6E2D6 50%, #DCD9F2 72%, #AEB3E6 100%); }
 .thumb:has(.bnw) > img, .hero-img:has(.bnw) > img { opacity: 0; }
-.bnw { position: absolute; left: 7%; top: 11%; width: 74%; height: 76%; display: flex; flex-direction: column; border-radius: 10px; overflow: hidden; background: #FFF5DE; pointer-events: none; container-type: inline-size; box-shadow: 0 34px 60px -30px rgba(120, 52, 24, .45), 0 12px 24px -16px rgba(19, 63, 65, .25), 0 0 0 1px rgba(19, 63, 65, .08); transition: transform .7s cubic-bezier(.2,.7,.2,1), box-shadow .7s ease; }
+.bnw { position: absolute; left: 4.5%; top: 12%; width: 71%; height: 76%; display: flex; flex-direction: column; border-radius: 10px; overflow: hidden; background: #FFF5DE; pointer-events: none; container-type: inline-size; box-shadow: 0 34px 60px -30px rgba(120, 52, 24, .45), 0 12px 24px -16px rgba(19, 63, 65, .25), 0 0 0 1px rgba(19, 63, 65, .08); transition: transform .7s cubic-bezier(.2,.7,.2,1), box-shadow .7s ease; }
 .card:hover .thumb .bnw { transform: translateY(-6px) scale(1.015); box-shadow: 0 48px 80px -32px rgba(120, 52, 24, .5), 0 16px 30px -18px rgba(19, 63, 65, .3), 0 0 0 1px rgba(19, 63, 65, .08); }
 .bnw-bar { flex: none; height: 4cqw; display: flex; align-items: center; justify-content: space-between; padding: 0 1.4cqw; background: #FBF7F0; border-bottom: 1px solid rgba(19, 63, 65, .08); }
 .bnw-dots { display: flex; gap: .7cqw; }
@@ -244,8 +244,12 @@ body.pv-open { overflow: hidden; }
 .bnw-url svg { width: 1.3cqw; height: 1.3cqw; fill: none; stroke: currentColor; stroke-width: 2.2; }
 .bnw .bnw-view { flex: 1; aspect-ratio: auto; border-radius: 0; box-shadow: none; background: #CC4A1E; }
 .bnw .live-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
-.bnw .live-cur, .bnp .live-cur { display: none; }
-.bnp { position: absolute; right: 6%; bottom: 7%; height: 72%; aspect-ratio: 9 / 19; padding: .7%; border-radius: 12% / 5.7%; background: #17191C; pointer-events: none; box-shadow: 0 30px 50px -24px rgba(19, 40, 42, .55), 0 0 0 1px rgba(255, 255, 255, .08) inset; transition: transform .7s cubic-bezier(.2,.7,.2,1); }
+.bnw .live-cur { display: none; }
+.bnp .live-cur { width: 22px; height: 22px; margin: -6px 0 0 -8px; border-radius: 50%; background: rgba(255, 255, 255, .85); box-shadow: 0 0 0 2px rgba(19, 63, 65, .35), 0 2px 8px rgba(0, 0, 0, .3); filter: none; }
+.live.on.bnp-view .live-cur { opacity: 0; }
+.bnp .live-cur.tap { animation: bnTouch .7s ease; }
+@keyframes bnTouch { 0% { opacity: 0; scale: .6; } 30% { opacity: 1; scale: 1; } 100% { opacity: 0; scale: 1.5; } }
+.bnp { position: absolute; right: 4%; bottom: 9%; height: 68%; aspect-ratio: 9 / 19; padding: .7%; border-radius: 12% / 5.7%; background: #17191C; pointer-events: none; box-shadow: 0 30px 50px -24px rgba(19, 40, 42, .55), 0 0 0 1px rgba(255, 255, 255, .08) inset; transition: transform .7s cubic-bezier(.2,.7,.2,1); }
 .card:hover .thumb .bnp { transform: translateY(-10px); }
 .bnp .bnp-view { width: 100%; height: 100%; aspect-ratio: auto; border-radius: 10% / 4.8%; box-shadow: none; background: #CC4A1E; }
 .bnp .live-poster { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; }
@@ -3865,7 +3869,20 @@ const LIVE_FLOWS = (() => {
     bnhero: { src: "proto/bnlive/index.html#home", run: async L => {
       for (;;) await L.wait(60000); } },
     bnphone: { src: "proto/bnlive/index.html#home", w: 390, run: async L => {
-      for (let i = 0; i < 3; i++) { await L.wait(4500); await bnScroll(L, 1e6, 15000); await L.wait(1600); await bnScroll(L, 0, 3000); } } },
+      const d = L.doc();
+      await L.wait(3500);
+      await bnTap(L, () => $(L, '[data-action="scroll"][data-to="events"]')); await L.wait(2600);
+      await bnTap(L, () => $(L, '[data-cat="outdoors"]')); await L.wait(2600);
+      await bnTap(L, () => $(L, '[data-cat="all"]')); await L.wait(1600);
+      await bnScroll(L, d.getElementById("egrid"), 3200); await L.wait(1200);
+      await bnTap(L, () => $(L, '#egrid [data-action="signup"]')); await L.wait(1600);
+      await bnType(L, $(L, "#su-name"), "Mary"); await L.wait(500);
+      await bnType(L, $(L, "#su-phone"), "087 123 4567"); await L.wait(700);
+      await bnTap(L, () => [...d.querySelectorAll("#suform button")].filter(vis).pop()); await L.wait(3400);
+      await bnTap(L, () => [...d.querySelectorAll('#sheet [data-action="close"]')].filter(vis).pop()); await L.wait(1400);
+      await bnScroll(L, d.getElementById("hubs"), 4200); await L.wait(1200);
+      await bnTap(L, () => $(L, "#hubs .mpin")); await L.wait(2600);
+      await bnScroll(L, 0, 5000); await L.wait(2500); } },
     bnbrowse: { src: "proto/bnlive/index.html#home", run: async L => {
       await L.wait(600); await bnScroll(L, L.doc().getElementById("events"), 1600); await L.wait(600);
       await bnTap(L, () => $(L, '[data-cat="outdoors"]')); await L.wait(1600);
