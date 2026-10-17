@@ -3246,16 +3246,7 @@ const BLOCKS = {
         <div><div class="cs-label">What it is</div><p>${esc(b.what)}</p></div>
         <div><div class="cs-label">Why</div><p>${esc(b.why)}</p></div></div></div>`,
   thesis: () => `<div class="thesis"><p>There's a lot more to the journey than fits here.</p><a class="fill-btn thesis-btn" href="mailto:${SITE.email}?subject=${encodeURIComponent("Request: Cortexus thesis")}">Request my thesis <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>`,
-  bnjourney: b => {
-    const ys = b.stages.map(st => st[3]), lo = Math.min(...ys), hi = Math.max(...ys), COLS = 5, W = 100 / COLS;
-    const y = v => 22 + (1 - (v - lo) / (hi - lo)) * 56;
-    const rows = []; for (let i = 0; i < b.stages.length; i += COLS) rows.push(b.stages.slice(i, i + COLS).map((st, k) => [st, i + k]));
-    return `<div class="bnj-wrap">${txt(b.label, "div", "cs-label")}${rows.map(row => `<div class="bnj" style="--n:${COLS}">
-      <div class="bnj-line"><svg viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline points="${row.map(([st], k) => `${(k + .5) * W},${y(st[3]).toFixed(1)}`).join(" ")}" vector-effect="non-scaling-stroke"/></svg>
-        ${row.map(([st], k) => `<span class="bnj-dot" style="left:${(k + .5) * W}%;top:${y(st[3])}%"><b>${esc(st[2])}</b></span>`).join("")}</div>
-      ${row.map(([st, i]) => `<div class="bnj-st"><div class="cs-label">Stage ${i + 1}<span class="bnj-feel"> · ${esc(st[2])}</span></div>${txt(st[0], "h3", "cs-h4")}<p>${esc(st[1])}</p></div>`).join("")}
-    </div>`).join("")}</div>`;
-  },
+  bnjourney: b => `<figure class="bns-img"><img src="bn/journey-map.webp" alt="Retiree's journey map: ${b.stages.map((st, i) => `stage ${i + 1}, ${st[0]}, feeling ${st[2].toLowerCase()}`).join("; ")}." loading="lazy"></figure>`,
   bnsystem: () => `<figure class="bns-img"><img src="bn/system-map.webp" alt="System map: for retirees, a celebration pack, the website and hubs; for partners, the website and a thank you pack. The same website serves both, and partners provide the primary hubs." loading="lazy"></figure>`,
   bnid: () => {
     const flower = c => `<svg viewBox="0 0 40 40" fill="${c}" aria-hidden="true"><ellipse cx="20" cy="9" rx="4" ry="8"/><ellipse cx="20" cy="31" rx="4" ry="8"/><ellipse cx="9" cy="20" rx="8" ry="4"/><ellipse cx="31" cy="20" rx="8" ry="4"/><ellipse cx="12.2" cy="12.2" rx="3.5" ry="7.5" transform="rotate(-45 12.2 12.2)"/><ellipse cx="27.8" cy="27.8" rx="3.5" ry="7.5" transform="rotate(-45 27.8 27.8)"/><ellipse cx="27.8" cy="12.2" rx="3.5" ry="7.5" transform="rotate(45 27.8 12.2)"/><ellipse cx="12.2" cy="27.8" rx="3.5" ry="7.5" transform="rotate(45 12.2 27.8)"/></svg>`;
